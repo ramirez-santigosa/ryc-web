@@ -125,7 +125,7 @@
           <p>A partir de la convocatoria 2026, los objetivos se amplían para facilitar el desarrollo de líneas de investigación propias, la creación de grupos, la retención de talento y la mejora de la participación española en las convocatorias del ERC.</p>
         </div>
         <!-- Retrato de Santiago Ramón y Cajal (Wikimedia Commons, dominio público) -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Cajal-mi.jpg/440px-Cajal-mi.jpg" alt="Santiago Ramón y Cajal en su laboratorio" class="seccion-imagen" style="max-height: 500px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Cajal-Instituto.jpg/440px-Cajal-Instituto.jpg" alt="Santiago Ramón y Cajal. Crédito: Instituto Cajal (CSIC) / Wikimedia Commons" class="seccion-imagen" style="max-height: 500px;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Ram%C3%B3n_y_Cajal_ca._1905.jpg/440px-Ram%C3%B3n_y_Cajal_ca._1905.jpg'; this.alt='Santiago Ramón y Cajal, ca. 1905. Dominio público.'">
       </div>
     </section>
 
@@ -201,8 +201,8 @@
     <!-- ===== IMPACTO (2 columnas) ===== -->
     <section class="seccion">
       <h2 class="seccion-titulo">Impacto del programa</h2>
-      <!-- Imagen: mujeres investigando con ordenadores (Unsplash, licencia libre) -->
-      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&h=350&fit=crop" alt="Investigadoras trabajando con ordenadores" style="width:100%; max-height:280px; object-fit:cover; border-radius:var(--radio-borde); margin-bottom:1.5rem; box-shadow:var(--sombra-suave);">
+      <!-- Imagen: equipo en excavación arqueológica (Unsplash, licencia libre) -->
+      <img src="https://images.unsplash.com/photo-1590507014735-c8dafb537497?w=1200&h=350&fit=crop" alt="Personas investigadoras en una excavación arqueológica" style="width:100%; max-height:280px; object-fit:cover; border-radius:var(--radio-borde); margin-bottom:1.5rem; box-shadow:var(--sombra-suave);">
       <div class="retos-grid">
         <div class="reto-card">
           <h4>Fortalecimiento de la carrera investigadora</h4>
@@ -294,28 +294,41 @@
   ];
 
   const datosArea = [
-    {area:"Biomedicina",total:568},{area:"Física y Ciencias del Espacio",total:515},
-    {area:"Biología Molecular, Celular y Genética",total:434},{area:"Química",total:412},
-    {area:"Ciencia y Tecnología de Materiales",total:354},
-    {area:"Ciencias agrarias y agroalimentarias",total:278},
-    {area:"Biología Vegetal, Animal y Ecología",total:279},
-    {area:"Ciencias y tecnologías medioambientales",total:281},
-    {area:"Ciencias de la Tierra",total:240},{area:"Ciencias físicas",total:254},
-    {area:"Biociencias y biotecnología",total:223},{area:"Medicina",total:181},
-    {area:"Historia y Arte",total:207},{area:"Economía",total:172},
-    {area:"Ciencias y tecnologías químicas",total:200}
+    {area:"Biomedicina",mujeres:277,hombres:291},
+    {area:"Física y Ciencias del Espacio",mujeres:122,hombres:393},
+    {area:"Biología Mol., Celular y Genét.",mujeres:190,hombres:244},
+    {area:"Química",mujeres:130,hombres:282},
+    {area:"Ciencia y Tecn. de Materiales",mujeres:124,hombres:230},
+    {area:"CC. y Tecn. medioambientales",mujeres:107,hombres:174},
+    {area:"Biología Vegetal, Animal y Ecol.",mujeres:77,hombres:202},
+    {area:"CC. agrarias y agroalimentarias",mujeres:145,hombres:133},
+    {area:"Agricultura",mujeres:115,hombres:156},
+    {area:"Ciencias físicas",mujeres:62,hombres:192},
+    {area:"Ciencias de la Tierra",mujeres:70,hombres:170},
+    {area:"Biociencias y biotecnología",mujeres:86,hombres:137},
+    {area:"CC. y tecnologías químicas",mujeres:90,hombres:110},
+    {area:"Economía",mujeres:42,hombres:141},
+    {area:"Medicina",mujeres:95,hombres:86}
   ];
 
   const datosCCAA = [
-    {ccaa:"Madrid",total:2287},{ccaa:"Cataluña",total:1989},
-    {ccaa:"Andalucía",total:949},{ccaa:"C. Valenciana",total:625},
-    {ccaa:"Galicia",total:382},{ccaa:"País Vasco",total:287},
-    {ccaa:"Aragón",total:199},{ccaa:"Murcia",total:170},
-    {ccaa:"Canarias",total:140},{ccaa:"P. Asturias",total:138},
-    {ccaa:"Castilla y León",total:224},{ccaa:"Cantabria",total:101},
-    {ccaa:"Baleares",total:82},{ccaa:"Navarra",total:82},
-    {ccaa:"Extremadura",total:28},{ccaa:"Castilla-La Mancha",total:49},
-    {ccaa:"La Rioja",total:21}
+    {ccaa:"Madrid",mujeres:850,hombres:1437},
+    {ccaa:"Cataluña",mujeres:724,hombres:1265},
+    {ccaa:"Andalucía",mujeres:348,hombres:601},
+    {ccaa:"C. Valenciana",mujeres:224,hombres:401},
+    {ccaa:"Galicia",mujeres:150,hombres:232},
+    {ccaa:"País Vasco",mujeres:120,hombres:167},
+    {ccaa:"Castilla y León",mujeres:91,hombres:133},
+    {ccaa:"Aragón",mujeres:82,hombres:117},
+    {ccaa:"Murcia",mujeres:65,hombres:105},
+    {ccaa:"Canarias",mujeres:42,hombres:98},
+    {ccaa:"P. Asturias",mujeres:56,hombres:82},
+    {ccaa:"Cantabria",mujeres:34,hombres:67},
+    {ccaa:"Navarra",mujeres:42,hombres:40},
+    {ccaa:"Baleares",mujeres:27,hombres:55},
+    {ccaa:"Castilla-La Mancha",mujeres:18,hombres:31},
+    {ccaa:"Extremadura",mujeres:10,hombres:18},
+    {ccaa:"La Rioja",mujeres:7,hombres:14}
   ];
 
   // --- Colores ---
@@ -342,35 +355,67 @@
     }
   });
 
-  // --- Gráfico por área temática ---
+  // --- Gráfico por área temática (barras apiladas por género) ---
   const ctxArea = document.getElementById('chart-area').getContext('2d');
   new Chart(ctxArea, {
     type: 'bar',
     data: {
-      labels: datosArea.map(d => d.area.length > 30 ? d.area.substring(0,28)+'…' : d.area),
-      datasets: [{ label: 'Total beneficiarias', data: datosArea.map(d => d.total), backgroundColor: colArea, borderRadius: 3 }]
+      labels: datosArea.map(d => d.area),
+      datasets: [
+        { label: 'Mujeres', data: datosArea.map(d => d.mujeres), backgroundColor: colMujer, borderRadius: 3 },
+        { label: 'Hombres', data: datosArea.map(d => d.hombres), backgroundColor: colHombre, borderRadius: 3 }
+      ]
     },
     options: {
       indexAxis: 'y',
       responsive: true,
-      plugins: { legend: { display: false }, title: { display: true, text: 'Personas beneficiarias por área temática (2001–2024)' } },
-      scales: { x: { beginAtZero: true } }
+      plugins: {
+        legend: { position: 'top' },
+        title: { display: true, text: 'Personas beneficiarias por área temática y género (2001–2024)' },
+        tooltip: {
+          callbacks: {
+            afterBody: function(context) {
+              var idx = context[0].dataIndex;
+              var m = datosArea[idx].mujeres;
+              var h = datosArea[idx].hombres;
+              return 'Total: ' + (m + h) + ' | Mujeres: ' + Math.round(m*100/(m+h)) + '%';
+            }
+          }
+        }
+      },
+      scales: { x: { stacked: true, beginAtZero: true }, y: { stacked: true } }
     }
   });
 
-  // --- Gráfico por CCAA ---
+  // --- Gráfico por CCAA (barras apiladas por género) ---
   const ctxCCAA = document.getElementById('chart-ccaa').getContext('2d');
   new Chart(ctxCCAA, {
     type: 'bar',
     data: {
       labels: datosCCAA.map(d => d.ccaa),
-      datasets: [{ label: 'Total beneficiarias', data: datosCCAA.map(d => d.total), backgroundColor: colCCAA, borderRadius: 3 }]
+      datasets: [
+        { label: 'Mujeres', data: datosCCAA.map(d => d.mujeres), backgroundColor: colMujer, borderRadius: 3 },
+        { label: 'Hombres', data: datosCCAA.map(d => d.hombres), backgroundColor: colHombre, borderRadius: 3 }
+      ]
     },
     options: {
       indexAxis: 'y',
       responsive: true,
-      plugins: { legend: { display: false }, title: { display: true, text: 'Personas beneficiarias por comunidad autónoma (2001–2024)' } },
-      scales: { x: { beginAtZero: true } }
+      plugins: {
+        legend: { position: 'top' },
+        title: { display: true, text: 'Personas beneficiarias por comunidad autónoma y género (2001–2024)' },
+        tooltip: {
+          callbacks: {
+            afterBody: function(context) {
+              var idx = context[0].dataIndex;
+              var m = datosCCAA[idx].mujeres;
+              var h = datosCCAA[idx].hombres;
+              return 'Total: ' + (m + h) + ' | Mujeres: ' + Math.round(m*100/(m+h)) + '%';
+            }
+          }
+        }
+      },
+      scales: { x: { stacked: true, beginAtZero: true }, y: { stacked: true } }
     }
   });
 

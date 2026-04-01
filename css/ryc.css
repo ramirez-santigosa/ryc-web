@@ -139,9 +139,9 @@
 
 .novedad-icono-svg {
   flex-shrink: 0;
-  color: var(--ryc-dorado);
-  opacity: 0.7;
   margin-left: auto;
+  width: 72px;
+  height: 72px;
 }
 
 /* --- Página de novedades 2026 --- */
