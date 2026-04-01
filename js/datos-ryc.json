@@ -1,0 +1,284 @@
+{
+  "porAnio": [
+    {
+      "anio": 2001,
+      "mujeres": 289,
+      "hombres": 485,
+      "total": 774
+    },
+    {
+      "anio": 2002,
+      "mujeres": 161,
+      "hombres": 319,
+      "total": 480
+    },
+    {
+      "anio": 2003,
+      "mujeres": 259,
+      "hombres": 433,
+      "total": 692
+    },
+    {
+      "anio": 2004,
+      "mujeres": 103,
+      "hombres": 192,
+      "total": 295
+    },
+    {
+      "anio": 2005,
+      "mujeres": 77,
+      "hombres": 166,
+      "total": 243
+    },
+    {
+      "anio": 2006,
+      "mujeres": 90,
+      "hombres": 149,
+      "total": 239
+    },
+    {
+      "anio": 2007,
+      "mujeres": 77,
+      "hombres": 163,
+      "total": 240
+    },
+    {
+      "anio": 2008,
+      "mujeres": 89,
+      "hombres": 149,
+      "total": 238
+    },
+    {
+      "anio": 2009,
+      "mujeres": 81,
+      "hombres": 167,
+      "total": 248
+    },
+    {
+      "anio": 2010,
+      "mujeres": 85,
+      "hombres": 160,
+      "total": 245
+    },
+    {
+      "anio": 2011,
+      "mujeres": 83,
+      "hombres": 167,
+      "total": 250
+    },
+    {
+      "anio": 2012,
+      "mujeres": 63,
+      "hombres": 112,
+      "total": 175
+    },
+    {
+      "anio": 2013,
+      "mujeres": 67,
+      "hombres": 108,
+      "total": 175
+    },
+    {
+      "anio": 2014,
+      "mujeres": 73,
+      "hombres": 101,
+      "total": 174
+    },
+    {
+      "anio": 2015,
+      "mujeres": 48,
+      "hombres": 127,
+      "total": 175
+    },
+    {
+      "anio": 2016,
+      "mujeres": 56,
+      "hombres": 119,
+      "total": 175
+    },
+    {
+      "anio": 2017,
+      "mujeres": 68,
+      "hombres": 107,
+      "total": 175
+    },
+    {
+      "anio": 2018,
+      "mujeres": 82,
+      "hombres": 118,
+      "total": 200
+    },
+    {
+      "anio": 2019,
+      "mujeres": 82,
+      "hombres": 118,
+      "total": 200
+    },
+    {
+      "anio": 2020,
+      "mujeres": 101,
+      "hombres": 146,
+      "total": 247
+    },
+    {
+      "anio": 2021,
+      "mujeres": 249,
+      "hombres": 386,
+      "total": 635
+    },
+    {
+      "anio": 2022,
+      "mujeres": 204,
+      "hombres": 286,
+      "total": 490
+    },
+    {
+      "anio": 2023,
+      "mujeres": 203,
+      "hombres": 291,
+      "total": 494
+    },
+    {
+      "anio": 2024,
+      "mujeres": 200,
+      "hombres": 294,
+      "total": 494
+    }
+  ],
+  "porArea": [
+    {
+      "area": "Biomedicina",
+      "total": 568
+    },
+    {
+      "area": "Física y Ciencias del Espacio",
+      "total": 515
+    },
+    {
+      "area": "Biología Molecular, Celular y Genética",
+      "total": 434
+    },
+    {
+      "area": "Química",
+      "total": 412
+    },
+    {
+      "area": "Ciencia y Tecnología de Materiales",
+      "total": 354
+    },
+    {
+      "area": "Ciencias y tecnologías medioambientales",
+      "total": 281
+    },
+    {
+      "area": "Biología Vegetal, Animal y Ecología",
+      "total": 279
+    },
+    {
+      "area": "Ciencias agrarias y agroalimentarias",
+      "total": 278
+    },
+    {
+      "area": "Agricultura",
+      "total": 271
+    },
+    {
+      "area": "Ciencias físicas",
+      "total": 254
+    },
+    {
+      "area": "Ciencias de la Tierra",
+      "total": 240
+    },
+    {
+      "area": "Biociencias y biotecnología",
+      "total": 223
+    },
+    {
+      "area": "Ciencias y tecnologías químicas",
+      "total": 200
+    },
+    {
+      "area": "Economía",
+      "total": 183
+    },
+    {
+      "area": "Medicina",
+      "total": 181
+    }
+  ],
+  "porCCAA": [
+    {
+      "ccaa": "MADRID",
+      "total": 2287
+    },
+    {
+      "ccaa": "CATALUÑA",
+      "total": 1989
+    },
+    {
+      "ccaa": "ANDALUCIA",
+      "total": 949
+    },
+    {
+      "ccaa": "C.VALENCIANA",
+      "total": 625
+    },
+    {
+      "ccaa": "GALICIA",
+      "total": 382
+    },
+    {
+      "ccaa": "PAIS VASCO",
+      "total": 287
+    },
+    {
+      "ccaa": "CASTILLA Y LEON",
+      "total": 224
+    },
+    {
+      "ccaa": "ARAGON",
+      "total": 199
+    },
+    {
+      "ccaa": "MURCIA",
+      "total": 170
+    },
+    {
+      "ccaa": "CANARIAS",
+      "total": 140
+    },
+    {
+      "ccaa": "PDO.ASTURIAS",
+      "total": 138
+    },
+    {
+      "ccaa": "CANTABRIA",
+      "total": 101
+    },
+    {
+      "ccaa": "BALEARES",
+      "total": 82
+    },
+    {
+      "ccaa": "NAVARRA",
+      "total": 82
+    },
+    {
+      "ccaa": "EXTREMADURA",
+      "total": 28
+    },
+    {
+      "ccaa": "CASTILLA LA MANCHA",
+      "total": 25
+    },
+    {
+      "ccaa": "CASTILLA-LA MANCHA",
+      "total": 24
+    },
+    {
+      "ccaa": "LA RIOJA",
+      "total": 21
+    }
+  ]
+}

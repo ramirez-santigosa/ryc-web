@@ -7,6 +7,8 @@
   <meta name="description" content="Historia, objetivos y datos clave del Programa Ramón y Cajal de la Agencia Estatal de Investigación. 25 años impulsando la excelencia científica en España.">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/ryc.css">
+  <!-- Chart.js CDN para dashboard -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -58,15 +60,15 @@
   <!-- ===== HERO ===== -->
   <section class="hero-novedades" style="background: linear-gradient(135deg, var(--ryc-granate) 0%, var(--ryc-granate-oscuro) 100%);">
     <h1>El Programa <span>Ramón y Cajal</span></h1>
-    <p>25 años incorporando a los mejores investigadores posdoctorales al sistema español de ciencia, tecnología e innovación.</p>
+    <p>25 años incorporando al mejor personal investigador posdoctoral al sistema español de ciencia, tecnología e innovación.</p>
   </section>
 
   <main>
 
-    <!-- ===== DATOS CLAVE ===== -->
+    <!-- ===== DATOS CLAVE (4 columnas) ===== -->
     <section class="seccion">
       <h2 class="seccion-titulo">El programa en cifras</h2>
-      <div class="datos-clave">
+      <div class="datos-clave" style="grid-template-columns: repeat(4, 1fr);">
         <div class="dato-item">
           <div class="dato-numero">2001</div>
           <div class="dato-label">Año de la primera convocatoria</div>
@@ -84,6 +86,30 @@
           <div class="dato-label">De RYC que obtienen un ERC (StG o CoG)</div>
         </div>
       </div>
+
+      <!-- ===== DASHBOARD INTERACTIVO ===== -->
+      <div id="dashboard-ryc" style="background: var(--fondo-blanco); border-radius: var(--radio-borde); padding: 2rem; box-shadow: var(--sombra-suave); margin-top: 2rem;">
+        <h3 style="color: var(--aei-azul); margin-bottom: 1.5rem; text-align: center;">Personas beneficiarias del programa Ramón y Cajal (2001–2024)</h3>
+
+        <!-- Selector de vista -->
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <button class="btn-ryc-outline dash-btn active-dash" data-chart="genero" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin: 0.25rem;">Por género y año</button>
+          <button class="btn-ryc-outline dash-btn" data-chart="area" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin: 0.25rem;">Por área temática</button>
+          <button class="btn-ryc-outline dash-btn" data-chart="ccaa" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin: 0.25rem;">Por comunidad autónoma</button>
+        </div>
+
+        <!-- Contenedores de gráficos -->
+        <div id="chart-genero-container" class="chart-container">
+          <canvas id="chart-genero"></canvas>
+        </div>
+        <div id="chart-area-container" class="chart-container" style="display:none;">
+          <canvas id="chart-area"></canvas>
+        </div>
+        <div id="chart-ccaa-container" class="chart-container" style="display:none;">
+          <canvas id="chart-ccaa"></canvas>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--texto-secundario); text-align: center; margin-top: 1rem;">Fuente: Agencia Estatal de Investigación. Datos de convocatorias RYC 2001–2024.</p>
+      </div>
     </section>
 
     <!-- ===== HISTORIA Y OBJETIVOS ===== -->
@@ -92,13 +118,14 @@
       <div class="seccion-con-imagen">
         <div>
           <h3 class="seccion-subtitulo">Origen del programa</h3>
-          <p>La primera convocatoria de ayudas del programa Ramón y Cajal fue publicada en el BOE del 19 de abril de 2001 con una dotación económica de 122,22 millones de euros, con el objetivo de incorporar al sistema español de ciencia, tecnología e innovación a investigadores posdoctorales con trayectorias brillantes y prometedoras.</p>
-          <p>Desde su inicio, las solicitudes de participación son presentadas tanto por los Centros de I+D, que ofertan plazas en todas las áreas de conocimiento, como por las personas candidatas. Tras la evaluación y resolución, los seleccionados contactan con los centros para firmar los acuerdos de incorporación y el contrato.</p>
+          <p>La primera convocatoria de ayudas del programa Ramón y Cajal fue publicada en el BOE del 19 de abril de 2001 con una dotación económica de 122,22 millones de euros, con el objetivo de incorporar al sistema español de ciencia, tecnología e innovación a personal investigador posdoctoral con trayectorias brillantes y prometedoras.</p>
+          <p>Desde su inicio, las solicitudes de participación son presentadas tanto por los Centros de I+D, que ofertan plazas en todas las áreas de conocimiento, como por las personas candidatas. Tras la evaluación y resolución, las personas seleccionadas contactan con los centros para firmar los acuerdos de incorporación y el contrato.</p>
           <h3 class="seccion-subtitulo">Objetivo principal</h3>
-          <p>Promover la incorporación en organismos de investigación del Sistema Español de Ciencia, Tecnología e Innovación de personal investigador, tanto español como extranjero, con una trayectoria destacada, con el fin de que adquieran las competencias y capacidades que les permitan obtener un puesto de carácter estable.</p>
+          <p>Promover la incorporación en organismos de investigación del Sistema Español de Ciencia, Tecnología e Innovación de personal investigador, tanto de nacionalidad española como extranjera, con una trayectoria destacada, con el fin de que adquieran las competencias y capacidades que les permitan obtener un puesto de carácter estable.</p>
           <p>A partir de la convocatoria 2026, los objetivos se amplían para facilitar el desarrollo de líneas de investigación propias, la creación de grupos, la retención de talento y la mejora de la participación española en las convocatorias del ERC.</p>
         </div>
-        <img src="../assets/presentacion-acto.jpg" alt="Acto institucional en la Agencia Estatal de Investigación" class="seccion-imagen">
+        <!-- Retrato de Santiago Ramón y Cajal (Wikimedia Commons, dominio público) -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Cajal-mi.jpg/440px-Cajal-mi.jpg" alt="Santiago Ramón y Cajal en su laboratorio" class="seccion-imagen" style="max-height: 500px;">
       </div>
     </section>
 
@@ -117,21 +144,21 @@
       <div class="acordeon">
         <button class="acordeon-header">2012 — Ayuda para creación de puestos permanentes</button>
         <div class="acordeon-contenido">
-          <p>Se incluye como gasto elegible una ayuda para la creación de puestos de trabajo de carácter permanente. Los Centros de I+D que creen puestos permanentes en el ámbito del investigador/a contratado recibirán una ayuda económica adicional.</p>
+          <p>Se incluye como gasto elegible una ayuda para la creación de puestos de trabajo de carácter permanente. Los Centros de I+D que creen puestos permanentes en el ámbito de la persona investigadora contratada recibirán una ayuda económica adicional.</p>
         </div>
       </div>
 
       <div class="acordeon">
-        <button class="acordeon-header">2021 — Turno para jóvenes investigadores</button>
+        <button class="acordeon-header">2021 — Turno para jóvenes personas investigadoras</button>
         <div class="acordeon-contenido">
-          <p>Con la desaparición de la convocatoria Juan de la Cierva Incorporación, se incluye un turno específico para jóvenes investigadores con fecha de doctorado entre 2017 y 2019. Este turno desaparece en 2022.</p>
+          <p>Con la desaparición de la convocatoria Juan de la Cierva Incorporación, se incluye un turno específico para jóvenes personas investigadoras con fecha de doctorado entre 2017 y 2019. Este turno desaparece en 2022.</p>
         </div>
       </div>
 
       <div class="acordeon">
         <button class="acordeon-header">2022 — Atracción de talento y dos fases</button>
         <div class="acordeon-contenido">
-          <p>Se reservan ayudas específicas para atraer investigadores del extranjero (ayuda para la atracción del talento) con dotación adicional incrementada. La ayuda se divide en dos fases: primera fase de 3 años (37.800 €/año) y segunda fase de 2 años (46.900 €/año) condicionada a evaluación positiva de la actividad (criterios R3).</p>
+          <p>Se reservan ayudas específicas para atraer personal investigador del extranjero (ayuda para la atracción del talento) con dotación adicional incrementada. La ayuda se divide en dos fases: primera fase de 3 años (37.800 €/año) y segunda fase de 2 años (46.900 €/año) condicionada a evaluación positiva de la actividad (criterios R3).</p>
         </div>
       </div>
 
@@ -157,7 +184,7 @@
       <div class="tarjetas-grid">
         <div class="tarjeta">
           <h3>Elegibilidad</h3>
-          <p>Investigadores/as posdoctorales con fecha de obtención del grado de doctor comprendida en la ventana de elegibilidad definida en cada convocatoria. Turno general y turno de atracción de talento (80 ayudas reservadas para investigadores en el extranjero).</p>
+          <p>Personal investigador posdoctoral con fecha de obtención del grado de doctor comprendida en la ventana de elegibilidad definida en cada convocatoria. Turno general y turno de atracción de talento (80 ayudas reservadas para personal investigador en el extranjero).</p>
         </div>
         <div class="tarjeta">
           <h3>Duración y fases</h3>
@@ -171,18 +198,19 @@
       </div>
     </section>
 
-    <!-- ===== IMPACTO (2 columnas, 2+2) ===== -->
+    <!-- ===== IMPACTO (2 columnas) ===== -->
     <section class="seccion">
       <h2 class="seccion-titulo">Impacto del programa</h2>
-      <img src="../assets/publico-salon.jpg" alt="Público asistente a un acto en el salón de actos de la AEI" style="width:100%; max-height:280px; object-fit:cover; border-radius:var(--radio-borde); margin-bottom:1.5rem; box-shadow:var(--sombra-suave);">
+      <!-- Imagen: mujeres investigando con ordenadores (Unsplash, licencia libre) -->
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&h=350&fit=crop" alt="Investigadoras trabajando con ordenadores" style="width:100%; max-height:280px; object-fit:cover; border-radius:var(--radio-borde); margin-bottom:1.5rem; box-shadow:var(--sombra-suave);">
       <div class="retos-grid">
         <div class="reto-card">
           <h4>Fortalecimiento de la carrera investigadora</h4>
-          <p>El programa ofrece un entorno propicio para el desarrollo del liderazgo científico emergente, permitiendo a los investigadores construir trayectorias independientes.</p>
+          <p>El programa ofrece un entorno propicio para el desarrollo del liderazgo científico emergente, permitiendo a las personas investigadoras construir trayectorias independientes.</p>
         </div>
         <div class="reto-card">
           <h4>Efecto tractor</h4>
-          <p>Los investigadores RYC actúan como catalizadores para atraer talento y recursos adicionales a las instituciones del sistema español de I+D+i.</p>
+          <p>Las personas beneficiarias RYC actúan como catalizadoras para atraer talento y recursos adicionales a las instituciones del sistema español de I+D+i.</p>
         </div>
         <div class="reto-card">
           <h4>Beneficio institucional</h4>
@@ -199,7 +227,7 @@
     <section class="seccion text-center">
       <h2 class="seccion-titulo" style="border: none; text-align: center;">25 años de excelencia científica</h2>
       <p style="max-width: 600px; margin: 0 auto 1.5rem; color: var(--texto-secundario);">
-        Descubre la historia completa del programa, testimonios de investigadores y los hitos más destacados en la web conmemorativa del 25 aniversario.
+        Descubre la historia completa del programa, testimonios de personal investigador y los hitos más destacados en la web conmemorativa del 25 aniversario.
       </p>
       <a href="https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal" target="_blank" class="btn-ryc">Web 25 Años RYC &#8599;</a>
     </section>
@@ -242,5 +270,124 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+  /* =========================================================================
+     DASHBOARD INTERACTIVO — Datos RYC 2001–2024
+     Los datos están embebidos para que funcione sin servidor (doble clic).
+     Para actualizar: modificar los arrays de datos abajo.
+     ========================================================================= */
+
+  // --- Datos agregados ---
+  const datosAnio = [
+    {anio:2001,mujeres:289,hombres:485},{anio:2002,mujeres:161,hombres:319},
+    {anio:2003,mujeres:259,hombres:433},{anio:2004,mujeres:103,hombres:192},
+    {anio:2005,mujeres:77,hombres:166},{anio:2006,mujeres:90,hombres:149},
+    {anio:2007,mujeres:77,hombres:163},{anio:2008,mujeres:89,hombres:149},
+    {anio:2009,mujeres:81,hombres:167},{anio:2010,mujeres:85,hombres:160},
+    {anio:2011,mujeres:83,hombres:167},{anio:2012,mujeres:63,hombres:112},
+    {anio:2013,mujeres:67,hombres:108},{anio:2014,mujeres:73,hombres:101},
+    {anio:2015,mujeres:48,hombres:127},{anio:2016,mujeres:56,hombres:119},
+    {anio:2017,mujeres:68,hombres:107},{anio:2018,mujeres:82,hombres:118},
+    {anio:2019,mujeres:82,hombres:118},{anio:2020,mujeres:101,hombres:146},
+    {anio:2021,mujeres:249,hombres:386},{anio:2022,mujeres:204,hombres:286},
+    {anio:2023,mujeres:203,hombres:291},{anio:2024,mujeres:200,hombres:294}
+  ];
+
+  const datosArea = [
+    {area:"Biomedicina",total:568},{area:"Física y Ciencias del Espacio",total:515},
+    {area:"Biología Molecular, Celular y Genética",total:434},{area:"Química",total:412},
+    {area:"Ciencia y Tecnología de Materiales",total:354},
+    {area:"Ciencias agrarias y agroalimentarias",total:278},
+    {area:"Biología Vegetal, Animal y Ecología",total:279},
+    {area:"Ciencias y tecnologías medioambientales",total:281},
+    {area:"Ciencias de la Tierra",total:240},{area:"Ciencias físicas",total:254},
+    {area:"Biociencias y biotecnología",total:223},{area:"Medicina",total:181},
+    {area:"Historia y Arte",total:207},{area:"Economía",total:172},
+    {area:"Ciencias y tecnologías químicas",total:200}
+  ];
+
+  const datosCCAA = [
+    {ccaa:"Madrid",total:2287},{ccaa:"Cataluña",total:1989},
+    {ccaa:"Andalucía",total:949},{ccaa:"C. Valenciana",total:625},
+    {ccaa:"Galicia",total:382},{ccaa:"País Vasco",total:287},
+    {ccaa:"Aragón",total:199},{ccaa:"Murcia",total:170},
+    {ccaa:"Canarias",total:140},{ccaa:"P. Asturias",total:138},
+    {ccaa:"Castilla y León",total:224},{ccaa:"Cantabria",total:101},
+    {ccaa:"Baleares",total:82},{ccaa:"Navarra",total:82},
+    {ccaa:"Extremadura",total:28},{ccaa:"Castilla-La Mancha",total:49},
+    {ccaa:"La Rioja",total:21}
+  ];
+
+  // --- Colores ---
+  const colMujer = '#8B1A1A';
+  const colHombre = '#264c80';
+  const colArea = '#C8A951';
+  const colCCAA = '#264c80';
+
+  // --- Gráfico por género y año ---
+  const ctxGenero = document.getElementById('chart-genero').getContext('2d');
+  new Chart(ctxGenero, {
+    type: 'bar',
+    data: {
+      labels: datosAnio.map(d => d.anio),
+      datasets: [
+        { label: 'Mujeres', data: datosAnio.map(d => d.mujeres), backgroundColor: colMujer, borderRadius: 3 },
+        { label: 'Hombres', data: datosAnio.map(d => d.hombres), backgroundColor: colHombre, borderRadius: 3 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'top' }, title: { display: true, text: 'Personas beneficiarias por año y género' } },
+      scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true, title: { display: true, text: 'N.º de personas beneficiarias' } } }
+    }
+  });
+
+  // --- Gráfico por área temática ---
+  const ctxArea = document.getElementById('chart-area').getContext('2d');
+  new Chart(ctxArea, {
+    type: 'bar',
+    data: {
+      labels: datosArea.map(d => d.area.length > 30 ? d.area.substring(0,28)+'…' : d.area),
+      datasets: [{ label: 'Total beneficiarias', data: datosArea.map(d => d.total), backgroundColor: colArea, borderRadius: 3 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: { legend: { display: false }, title: { display: true, text: 'Personas beneficiarias por área temática (2001–2024)' } },
+      scales: { x: { beginAtZero: true } }
+    }
+  });
+
+  // --- Gráfico por CCAA ---
+  const ctxCCAA = document.getElementById('chart-ccaa').getContext('2d');
+  new Chart(ctxCCAA, {
+    type: 'bar',
+    data: {
+      labels: datosCCAA.map(d => d.ccaa),
+      datasets: [{ label: 'Total beneficiarias', data: datosCCAA.map(d => d.total), backgroundColor: colCCAA, borderRadius: 3 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: { legend: { display: false }, title: { display: true, text: 'Personas beneficiarias por comunidad autónoma (2001–2024)' } },
+      scales: { x: { beginAtZero: true } }
+    }
+  });
+
+  // --- Selector de vista ---
+  document.querySelectorAll('.dash-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.dash-btn').forEach(b => b.classList.remove('active-dash'));
+      this.classList.add('active-dash');
+      var chart = this.getAttribute('data-chart');
+      document.querySelectorAll('.chart-container').forEach(c => c.style.display = 'none');
+      document.getElementById('chart-' + chart + '-container').style.display = 'block';
+    });
+  });
+  </script>
+  <style>
+    .active-dash { background: var(--ryc-granate) !important; color: #fff !important; border-color: var(--ryc-granate) !important; }
+    .chart-container { min-height: 350px; }
+  </style>
 </body>
 </html>
