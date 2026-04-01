@@ -1,0 +1,414 @@
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS RYC — Componentes propios de la web Ramón y Cajal
+   ========================================================================== */
+
+/* --- Hero principal --- */
+.hero {
+  background: linear-gradient(135deg, var(--ryc-granate) 0%, var(--ryc-granate-oscuro) 100%);
+  color: var(--texto-claro);
+  padding: 3rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-texto h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero-texto h1 span {
+  color: var(--ryc-dorado);
+}
+
+.hero-texto p {
+  font-size: 1.15rem;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.hero-imagen {
+  text-align: center;
+}
+
+/* Imagen del pin: recortar la leyenda "25 Aniversario" de la parte inferior */
+.hero-imagen img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  border: 4px solid var(--ryc-dorado);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.hero-botones {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-botones .btn-ryc {
+  background: var(--ryc-dorado);
+  color: var(--ryc-granate-oscuro);
+}
+
+.hero-botones .btn-ryc:hover {
+  background: var(--ryc-dorado-claro);
+}
+
+.hero-botones .btn-ryc-outline {
+  border-color: var(--texto-claro);
+  color: var(--texto-claro);
+}
+
+.hero-botones .btn-ryc-outline:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* --- Novedades destacadas (index) --- */
+.novedades-destacadas {
+  background: var(--fondo-blanco);
+  border-radius: var(--radio-borde);
+  padding: 2.5rem;
+  box-shadow: var(--sombra-suave);
+  position: relative;
+}
+
+.novedades-destacadas::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ryc-granate), var(--ryc-dorado));
+  border-radius: var(--radio-borde) var(--radio-borde) 0 0;
+}
+
+.novedad-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--borde-suave);
+  align-items: flex-start;
+}
+
+.novedad-item:last-child {
+  border-bottom: none;
+}
+
+.novedad-icono {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: var(--ryc-granate);
+  color: var(--ryc-dorado);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.novedad-texto h3 {
+  font-size: 1.05rem;
+  color: var(--ryc-granate);
+  margin: 0 0 0.25rem;
+}
+
+.novedad-texto p {
+  color: var(--texto-secundario);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* --- Página de novedades 2026 --- */
+.hero-novedades {
+  background: linear-gradient(135deg, var(--aei-azul) 0%, var(--aei-azul-oscuro) 100%);
+  color: var(--texto-claro);
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.hero-novedades h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.hero-novedades h1 span {
+  color: var(--ryc-dorado);
+}
+
+.hero-novedades p {
+  font-size: 1.15rem;
+  opacity: 0.85;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.novedad-detalle {
+  background: var(--fondo-blanco);
+  border-radius: var(--radio-borde);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--sombra-suave);
+  border-left: 4px solid var(--ryc-granate);
+  transition: box-shadow var(--transicion);
+}
+
+.novedad-detalle:hover {
+  box-shadow: var(--sombra-media);
+}
+
+.novedad-detalle h3 {
+  color: var(--ryc-granate);
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.novedad-detalle ul {
+  color: var(--texto-secundario);
+  padding-left: 1.25rem;
+}
+
+.novedad-detalle ul li {
+  margin-bottom: 0.5rem;
+}
+
+.novedad-numero {
+  display: inline-block;
+  background: var(--ryc-granate);
+  color: var(--ryc-dorado);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 32px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-right: 0.75rem;
+  vertical-align: middle;
+}
+
+/* --- Vídeo embed --- */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-media);
+  margin: 2rem 0;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --- Retos / implicaciones --- */
+.retos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.reto-card {
+  background: var(--fondo-blanco);
+  border-radius: var(--radio-borde);
+  padding: 1.5rem;
+  box-shadow: var(--sombra-suave);
+  text-align: center;
+  border-top: 4px solid var(--ryc-dorado);
+}
+
+.reto-card h4 {
+  color: var(--aei-azul);
+  margin-bottom: 0.5rem;
+}
+
+.reto-card p {
+  color: var(--texto-secundario);
+  font-size: 0.9rem;
+}
+
+/* --- Convocatorias históricas --- */
+.convocatoria-card {
+  background: var(--fondo-blanco);
+  border-radius: var(--radio-borde);
+  padding: 1.5rem;
+  box-shadow: var(--sombra-suave);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  transition: box-shadow var(--transicion);
+  border-left: 4px solid var(--aei-azul);
+}
+
+.convocatoria-card:hover {
+  box-shadow: var(--sombra-media);
+}
+
+.convocatoria-card.vigente {
+  border-left-color: var(--ryc-granate);
+  background: linear-gradient(90deg, rgba(139, 26, 26, 0.03), var(--fondo-blanco));
+}
+
+.convocatoria-info h3 {
+  font-size: 1.05rem;
+  color: var(--texto-principal);
+  margin: 0 0 0.25rem;
+}
+
+.convocatoria-info .anio {
+  display: inline-block;
+  background: var(--aei-azul);
+  color: var(--texto-claro);
+  padding: 0.15rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+.convocatoria-info .estado {
+  font-size: 0.85rem;
+  color: var(--texto-secundario);
+}
+
+.convocatoria-info .estado.abierta {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* --- Programa RYC — datos clave --- */
+.datos-clave {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.dato-item {
+  background: var(--fondo-blanco);
+  border-radius: var(--radio-borde);
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: var(--sombra-suave);
+}
+
+.dato-numero {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--ryc-granate);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.dato-label {
+  font-size: 0.9rem;
+  color: var(--texto-secundario);
+}
+
+/* --- Acordeón --- */
+.acordeon {
+  margin-bottom: 1rem;
+}
+
+.acordeon-header {
+  background: var(--fondo-blanco);
+  border: 1px solid var(--borde-suave);
+  border-radius: var(--radio-borde);
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: var(--texto-principal);
+  transition: background var(--transicion);
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.acordeon-header:hover {
+  background: var(--fondo-claro);
+}
+
+.acordeon-header::after {
+  content: "+";
+  font-size: 1.25rem;
+  color: var(--ryc-granate);
+  transition: transform var(--transicion);
+}
+
+.acordeon-header.activo::after {
+  content: "−";
+}
+
+.acordeon-contenido {
+  display: none;
+  padding: 1rem 1.5rem;
+  background: var(--fondo-blanco);
+  border: 1px solid var(--borde-suave);
+  border-top: none;
+  border-radius: 0 0 var(--radio-borde) var(--radio-borde);
+}
+
+.acordeon-contenido.activo {
+  display: block;
+}
+
+/* --- Responsive específico RYC --- */
+@media (max-width: 768px) {
+  .hero .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-texto h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-imagen img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero-botones {
+    justify-content: center;
+  }
+
+  .hero-novedades h1 {
+    font-size: 1.6rem;
+  }
+
+  .convocatoria-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .datos-clave {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
