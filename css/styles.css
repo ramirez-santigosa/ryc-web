@@ -5,18 +5,19 @@
 
 /* --- Variables CSS --- */
 :root {
-  --aei-azul: #264c80;
-  --aei-azul-oscuro: #1a3a66;
-  --ryc-granate: #8B1A1A;
-  --ryc-granate-oscuro: #6B1010;
-  --ryc-dorado: #C8A951;
-  --ryc-dorado-claro: #D4BD7A;
-  --fondo-claro: #FAF7F2;
+  --aei-azul: #1b4c96;
+  --aei-azul-oscuro: #143a73;
+  --aei-azul-claro: #dae3f3;
+  --ryc-granate: #1b4c96;
+  --ryc-granate-oscuro: #143a73;
+  --ryc-dorado: #c8a951;
+  --ryc-dorado-claro: #d4bd7a;
+  --fondo-claro: #f0f4fa;
   --fondo-blanco: #ffffff;
   --texto-principal: #333333;
   --texto-secundario: #666666;
   --texto-claro: #ffffff;
-  --borde-suave: #e0d8ce;
+  --borde-suave: #d0daea;
   --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.08);
   --sombra-media: 0 4px 16px rgba(0, 0, 0, 0.12);
   --radio-borde: 8px;
@@ -55,7 +56,7 @@ a {
 }
 
 a:hover {
-  color: var(--ryc-granate);
+  color: var(--aei-azul-oscuro);
   text-decoration: underline;
 }
 
