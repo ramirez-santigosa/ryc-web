@@ -1,14 +1,16 @@
 """
-Empaqueta las páginas de la web RYC en 5 HTML autocontenidos en dist/.
+Empaqueta la web RYC en 5 HTML "semi-autocontenidos" para Drupal.
+
+Modo OPCIÓN B:
 - CSS embebido en <style>
 - JS embebido en <script>
-- Imágenes/assets locales convertidos a data: base64
-- Recursos remotos (CDN, aei.gob.es, unsplash, wikimedia) se mantienen
-- Enlaces internos reescritos a pagina1..5.html
+- Imágenes y fondos LOCALES -> URL REMOTA a GitHub Pages (no base64)
+- Se ELIMINA el header institucional (fondo blanco con logos MICIU/AEI)
+- Se VACÍA la barra del breadcrumb (se deja como barra blanca sin contenido)
+- Se ELIMINA el footer
+- Los <svg> inline se sustituyen por <img> PNG servidos desde GitHub Pages
+- Recursos remotos (Chart.js CDN, aei.gob.es, Wikimedia, Unsplash, YouTube) se mantienen
 """
-import base64
-import mimetypes
-import os
 import re
 from pathlib import Path
 
@@ -16,7 +18,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 DIST.mkdir(exist_ok=True)
 
-# Mapa de ruta original -> destino paginaN.html
+REMOTE_BASE = "https://ramirez-santigosa.github.io/ryc-web"
+
 PAGE_MAP = {
     "index.html":                 "pagina1.html",
     "../index.html":              "pagina1.html",
@@ -27,36 +30,27 @@ PAGE_MAP = {
     "pages/convocatorias.html":   "pagina4.html",
     "convocatorias.html":         "pagina4.html",
 }
-
-# El enlace externo "25 Años RYC" del menú apunta a la página 5 (landing local)
 NAV_25_EXT_URL = "https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal"
 
 
-def file_to_data_uri(path: Path) -> str:
-    mime, _ = mimetypes.guess_type(str(path))
-    if mime is None:
-        mime = "application/octet-stream"
-    data = path.read_bytes()
-    b64 = base64.b64encode(data).decode("ascii")
-    return f"data:{mime};base64,{b64}"
-
-
-def embed_css_url(css_text: str, css_dir: Path) -> str:
-    """Reemplaza url('../assets/x.png') dentro del CSS por data: URLs."""
+def rewrite_css_urls_to_remote(css_text: str, css_dir: Path) -> str:
+    """Sustituye url('../assets/x.png') por URL remota GitHub Pages."""
     def repl(m):
         url = m.group(1).strip().strip('"').strip("'")
         if url.startswith(("http://", "https://", "data:")):
             return f"url({url})"
         target = (css_dir / url).resolve()
-        if not target.exists():
+        try:
+            rel = target.relative_to(ROOT).as_posix()
+        except ValueError:
             return m.group(0)
-        return f"url('{file_to_data_uri(target)}')"
+        return f"url('{REMOTE_BASE}/{rel}')"
     return re.sub(r"url\(([^)]+)\)", repl, css_text)
 
 
 def load_css(filename: str) -> str:
     path = ROOT / "css" / filename
-    return embed_css_url(path.read_text(encoding="utf-8"), path.parent)
+    return rewrite_css_urls_to_remote(path.read_text(encoding="utf-8"), path.parent)
 
 
 def load_js(filename: str) -> str:
@@ -67,64 +61,144 @@ CSS_GLOBAL = load_css("styles.css") + "\n\n/* === ryc.css === */\n" + load_css("
 JS_MAIN = load_js("main.js")
 
 
-def resolve_local_path(href: str, html_path: Path) -> Path | None:
-    """Devuelve el Path local si href apunta a un asset relativo del repo."""
+def remote_url_for(href: str, html_path: Path) -> str | None:
+    """Devuelve URL remota GitHub Pages si href apunta a asset local del repo."""
     if href.startswith(("http://", "https://", "data:", "mailto:", "#", "//", "javascript:")):
         return None
     candidate = (html_path.parent / href).resolve()
     try:
-        candidate.relative_to(ROOT)
+        rel = candidate.relative_to(ROOT).as_posix()
     except ValueError:
         return None
-    return candidate if candidate.exists() and candidate.is_file() else None
+    if not candidate.exists():
+        return None
+    return f"{REMOTE_BASE}/{rel}"
 
 
-def embed_local_images(html: str, html_path: Path) -> str:
-    """Convierte src='...' (img/iframe/source) locales a data: URLs."""
+def rewrite_local_images(html: str, html_path: Path) -> str:
+    """<img src='...'> local -> URL remota GitHub Pages."""
     def repl(m):
         attr = m.group(1)
         quote = m.group(2)
         url = m.group(3)
-        target = resolve_local_path(url, html_path)
-        if target is None:
+        new = remote_url_for(url, html_path)
+        if new is None:
             return m.group(0)
-        return f'{attr}={quote}{file_to_data_uri(target)}{quote}'
-    # src="..." y src='...'
-    return re.sub(
-        r'(src)=(["\'])([^"\']+)\2',
-        repl,
-        html,
-    )
+        return f'{attr}={quote}{new}{quote}'
+    return re.sub(r'(src)=(["\'])([^"\']+)\2', repl, html)
 
 
-def embed_inline_bg(html: str, html_path: Path) -> str:
-    """Embeb url('../assets/...') en atributos style inline."""
+def rewrite_inline_bg(html: str, html_path: Path) -> str:
+    """url('../assets/...') en atributos style inline -> URL remota."""
     def repl(m):
         url = m.group(1).strip().strip('"').strip("'")
         if url.startswith(("http://", "https://", "data:")):
             return m.group(0)
-        target = resolve_local_path(url, html_path)
-        if target is None:
+        new = remote_url_for(url, html_path)
+        if new is None:
             return m.group(0)
-        return f"url('{file_to_data_uri(target)}')"
+        return f"url('{new}')"
     return re.sub(r"url\(([^)]+)\)", repl, html)
 
 
+def strip_header_footer(html: str) -> str:
+    """Elimina <header class="header-institucional">...</header> y <footer class="footer">...</footer>."""
+    html = re.sub(
+        r'<header\s+class="header-institucional">.*?</header>\s*',
+        "",
+        html,
+        flags=re.DOTALL,
+    )
+    html = re.sub(
+        r'<footer\s+class="footer">.*?</footer>\s*',
+        "",
+        html,
+        flags=re.DOTALL,
+    )
+    return html
+
+
+def empty_breadcrumb(html: str) -> str:
+    """Vacía el contenido del <div class="breadcrumb">...</div> dejando el contenedor."""
+    return re.sub(
+        r'(<div\s+class="breadcrumb"[^>]*>).*?(</div>)',
+        r'\1\2',
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+# Mapa de iconos SVG inline -> PNG (por orden de aparición en index.html)
+SVG_ICON_REPLACEMENTS = [
+    # Novedad 1: euro / dorado
+    (r'<svg[^>]*stroke="#c8a951"[^>]*>.*?</svg>',
+     '<img src="{base}/assets/icons/novedad-1.png" class="novedad-icono-svg" width="72" height="72" alt="" aria-hidden="true">'),
+    # Novedad 2: personas / azul + path "M23 21v-2"
+    (r'<svg[^>]*stroke="#1b4c96"[^>]*>(?:(?!</svg>).)*?M23 21v-2.*?</svg>',
+     '<img src="{base}/assets/icons/novedad-2.png" class="novedad-icono-svg" width="72" height="72" alt="" aria-hidden="true">'),
+    # Novedad 3: globo / azul + estrellas FFCC00
+    (r'<svg[^>]*stroke="#1b4c96"[^>]*>(?:(?!</svg>).)*?#FFCC00.*?</svg>',
+     '<img src="{base}/assets/icons/novedad-3.png" class="novedad-icono-svg" width="72" height="72" alt="" aria-hidden="true">'),
+    # Novedad 4: casa / azul + polyline "9 22"
+    (r'<svg[^>]*stroke="#1b4c96"[^>]*>(?:(?!</svg>).)*?9 22 9 12.*?</svg>',
+     '<img src="{base}/assets/icons/novedad-4.png" class="novedad-icono-svg" width="72" height="72" alt="" aria-hidden="true">'),
+    # Novedad 5: cajas / verde
+    (r'<svg[^>]*stroke="#2e7d32"[^>]*>.*?</svg>',
+     '<img src="{base}/assets/icons/novedad-5.png" class="novedad-icono-svg" width="72" height="72" alt="" aria-hidden="true">'),
+]
+
+
+def replace_inline_svgs(html: str) -> str:
+    for pattern, replacement in SVG_ICON_REPLACEMENTS:
+        html = re.sub(pattern, replacement.format(base=REMOTE_BASE), html, flags=re.DOTALL)
+    return html
+
+
+def inline_assets(html: str) -> str:
+    """Sustituye <link rel=stylesheet local> y <script src local> por contenido inline."""
+    def link_repl(m):
+        href = m.group(1)
+        if href.endswith("styles.css") or href.endswith("ryc.css"):
+            return ""
+        return m.group(0)
+    html = re.sub(
+        r'<link\s+rel="stylesheet"\s+href="([^"]+)"\s*/?>',
+        link_repl,
+        html,
+    )
+    # Insertar <style> antes de </head>
+    html = html.replace(
+        "</head>",
+        f"<style>\n{CSS_GLOBAL}\n</style>\n</head>",
+        1,
+    )
+
+    def script_repl(m):
+        src = m.group(1)
+        if src.endswith("main.js"):
+            return f"<script>\n{JS_MAIN}\n</script>"
+        return m.group(0)
+    html = re.sub(
+        r'<script\s+src="([^"]+)"\s*></script>',
+        script_repl,
+        html,
+    )
+    return html
+
+
 def replace_links(html: str, current_page: str) -> str:
-    """Reescribe href entre las 5 páginas."""
-    # 1) Reescribir href del enlace externo "25 Años RYC" del menú principal hacia pagina5.html
+    # Reescribir "25 Años RYC" del menú (externo) a pagina5.html
     html = re.sub(
         r'(<a\s[^>]*href=)"' + re.escape(NAV_25_EXT_URL) + r'"([^>]*\bclass="[^"]*\bnav-destacado\b[^"]*"[^>]*)>',
         lambda m: f'{m.group(1)}"pagina5.html"' + re.sub(r'\s*target="_blank"', '', m.group(2)) + ">",
         html,
     )
 
-    # 2) Reescribir hrefs internos siguiendo el mapa
     def href_repl(m):
         prefix = m.group(1)
         href = m.group(2)
         suffix = m.group(3)
-        # Eliminar fragmento si lo hubiera
         frag = ""
         if "#" in href:
             href, frag = href.split("#", 1)
@@ -135,71 +209,30 @@ def replace_links(html: str, current_page: str) -> str:
         return m.group(0)
     html = re.sub(r'(<a\s[^>]*href=)"([^"]+)"([^>]*)>', href_repl, html)
 
-    # 3) Marcar la página activa en el menú
-    # Quitar todos los class="active" en <a> del nav
-    def clean_active(m):
-        body = m.group(0)
-        body = re.sub(r'\s+class="active"', "", body)
-        body = re.sub(r'class="active"\s*', '', body)
-        return body
-    # Aplicar solo dentro de #nav-menu
+    # Marcar página activa en el nav
     nav_match = re.search(r'(<ul\s+id="nav-menu">)(.*?)(</ul>)', html, re.DOTALL)
     if nav_match:
         nav_inner = nav_match.group(2)
-        nav_inner_clean = re.sub(r'(<a\s[^>]*?)\s+class="active"', r'\1', nav_inner)
-        # Marcar como activa el href de current_page
-        nav_inner_clean = re.sub(
+        nav_inner = re.sub(r'(<a\s[^>]*?)\s+class="active"', r'\1', nav_inner)
+        nav_inner = re.sub(
             r'(<a\s+href="' + re.escape(current_page) + r'")(\s*[^>]*)>',
             lambda m: m.group(1) + ' class="active"' + m.group(2) + '>',
-            nav_inner_clean,
+            nav_inner,
             count=1,
         )
-        html = html[: nav_match.start()] + nav_match.group(1) + nav_inner_clean + nav_match.group(3) + html[nav_match.end():]
-    return html
-
-
-def inline_assets(html: str, html_path: Path) -> str:
-    """Sustituye <link rel=stylesheet local> y <script src local> por contenido inline."""
-    # Quitar <link rel="stylesheet" href=".../styles.css|ryc.css">
-    def link_repl(m):
-        href = m.group(1)
-        if href.endswith("styles.css") or href.endswith("ryc.css"):
-            return ""  # se inyecta CSS_GLOBAL más arriba como bloque <style>
-        # otros (CDN, etc.) se mantienen
-        return m.group(0)
-    html = re.sub(
-        r'<link\s+rel="stylesheet"\s+href="([^"]+)"\s*/?>',
-        link_repl,
-        html,
-    )
-    # Insertar bloque <style> con CSS_GLOBAL antes de </head>
-    html = html.replace(
-        "</head>",
-        f"<style>\n{CSS_GLOBAL}\n</style>\n</head>",
-        1,
-    )
-
-    # Reemplazar <script src="...main.js"> por contenido
-    def script_repl(m):
-        src = m.group(1)
-        if src.endswith("main.js"):
-            return f"<script>\n{JS_MAIN}\n</script>"
-        # si es CDN externo, dejar tal cual
-        return m.group(0)
-    html = re.sub(
-        r'<script\s+src="([^"]+)"\s*></script>',
-        script_repl,
-        html,
-    )
+        html = html[: nav_match.start()] + nav_match.group(1) + nav_inner + nav_match.group(3) + html[nav_match.end():]
     return html
 
 
 def build_page(source_relpath: str, dest_name: str) -> str:
     src = ROOT / source_relpath
     html = src.read_text(encoding="utf-8")
-    html = inline_assets(html, src)
-    html = embed_local_images(html, src)
-    html = embed_inline_bg(html, src)
+    html = inline_assets(html)
+    html = rewrite_local_images(html, src)
+    html = rewrite_inline_bg(html, src)
+    html = replace_inline_svgs(html)
+    html = strip_header_footer(html)
+    html = empty_breadcrumb(html)
     html = replace_links(html, dest_name)
     out = DIST / dest_name
     out.write_text(html, encoding="utf-8")
@@ -218,26 +251,6 @@ __CSS__
 </head>
 <body>
 
-  <!-- ===== HEADER INSTITUCIONAL ===== -->
-  <header class="header-institucional">
-    <div class="container">
-      <div class="logos-institucionales">
-        <a href="https://www.ciencia.gob.es/" target="_blank" title="Ministerio de Ciencia, Innovación y Universidades">
-          <img src="https://www.aei.gob.es/themes/custom/vartheme_aei/images/logo_ministerio_ciencia.svg" alt="Ministerio de Ciencia, Innovación y Universidades" onerror="this.alt='MICINN'; this.style.height='auto'">
-        </a>
-        <a href="https://www.aei.gob.es/" target="_blank" title="Agencia Estatal de Investigación">
-          <img src="https://www.aei.gob.es/themes/custom/vartheme_aei/logo_aei.svg" alt="Agencia Estatal de Investigación" onerror="this.alt='AEI'; this.style.height='auto'">
-        </a>
-      </div>
-      <div class="site-name">
-        <span class="first-letter">Agencia</span>
-        <span class="first-letter">Estatal</span>
-        de
-        <span class="first-letter">Investigación</span>
-      </div>
-    </div>
-  </header>
-
   <!-- ===== NAVEGACIÓN ===== -->
   <nav class="nav-principal" aria-label="Navegación principal">
     <div class="container">
@@ -252,14 +265,8 @@ __CSS__
     </div>
   </nav>
 
-  <!-- ===== BREADCRUMB ===== -->
-  <div class="breadcrumb" aria-label="Ruta de navegación">
-    <a href="https://www.aei.gob.es/">Inicio</a>
-    <span>&rsaquo;</span>
-    <a href="pagina1.html">Ramón y Cajal</a>
-    <span>&rsaquo;</span>
-    <strong>25 Años RYC</strong>
-  </div>
+  <!-- ===== BREADCRUMB (vacío) ===== -->
+  <div class="breadcrumb" aria-label="Ruta de navegación"></div>
 
   <!-- ===== HERO ===== -->
   <section class="hero-novedades">
@@ -295,41 +302,6 @@ __CSS__
     </section>
 
   </main>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <h4>Programa Ramón y Cajal</h4>
-          <ul>
-            <li><a href="pagina3.html">Sobre el programa</a></li>
-            <li><a href="pagina2.html">Novedades 2026</a></li>
-            <li><a href="pagina4.html">Histórico de convocatorias</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Agencia Estatal de Investigación</h4>
-          <ul>
-            <li><a href="https://www.aei.gob.es/" target="_blank">Portal AEI</a></li>
-            <li><a href="https://www.aei.gob.es/convocatorias" target="_blank">Convocatorias AEI</a></li>
-            <li><a href="https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal" target="_blank">25 Años RYC</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Contacto</h4>
-          <ul>
-            <li><a href="https://www.aei.gob.es/" target="_blank">www.aei.gob.es</a></li>
-            <li>Agencia Estatal de Investigación</li>
-            <li>Ministerio de Ciencia, Innovación y Universidades</li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Agencia Estatal de Investigación. Ministerio de Ciencia, Innovación y Universidades. Gobierno de España.</p>
-      </div>
-    </div>
-  </footer>
 
   <script>
 __JS__
