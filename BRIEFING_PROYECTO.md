@@ -33,14 +33,16 @@ ryc-web/
 │   ├── novedades-2026.html     # Novedades de la convocatoria 2026
 │   ├── programa.html           # Programa RYC (historia, cifras, dashboard)
 │   └── convocatorias.html      # Histórico de convocatorias
-├── dist/                       # 5 HTML autocontenidos para pegar en Drupal
+├── dist/                       # 5 HTML ligeros (24-41 KB) para pegar en Drupal
 │   ├── pagina1.html            # ← index.html (Inicio RYC)
 │   ├── pagina2.html            # ← novedades-2026.html
 │   ├── pagina3.html            # ← programa.html
 │   ├── pagina4.html            # ← convocatorias.html
 │   └── pagina5.html            # Landing "25 Años RYC" (generada)
 ├── build_tmp/
-│   └── build_dist.py           # Script Python que regenera dist/ desde el código fuente
+│   ├── build_dist.py           # Script Python que regenera dist/ (opción B: URLs remotas)
+│   ├── svg_to_png.js           # Script Node (sharp) que renderiza los SVG de iconos a PNG
+│   └── package.json            # Dependencias del script de iconos (sharp)
 ├── css/
 │   ├── styles.css              # Estilos globales (variables, layout, footer, nav)
 │   └── ryc.css                 # Estilos específicos RYC (hero, novedades, carrusel)
@@ -48,6 +50,9 @@ ryc-web/
 │   ├── main.js                 # Interactividad: menú móvil, acordeones, scroll suave
 │   └── datos-ryc.json          # Datos del dashboard (no usado directamente, embebidos en programa.html)
 ├── assets/                     # Imágenes
+│   ├── icons/                         # Iconos de las 5 novedades (para dist/)
+│   │   ├── novedad-{1..5}.svg         # SVG fuente (144×144)
+│   │   └── novedad-{1..5}.png         # PNG renderizado con sharp, servido desde GitHub Pages
 │   ├── fondo-banner-azul-aei.png       # Banner página principal (azul claro + siluetas)
 │   ├── fondo-banner-azul-degradado.png # Banner novedades (degradado azul oscuro + siluetas)
 │   ├── silueta-azul.png               # Silueta de Ramón y Cajal (PNG con alpha)
@@ -230,6 +235,7 @@ Estos textos fueron revisados y aprobados por la dirección. Cambios futuros deb
 | v1 | `ryc-web_v1` + `/v1/` | Versión original: paleta granate/dorado, medalla en banner, carruseles, textos originales |
 | v2 | `main` (actual) | Rediseño completo: paleta azul AEI, banners con siluetas, textos actualizados, sin medalla |
 | v2.1 | `main` | 2ª revisión editorial (16-04-2026): nuevo texto Novedad 1 (PID), reorden criterios, nuevo texto Europa Excelencia + viñeta R3, retirada CTA "¿Todo listo?", uniformidad de viñetas y empaquetado en `dist/` para Drupal |
+| v2.1-dist-b | `main` | Empaquetado ligero "opción B" para Drupal (16-04-2026): `dist/` pasa de 1-27 MB a 24-41 KB por página. Imágenes como URL remota a GitHub Pages (para sustituir manualmente en Drupal). SVG inline → PNG (`assets/icons/`). Sin header con logos, breadcrumb vacío, sin footer |
 
 ### Cambios clave de v1 a v2
 - Paleta: granate (#8B1A1A) → azul oscuro (#1b4c96)
@@ -266,32 +272,57 @@ Modificar las variables en `:root` de `css/styles.css`. El cambio se propaga aut
 5. El header/footer institucional se sustituye por el de Drupal
 6. Ajustar las rutas de assets según la estructura de Drupal
 
-### Empaquetado autocontenido para Drupal — `dist/`
-La carpeta `dist/` contiene **5 HTML 100% autocontenidos** generados automáticamente por `build_tmp/build_dist.py`:
+### Empaquetado ligero para Drupal — `dist/` (opción B)
 
-| Fichero | Origen | Contenido |
-|---------|--------|-----------|
-| `pagina1.html` | `index.html` | Inicio RYC |
-| `pagina2.html` | `pages/novedades-2026.html` | Novedades 2026 (texto definitivo de la 2ª revisión) |
-| `pagina3.html` | `pages/programa.html` | Programa RYC + dashboard interactivo (Chart.js vía CDN) |
-| `pagina4.html` | `pages/convocatorias.html` | Histórico de convocatorias |
-| `pagina5.html` | (generada) | Landing "25 Años RYC" con CTA hacia el sitio externo de la AEI |
+La carpeta `dist/` contiene **5 HTML listos para pegar en "Página básica" de Drupal** generados automáticamente por `build_tmp/build_dist.py`:
 
-Cada fichero:
-- Lleva todo el CSS dentro de `<style>` en `<head>`
-- Lleva todo el JS dentro de `<script>` antes de `</body>`
-- Embebe imágenes y fondos locales como `data:` URL base64
-- Mantiene los recursos remotos de CDN (Chart.js, logos AEI, fotos Unsplash/Wikimedia, embed YouTube)
-- Reescribe los enlaces internos (incluido el menú) a `pagina1.html` … `pagina5.html`
+| Fichero | Origen | Peso | Contenido |
+|---------|--------|------|-----------|
+| `pagina1.html` | `index.html` | ~33 KB | Inicio RYC |
+| `pagina2.html` | `pages/novedades-2026.html` | ~35 KB | Novedades 2026 (texto definitivo de la 2ª revisión) |
+| `pagina3.html` | `pages/programa.html` | ~41 KB | Programa RYC + dashboard interactivo (Chart.js vía CDN) |
+| `pagina4.html` | `pages/convocatorias.html` | ~27 KB | Histórico de convocatorias |
+| `pagina5.html` | (generada) | ~24 KB | Landing "25 Años RYC" con CTA hacia el sitio externo de la AEI |
 
-**Recursos remotos preservados:** logos del Ministerio y AEI (`aei.gob.es`), Chart.js 4.4.7 (`cdn.jsdelivr.net`), imágenes Wikimedia/NASA/Unsplash, embed de YouTube.
+**Qué lleva cada fichero:**
+- Todo el CSS dentro de `<style>` en `<head>` (styles.css + ryc.css concatenados)
+- Todo el JS dentro de `<script>` antes de `</body>` (main.js + scripts propios de cada página)
+- Enlaces internos (menú, footer, breadcrumb original) reescritos a `pagina1.html` … `pagina5.html`
+- Página activa del menú marcada con `class="active"`
 
-**Tamaños orientativos:** `pagina1.html` ≈ 24 MB y `pagina2.html` ≈ 27 MB porque embeben las fotos originales sin optimizar (`edificio-aei-bandera.jpg` 17 MB, `aei-dron.png` 2 MB). Si Drupal limita el tamaño del campo, conviene optimizar/redimensionar las imágenes en `assets/` antes de regenerar `dist/`.
+**Qué NO lleva (tras ajustes 2ª revisión):**
+- La barra superior con fondo blanco y logos MICIU/AEI (`<header class="header-institucional">`): **eliminada**
+- El contenido del breadcrumb: **vacío** (se mantiene el contenedor como barra blanca sin texto)
+- El pie de página (`<footer class="footer">`): **eliminado**
+- Las imágenes locales no se embeben en base64: se referencian como URL remota a GitHub Pages (`https://ramirez-santigosa.github.io/ryc-web/assets/…`). Esto incluye los fondos de banners del CSS. Están pensadas para ser sustituidas manualmente por imágenes cargadas en Drupal al editar la Página básica.
+- Los `<svg>` inline de los iconos de novedades (solo en pagina1.html) se sustituyen por `<img>` que referencian PNG renderizados (`assets/icons/novedad-{1..5}.png`) servidos desde GitHub Pages.
 
-**Para regenerar `dist/`** después de cualquier cambio en HTML/CSS/JS/assets:
+**Recursos remotos preservados:** Chart.js 4.4.7 (`cdn.jsdelivr.net`), fotos Wikimedia/NASA/Unsplash (URLs externas), embed de YouTube.
+
+**Para regenerar `dist/`** después de cualquier cambio en HTML/CSS/JS:
 ```bash
 python build_tmp/build_dist.py
 ```
+
+**Para regenerar los iconos PNG** si se modifican los SVG fuente en `assets/icons/`:
+```bash
+cd build_tmp && npm install   # primera vez (descarga sharp)
+node svg_to_png.js
+```
+
+### Problemas frecuentes al guardar en Drupal — diagnóstico
+
+Si una "Página básica" con este HTML no se guarda o no previsualiza:
+
+| Causa probable | Cómo diagnosticar | Cómo resolver |
+|---|---|---|
+| Formato de texto restrictivo filtra `<style>`, `<script>`, atributos `style` | `/admin/config/content/formats` → revisar filtros activos | Usar **"Full HTML"** o crear formato sin filtros de etiquetas |
+| CKEditor/WYSIWYG reescribe el código al guardar | Reabrir el contenido y ver si se ha "limpiado" | Deshabilitar editor para ese formato, o pulsar "Código fuente" antes de pegar/guardar |
+| `post_max_size` de PHP (default 8 MB) | `/admin/reports/status` + `phpinfo()` | Subir a ≥ 32 MB en php.ini junto con `memory_limit` y `max_execution_time` |
+| `max_input_vars` con muchos campos en el nodo | phpinfo | Subir a 3000+ |
+| Token CSRF caducado por sesión larga | Mensaje "Form has expired" | Aumentar `session.gc_maxlifetime` o reeditar |
+
+**Enfoque alternativo más robusto en Drupal** (si el anterior sigue dando problemas): mover el CSS a un bloque "Asset Injector" (o al `.info.yml` del tema), el JS a un custom module, y pegar solo el contenido de `<main>…</main>` en el body de la Página básica.
 
 ### Para añadir una nueva tarjeta al carrusel de enlaces (index.html)
 Añadir un nuevo `<div class="tarjeta">` dentro de `#carrusel-enlaces-track`. El carrusel acepta hasta 7 items. El JS se adapta automáticamente.
