@@ -1,0 +1,15 @@
+# Carpetas locales de documentación y logs (no forman parte del repo)
+00-Documentación inicial/
+00-Logs iniciales/
+01-Documentación revisión/
+01-Logs revisión/
+02-Segunda revisión/
+01-datos/
+
+# Versión alternativa FECYT (no usada en versión principal)
+version-fecyt/
+css/ryc-fecyt.css
+assets/ImagenRYC_FECYT-2026.jpg
+
+# Configuración local de herramientas
+.claude/

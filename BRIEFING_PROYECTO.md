@@ -33,6 +33,14 @@ ryc-web/
 │   ├── novedades-2026.html     # Novedades de la convocatoria 2026
 │   ├── programa.html           # Programa RYC (historia, cifras, dashboard)
 │   └── convocatorias.html      # Histórico de convocatorias
+├── dist/                       # 5 HTML autocontenidos para pegar en Drupal
+│   ├── pagina1.html            # ← index.html (Inicio RYC)
+│   ├── pagina2.html            # ← novedades-2026.html
+│   ├── pagina3.html            # ← programa.html
+│   ├── pagina4.html            # ← convocatorias.html
+│   └── pagina5.html            # Landing "25 Años RYC" (generada)
+├── build_tmp/
+│   └── build_dist.py           # Script Python que regenera dist/ desde el código fuente
 ├── css/
 │   ├── styles.css              # Estilos globales (variables, layout, footer, nav)
 │   └── ryc.css                 # Estilos específicos RYC (hero, novedades, carrusel)
@@ -122,15 +130,28 @@ Definida en `:root` de `css/styles.css`:
 
 **Secciones:**
 1. **¿Para qué cambia la convocatoria?** — Grid 2 columnas (sin carrusel): "Fortalecer la carrera..." y "Mejorar el posicionamiento internacional...". Tarjetas con borde izquierdo dorado.
-2. **Las 5 grandes novedades** — Cada una con imagen + banda azul con número y título en mayúsculas:
-   - **1. Financiación proyecto propio I+D+i** — Proyecto de 5 años evaluable, no compatible con PID hasta año 4
-   - **2. Entrevista en evaluación** — Criterios tabulados: independencia, viabilidad, aportaciones, calidad, impacto
+2. **Las 5 grandes novedades** — Cada una con imagen + banda azul con número y título en mayúsculas. Todas las viñetas comparten el estilo tabulado (borde dorado izquierdo + marcador "—" azul) usado para los criterios de evaluación:
+   - **1. Financiación proyecto propio I+D+i** — Proyecto de 5 años evaluable, no compatible con PID hasta el cuarto año de ejecución
+   - **2. Entrevista en evaluación** — Criterios (en este orden): aportaciones científico-técnicas, calidad y novedad, impacto científico/económico/social, grado de independencia y liderazgo, viabilidad de la propuesta
    - **3. Incentivos ERC** — 30%/10% incremento salario + Europa Excelencia + condiciones informe intermedio
    - **4. Estabilización obligatoria** — Ayuda a entidad beneficiaria (sin cifra de 75.000€)
-   - **5. Integración convocatorias** — Supresión Consolidación, desaparición atracción talento, incremento Europa Excelencia (sin mención a transferencia PID→RYC)
+   - **5. Integración convocatorias** — Supresión Consolidación, desaparición atracción talento, incremento dotación Europa Excelencia, certificado R3 de Investigador establecido para personas beneficiarias
 3. **Presentación en vídeo** — Embed YouTube
 4. **¿Qué implica para las personas candidatas?** — 4 tarjetas: Propuesta sólida, Liderazgo, Visión europea, Estabilidad
-5. **CTA** — "¿Todo listo para la convocatoria 2026?" (lenguaje inclusivo)
+
+**Apartado retirado (a reincorporar cuando exista ficha oficial de la convocatoria 2026):**
+
+```html
+<!-- ===== CTA CONVOCATORIA ===== -->
+<section class="seccion text-center">
+  <h2 class="seccion-titulo" style="border: none; text-align: center;">¿Todo listo para la convocatoria 2026?</h2>
+  <p style="max-width: 600px; margin: 0 auto 1.5rem; color: var(--texto-secundario);">
+    Consulta la ficha oficial de la convocatoria en la web de la AEI para conocer todos los detalles, plazos y documentación necesaria.
+  </p>
+  <a href="https://www.aei.gob.es/convocatorias" target="_blank" class="btn-ryc">Ir a convocatorias AEI</a>
+  <a href="../index.html" class="btn-ryc-outline" style="margin-left: 0.5rem;">Volver al inicio</a>
+</section>
+```
 
 ### 5.3. programa.html — Programa RYC
 
@@ -191,11 +212,13 @@ Estos textos fueron revisados y aprobados por la dirección. Cambios futuros deb
 | Entrevista | "grado de independencia y la capacidad de liderazgo y la viabilidad" | Redacción específica aprobada |
 | Estabilización | "incentivación para la entidad beneficiaria" | Se eliminó la cifra de 75.000€ por indicación |
 | Novedad 1 | "que será objeto de la evaluación" | Añadido que el proyecto se evalúa |
-| Novedad 1 | "No será compatible con PID hasta el año 4" | "Incompatible" se cambió a "No será compatible" |
+| Novedad 1 | "No será compatible con la convocatoria PID hasta el cuarto año de ejecución, dado que la ayuda Ramón y Cajal incluye la financiación de un proyecto de investigación" | Redacción definitiva (2ª revisión) |
 | Novedad 3 | Condiciones del informe intermedio | Texto largo sobre mantenimiento de ayudas y trasvase |
+| Novedad 5 — Europa Excelencia | "Se incrementa la dotación de las ayudas en la convocatoria de Europa Excelencia" | Sustituye texto anterior con cifras (2ª revisión) |
+| Novedad 5 — Certificado R3 | "Se otorgará el certificado R3 de Investigador como investigador/a establecido/a para aquellas personas que obtengan la ayuda" | Nueva 4ª viñeta añadida (2ª revisión) |
 | Novedad 5 | Sin "Se transfiere presupuesto de PID a RYC" | Eliminado por indicación |
-| CTA final | "¿Todo listo para la convocatoria 2026?" | Lenguaje inclusivo, sustituye "¿Preparada?" |
-| Criterios evaluación | Orden: independencia, viabilidad, aportaciones, calidad, impacto | Reordenado dos veces por indicación |
+| CTA final | Apartado retirado a la espera de la ficha de convocatoria | Texto guardado en sección 5.2 para reincorporación |
+| Criterios evaluación | Orden: aportaciones, calidad, impacto, independencia, viabilidad | Reordenado en 2ª revisión: independencia y viabilidad pasan a 4º y 5º |
 | Banner novedades | "impulsar la excelencia de las universidades y los centros de investigación" | Sin "mejorar la posición de España en Europa" |
 
 ---
@@ -206,6 +229,7 @@ Estos textos fueron revisados y aprobados por la dirección. Cambios futuros deb
 |---------|----------|-------------|
 | v1 | `ryc-web_v1` + `/v1/` | Versión original: paleta granate/dorado, medalla en banner, carruseles, textos originales |
 | v2 | `main` (actual) | Rediseño completo: paleta azul AEI, banners con siluetas, textos actualizados, sin medalla |
+| v2.1 | `main` | 2ª revisión editorial (16-04-2026): nuevo texto Novedad 1 (PID), reorden criterios, nuevo texto Europa Excelencia + viñeta R3, retirada CTA "¿Todo listo?", uniformidad de viñetas y empaquetado en `dist/` para Drupal |
 
 ### Cambios clave de v1 a v2
 - Paleta: granate (#8B1A1A) → azul oscuro (#1b4c96)
@@ -241,6 +265,33 @@ Modificar las variables en `:root` de `css/styles.css`. El cambio se propaga aut
 4. En `programa.html`, incluir también Chart.js y el `<script>` del dashboard
 5. El header/footer institucional se sustituye por el de Drupal
 6. Ajustar las rutas de assets según la estructura de Drupal
+
+### Empaquetado autocontenido para Drupal — `dist/`
+La carpeta `dist/` contiene **5 HTML 100% autocontenidos** generados automáticamente por `build_tmp/build_dist.py`:
+
+| Fichero | Origen | Contenido |
+|---------|--------|-----------|
+| `pagina1.html` | `index.html` | Inicio RYC |
+| `pagina2.html` | `pages/novedades-2026.html` | Novedades 2026 (texto definitivo de la 2ª revisión) |
+| `pagina3.html` | `pages/programa.html` | Programa RYC + dashboard interactivo (Chart.js vía CDN) |
+| `pagina4.html` | `pages/convocatorias.html` | Histórico de convocatorias |
+| `pagina5.html` | (generada) | Landing "25 Años RYC" con CTA hacia el sitio externo de la AEI |
+
+Cada fichero:
+- Lleva todo el CSS dentro de `<style>` en `<head>`
+- Lleva todo el JS dentro de `<script>` antes de `</body>`
+- Embebe imágenes y fondos locales como `data:` URL base64
+- Mantiene los recursos remotos de CDN (Chart.js, logos AEI, fotos Unsplash/Wikimedia, embed YouTube)
+- Reescribe los enlaces internos (incluido el menú) a `pagina1.html` … `pagina5.html`
+
+**Recursos remotos preservados:** logos del Ministerio y AEI (`aei.gob.es`), Chart.js 4.4.7 (`cdn.jsdelivr.net`), imágenes Wikimedia/NASA/Unsplash, embed de YouTube.
+
+**Tamaños orientativos:** `pagina1.html` ≈ 24 MB y `pagina2.html` ≈ 27 MB porque embeben las fotos originales sin optimizar (`edificio-aei-bandera.jpg` 17 MB, `aei-dron.png` 2 MB). Si Drupal limita el tamaño del campo, conviene optimizar/redimensionar las imágenes en `assets/` antes de regenerar `dist/`.
+
+**Para regenerar `dist/`** después de cualquier cambio en HTML/CSS/JS/assets:
+```bash
+python build_tmp/build_dist.py
+```
 
 ### Para añadir una nueva tarjeta al carrusel de enlaces (index.html)
 Añadir un nuevo `<div class="tarjeta">` dentro de `#carrusel-enlaces-track`. El carrusel acepta hasta 7 items. El JS se adapta automáticamente.

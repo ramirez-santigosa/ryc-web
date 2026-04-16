@@ -73,19 +73,22 @@
       color: #fff;
       text-transform: uppercase;
     }
-    /* Criterios de evaluación tabulados */
-    .criterios-evaluacion {
+    /* Criterios de evaluación tabulados (mismo estilo aplicado a las viñetas de todas las novedades) */
+    .criterios-evaluacion,
+    .novedades-2026 .novedad-detalle > ul {
       list-style: none;
       padding-left: 1.5rem;
       border-left: 3px solid var(--ryc-dorado);
       margin: 0.75rem 0 0.5rem 1rem;
     }
-    .criterios-evaluacion li {
+    .criterios-evaluacion li,
+    .novedades-2026 .novedad-detalle > ul > li {
       padding: 0.25rem 0;
       position: relative;
       padding-left: 1rem;
     }
-    .criterios-evaluacion li::before {
+    .criterios-evaluacion li::before,
+    .novedades-2026 .novedad-detalle > ul > li::before {
       content: "—";
       position: absolute;
       left: -0.25rem;
@@ -184,7 +187,7 @@
         <p>Cada ayuda Ramón y Cajal incluirá, además de la cofinanciación del salario, la financiación para la ejecución de un proyecto de investigación de 5 años de duración, que será objeto de la evaluación.</p>
         <ul>
           <li><strong>Dotación suficiente</strong> para contratar al menos una persona investigadora predoctoral durante 4 años</li>
-          <li><strong>No será compatible</strong> con la convocatoria de Proyectos de Generación de Conocimiento (PID) hasta el año 4, al obtener ya el proyecto de investigación con la ayuda</li>
+          <li><strong>No será compatible</strong> con la convocatoria PID hasta el cuarto año de ejecución, dado que la ayuda Ramón y Cajal incluye la financiación de un proyecto de investigación</li>
           <li>Costes elegibles similares a los de PID: personal, movilidad, equipamiento, fungibles, publicaciones, congresos y costes indirectos (25%)</li>
           <li>Permite iniciar una línea de investigación y crear un grupo propio desde el primer día</li>
         </ul>
@@ -202,11 +205,11 @@
         <p>Se incorpora una entrevista con las comisiones técnicas como parte esencial de la evaluación, alineando el proceso con las mejores prácticas europeas (como el ERC).</p>
         <p><strong>Criterios de evaluación:</strong></p>
         <ul class="criterios-evaluacion">
-          <li>Grado de independencia y liderazgo</li>
-          <li>Viabilidad de la propuesta de proyecto de investigación</li>
           <li>Aportaciones científico-técnicas de la persona candidata</li>
           <li>Calidad y novedad de la propuesta de proyecto de investigación</li>
           <li>Impacto científico, económico y social esperado de los resultados</li>
+          <li>Grado de independencia y liderazgo</li>
+          <li>Viabilidad de la propuesta de proyecto de investigación</li>
         </ul>
       </div>
 
@@ -264,7 +267,8 @@
         <ul>
           <li><strong>Se suprime</strong> la convocatoria de Consolidación Investigadora, cuyos objetivos quedan cubiertos por la nueva RYC</li>
           <li><strong>Desaparece</strong> la ayuda específica de atracción de talento (ya incluida en la financiación del proyecto)</li>
-          <li>Se incrementa el presupuesto de Europa Excelencia (hasta 150.000 € modalidad A, 100.000 € modalidad B)</li>
+          <li>Se incrementa la dotación de las ayudas en la convocatoria de Europa Excelencia</li>
+          <li>Se otorgará el certificado R3 de Investigador como investigador/a establecido/a para aquellas personas que obtengan la ayuda</li>
         </ul>
       </div>
     </section>
@@ -304,16 +308,6 @@
           <p>La obligatoriedad de crear un puesto permanente refuerza el compromiso de las instituciones con la carrera de la persona investigadora.</p>
         </div>
       </div>
-    </section>
-
-    <!-- ===== CTA CONVOCATORIA ===== -->
-    <section class="seccion text-center">
-      <h2 class="seccion-titulo" style="border: none; text-align: center;">¿Todo listo para la convocatoria 2026?</h2>
-      <p style="max-width: 600px; margin: 0 auto 1.5rem; color: var(--texto-secundario);">
-        Consulta la ficha oficial de la convocatoria en la web de la AEI para conocer todos los detalles, plazos y documentación necesaria.
-      </p>
-      <a href="https://www.aei.gob.es/convocatorias" target="_blank" class="btn-ryc">Ir a convocatorias AEI</a>
-      <a href="../index.html" class="btn-ryc-outline" style="margin-left: 0.5rem;">Volver al inicio</a>
     </section>
 
   </main>
