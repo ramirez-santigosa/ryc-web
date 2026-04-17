@@ -273,13 +273,14 @@
 
 /* --- Convocatorias históricas --- */
 .convocatoria-card {
-  background: var(--fondo-blanco);
+  background: #ffffff;
   border-radius: var(--radio-borde);
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   box-shadow: var(--sombra-suave);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
   margin-bottom: 1rem;
   transition: box-shadow var(--transicion);
   border-left: 4px solid var(--aei-azul);
@@ -290,35 +291,50 @@
 }
 
 .convocatoria-card.vigente {
-  border-left-color: var(--ryc-granate);
-  background: linear-gradient(90deg, rgba(139, 26, 26, 0.03), var(--fondo-blanco));
+  border-left-color: var(--ryc-dorado);
+}
+
+.convocatoria-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .convocatoria-info h3 {
   font-size: 1.05rem;
   color: var(--texto-principal);
   margin: 0 0 0.25rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .convocatoria-info .anio {
   display: inline-block;
   background: var(--aei-azul);
-  color: var(--texto-claro);
-  padding: 0.15rem 0.6rem;
+  color: #ffffff;
+  padding: 0.2rem 0.65rem;
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 700;
-  margin-right: 0.5rem;
+  flex-shrink: 0;
 }
 
 .convocatoria-info .estado {
   font-size: 0.85rem;
   color: var(--texto-secundario);
+  margin-top: 0.1rem;
 }
 
 .convocatoria-info .estado.abierta {
   color: #2e7d32;
   font-weight: 600;
+}
+
+.convocatoria-card .btn-aei,
+.convocatoria-card .btn-ryc {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* --- Programa RYC — datos clave --- */
@@ -542,8 +558,13 @@
 
   .convocatoria-card {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 0.75rem;
+  }
+
+  .convocatoria-card .btn-aei,
+  .convocatoria-card .btn-ryc {
+    text-align: center;
   }
 
   .datos-clave {
