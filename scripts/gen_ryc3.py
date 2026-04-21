@@ -2,18 +2,20 @@
 # -*- coding: utf-8 -*-
 """
 Generación páginas RYC 2026 — Tercera revisión
-Español → raíz del repo (index.html, novedades-2026.html, programa-ryc.html, convocatorias.html)
-Inglés  → en/ (index.html, updates-2026.html, programme.html, calls.html)
+Genera en !SALIDA/ (local) y sincroniza a la raíz del repo para git/GitHub Pages.
+  Español -> !SALIDA/  y raiz del repo
+  Ingles  -> !SALIDA/ing/  y raiz/ing/
 Mismos ficheros para GitHub Pages y para entregar a Drupal.
 """
-import base64, os, re, io
+import base64, os, re, io, shutil
 from PIL import Image
 
 BASE     = "C:/Users/lourdes.ramirez/OneDrive - MINISTERIO DE CIENCIA E INNOVACIÓN/General - Unidad de Apoyo/08-PROYECTOS/09-WEB NUEVO RYC 2026"
 SRC      = BASE + "/!ENTRADA/04-tercera-revision"
-OUT_ESP  = BASE
-OUT_ING  = BASE + "/en"
+OUT_ESP  = BASE + "/!SALIDA"
+OUT_ING  = BASE + "/!SALIDA/ing"
 
+os.makedirs(OUT_ESP, exist_ok=True)
 os.makedirs(OUT_ING, exist_ok=True)
 
 # ---- IMÁGENES ----
@@ -589,6 +591,20 @@ pages_en = [
 for fname, content in pages_en:
     with open(OUT_ING + '/' + fname, 'w', encoding='utf-8') as f:
         f.write(content)
-    print(f'  en/{fname}  {len(content)//1024}KB')
+    print(f'  ing/{fname}  {len(content)//1024}KB')
 
-print('\nGeneración completada. Ficheros listos para GitHub Pages y Drupal.')
+print('\nGeneracion completada.')
+
+# ---- SINCRONIZAR !SALIDA/ a raiz del repo (git / GitHub Pages) ----
+print('\nSincronizando a raiz del repo...')
+for f in ['index.html','novedades-2026.html','programa-ryc.html','convocatorias.html']:
+    shutil.copy(OUT_ESP + '/' + f, BASE + '/' + f)
+    print(f'  ok: {f}')
+
+ing_dst = BASE + '/ing'
+if os.path.exists(ing_dst):
+    shutil.rmtree(ing_dst)
+shutil.copytree(OUT_ING, ing_dst)
+print('  ok: ing/')
+
+print('\nListo. Raiz y ing/ actualizados para git y Drupal.')

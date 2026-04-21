@@ -1,51 +1,58 @@
-# Web Convocatoria Ramón y Cajal (RYC) — Memoria del proyecto
+# Web Ramón y Cajal 2026 — Contexto para Claude Code
 
-## Descripción
-Web estática para la convocatoria Ramón y Cajal dentro del sitio de la AEI (Agencia Estatal de Investigación), con foco en las novedades de la convocatoria 2026.
+## Proyecto
+Web informativa sobre las novedades de la convocatoria RYC 2026 de la AEI.
+Destino final: portal AEI en Drupal 9.5. GitHub Pages como previsualización.
 
-## Estructura
+## Estructura de carpetas
 ```
-index.html                  → Landing principal RYC
-pages/novedades-2026.html   → Detalle de cambios convocatoria 2026
-pages/convocatorias.html    → Histórico de convocatorias por año
-pages/programa.html         → Información general del programa
-css/styles.css              → Estilos globales (variables, layout, componentes)
-css/ryc.css                 → Estilos específicos RYC
-js/main.js                  → Interactividad (menú móvil, acordeones, tabs)
-assets/                     → Imágenes
+!ENTRADA/                  ← tus fuentes (local, no en git)
+  04-tercera-revision/     ← pagina*.txt del equipo dev + imágenes fuente
+  datos/
+!SALIDA/                   ← salida local (no en git); el script genera aquí
+  index.html / novedades-2026.html / programa-ryc.html / convocatorias.html
+  ing/                     ← inglés
+  assets/
+  scripts/gen_ryc3.py
+  ~DOCS/
+
+Lo que git rastrea (copiado desde !SALIDA/ por el script):
+  index.html · novedades-2026.html · programa-ryc.html · convocatorias.html
+  ing/ · assets/ · scripts/ · ~DOCS/ · CLAUDE.md
 ```
 
-## Decisiones de diseño
-- **Paleta de colores:** Basada en la web AEI 25 aniversario
-  - Azul institucional AEI: `#264c80`
-  - Rojo/granate RYC (del pin): `#8B1A1A`
-  - Dorado (acentos): `#C8A951`
-  - Fondo claro: `#FAF7F2`
-  - Texto principal: `#333333`
-- **Tipografía:** Sistema (sin dependencias externas), similar a la AEI
-- **Layout:** Bootstrap 5 CDN para grid responsive
-- **Imagen hero:** Pin RYC recortado vía CSS para ocultar la leyenda "25 Aniversario"
-- **Navegación:** Menú con enlace a web 25 años como pestaña destacada
-- **Breadcrumb:** Inicio > Convocatorias > Ramón y Cajal
+## Stack técnico
+- HTML5 estático · CSS3 con variables · JS vanilla · Chart.js CDN (solo programa)
+- CSS embebido en el body (Drupal descarta el head)
+- Imágenes de contenido embebidas en base64
+- Fondos de banner referenciados por URL absoluta desde assets/
 
-## Novedades RYC 2026 (datos extraídos de documentación)
-1. **Financiación de un proyecto de I+D+i** (5 años) incluida en la ayuda — incompatible con PID
-2. **Entrevista en la evaluación** — nuevo proceso con foco en la propuesta científica
-3. **Incentivos para participar en el ERC:**
-   - ERC financiada → +30% cofinanciación salario
-   - ERC máxima calificación sin financiación → Europa Excelencia A + 10% salario
-   - ERC segunda fase → Europa Excelencia B + 10% salario
-4. **Incentivo a estabilización** — ayuda de 75.000€ por plaza permanente creada (obligatorio)
-5. **Desaparece** la convocatoria de Consolidación Investigadora (se integra en RYC)
-6. **Desaparece** la ayuda específica de atracción de talento (ya cubierta por proyecto)
+## Paleta de colores
+- `--aei-azul: #1b4c96` — principal (títulos, nav, botones)
+- `--aei-azul-oscuro: #143a73` — hover
+- `--ryc-dorado: #c8a951` — acentos decorativos
+- `--fondo-claro: #f0f4fa` — fondo general
+- `--fondo-blanco: #ffffff` — tarjetas
 
-## URLs de referencia
-- Web AEI: https://www.aei.gob.es/
-- 25 años RYC: https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal
-- Programa RYC: https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal/programa-ramon-cajal
-- Ficha RYC: https://www.aei.gob.es/noticias/ryc-ramon-cajal
-- Vídeo novedades: https://www.youtube.com/watch?v=Jsm3iyT10r0
+## Páginas (español / inglés)
+| Español | Inglés | Contenido |
+|---------|--------|-----------|
+| index.html | ing/index.html | Home RYC |
+| novedades-2026.html | ing/updates-2026.html | Las 5 novedades |
+| programa-ryc.html | ing/programme.html | Historia y dashboard |
+| convocatorias.html | ing/calls.html | Histórico 2001–2026 |
 
-## Mantenimiento
-- Para añadir una nueva convocatoria: editar el array `convocatorias` en `pages/convocatorias.html`
-- Los estilos usan variables CSS en `:root` para fácil personalización
+## Generación
+```bash
+py scripts/gen_ryc3.py
+```
+Lee `!ENTRADA/04-tercera-revision/pagina 1-4.txt`, genera en `!SALIDA/`
+y sincroniza automáticamente a la raíz del repo y a `ing/`.
+
+## Estado actual — v2.3 (21-04-2026)
+Versión aprobada. Pendiente: publicación ficha oficial convocatoria 2026.
+
+## URLs
+- GitHub Pages ES: https://ramirez-santigosa.github.io/ryc-web/
+- GitHub Pages EN: https://ramirez-santigosa.github.io/ryc-web/ing/
+- Repositorio: https://github.com/ramirez-santigosa/ryc-web

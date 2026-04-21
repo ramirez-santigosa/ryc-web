@@ -24,57 +24,48 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
 ## 2. Estructura de ficheros (estado actual)
 
 ```
-ryc-web/
+09-WEB NUEVO RYC 2026/   (carpeta del proyecto)
 │
-│  ── ENTRADA (local, no en git) ────────────────────────────────────
+│  ── Infraestructura (oculta o en raíz, no se toca) ───────────────
 │
-├── !ENTRADA/                     # Todo lo que tú pones: fuentes, imágenes, datos
-│   ├── 01-inicial/              # Brief inicial, indicaciones, imágenes de referencia
-│   ├── 02-primera-revision/     # Documentos de la 1ª revisión
-│   ├── 03-segunda-revision/     # Documentos de la 2ª revisión
-│   ├── 04-tercera-revision/     # pagina*.txt (fragmentos dev) + imágenes definitivas
-│   └── datos/                   # Datos originales y procesados (xlsx...)
+├── .git/                        # Repositorio git (no tocar)
+├── .claude/                     # Datos Claude Code (no tocar)
+├── .gitignore
+├── CLAUDE.md                    # Cargado automáticamente por Claude Code
 │
-│  ── SOPORTE (en git) ──────────────────────────────────────────────
+│  ── ENTRADA (local, no va a git) ─────────────────────────────────
 │
-├── assets/                      # Imágenes del live site, referenciadas por URL absoluta
-│   ├── fondo-banner-azul-aei.png        # Fondo hero (inicio)
-│   ├── fondo-banner-azul-degradado.png  # Fondo hero (novedades)
-│   ├── novedades-entrevista.jpg         # Novedad 2
-│   ├── novedades-estabilizacion.jpg     # Novedad 4
-│   ├── novedades-integracion.jpg        # Novedad 5
-│   ├── programa-excavacion.jpg          # Impacto programa
-│   ├── banner-cofinanciacion.jpg        # Banner EU/MICIU
-│   ├── edificio-aei-bandera.jpg         # Foto sede AEI
-│   └── icons/                           # Iconos PNG de las 5 novedades
+├── !ENTRADA/                    # Todo lo que tú pones
+│   ├── 01-inicial/
+│   ├── 02-primera-revision/
+│   ├── 03-segunda-revision/
+│   ├── 04-tercera-revision/     # pagina*.txt (dev) + imágenes definitivas
+│   └── datos/                   # Datos originales (xlsx...)
 │
-├── scripts/
-│   └── gen_ryc3.py              # Script Python: genera dist/esp/ y dist/ing/
+│  ── SALIDA (local, no va a git — el script genera aquí) ──────────
 │
-│  ── SALIDA (en git, generado por script — no editar a mano) ───────
-│
-├── index.html                   # Previsualización GitHub Pages — español
-├── novedades-2026.html
-├── programa-ryc.html
-├── convocatorias.html
-│
-├── en/                          # Previsualización GitHub Pages — inglés
-│   ├── index.html
-│   ├── updates-2026.html
-│   ├── programme.html
-│   └── calls.html
-│
-└── dist/                        # Fragmentos para Drupal (sin botón de idioma)
-    ├── esp/
-    │   ├── inicio-ryc.html      (~73 KB)
-    │   ├── novedades-2026.html  (~269 KB — imágenes embebidas en base64)
-    │   ├── programa-ryc.html    (~248 KB)
-    │   └── convocatorias.html   (~68 KB)
-    └── ing/
-        ├── ryc-home.html
-        ├── updates-2026.html
-        ├── programme.html
-        └── calls.html
+└── !SALIDA/                     # Vista completa de la salida (local)
+    ├── index.html               # Español
+    ├── novedades-2026.html
+    ├── programa-ryc.html
+    ├── convocatorias.html
+    ├── ing/                     # Inglés
+    │   ├── index.html
+    │   ├── updates-2026.html
+    │   ├── programme.html
+    │   └── calls.html
+    ├── assets/                  # Fondos de banner (referenciados por URL)
+    ├── scripts/
+    │   └── gen_ryc3.py
+    └── ~DOCS/                   # Documentación del proyecto
+        ├── BRIEFING_PROYECTO.md
+        └── PROCEDIMIENTO.md
+```
+
+**Lo que git rastrea** (copiado automáticamente desde `!SALIDA/` por el script):
+```
+index.html  ·  novedades-2026.html  ·  programa-ryc.html  ·  convocatorias.html
+ing/  ·  assets/  ·  scripts/  ·  ~DOCS/  ·  CLAUDE.md
 ```
 
 > **Nota:** CSS, JS e imágenes de contenido están **embebidos** dentro de cada fichero `dist/`. La carpeta `assets/` contiene únicamente los fondos de banners que se cargan vía URL absoluta desde el CSS embebido (`https://ramirez-santigosa.github.io/ryc-web/assets/...`).
