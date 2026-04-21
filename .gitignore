@@ -2,10 +2,5 @@
 docs/
 datos/
 
-# Versión alternativa FECYT (no usada en versión principal)
-version-fecyt/
-css/ryc-fecyt.css
-assets/ImagenRYC_FECYT-2026.jpg
-
 # Configuración local de herramientas
 .claude/

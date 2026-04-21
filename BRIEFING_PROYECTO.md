@@ -26,48 +26,29 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
 ```
 ryc-web/
 │
-├── index.html                   # Página principal ES (GitHub Pages)
-├── pages/
-│   ├── novedades-2026.html      # Novedades 2026 ES
-│   ├── programa.html            # Programa RYC ES
-│   └── convocatorias.html       # Histórico de convocatorias ES
-│
-├── en/                          # Versión inglés (GitHub Pages)
-│   ├── index.html
-│   └── pages/
-│       ├── novedades-2026.html
-│       ├── programa.html
-│       └── convocatorias.html
-│
-├── dist/                        # Fragmentos para pegar en Drupal
-│   ├── esp/                     # Español
+├── dist/                        # Único destino: fragmentos para pegar en Drupal
+│   ├── esp/                     # Español (también válidos como páginas standalone)
 │   │   ├── inicio-ryc.html      (~73 KB)
 │   │   ├── novedades-2026.html  (~269 KB — imágenes embebidas en base64)
 │   │   ├── programa-ryc.html    (~248 KB)
-│   │   └── convocatorias.html  (~68 KB)
+│   │   └── convocatorias.html   (~68 KB)
 │   └── ing/                     # Inglés
 │       ├── ryc-home.html
 │       ├── updates-2026.html
 │       ├── programme.html
 │       └── calls.html
 │
-├── assets/                      # Imágenes live site
-│   ├── novedades-entrevista.jpg      # Novedad 2 (nueva, 3ª revisión)
-│   ├── novedades-estabilizacion.jpg  # Novedad 4 (nueva, 3ª revisión)
-│   ├── novedades-integracion.jpg     # Novedad 5 (nueva, 3ª revisión)
-│   ├── programa-excavacion.jpg       # Impacto programa (nueva, 3ª revisión)
-│   ├── banner-cofinanciacion.jpg     # Banner EU/MICIU (nueva, 3ª revisión)
-│   ├── edificio-aei-bandera.jpg      # Foto sede AEI (sección "Qué es")
-│   ├── icons/                        # Iconos SVG+PNG de las 5 novedades
+├── assets/                      # Imágenes referenciadas por URL absoluta en el CSS de dist/
+│   ├── fondo-banner-azul-aei.png        # Fondo hero (inicio)
+│   ├── fondo-banner-azul-degradado.png  # Fondo hero (novedades)
+│   ├── novedades-entrevista.jpg         # Novedad 2
+│   ├── novedades-estabilizacion.jpg     # Novedad 4
+│   ├── novedades-integracion.jpg        # Novedad 5
+│   ├── programa-excavacion.jpg          # Impacto programa
+│   ├── banner-cofinanciacion.jpg        # Banner EU/MICIU
+│   ├── edificio-aei-bandera.jpg         # Foto sede AEI
+│   ├── icons/                           # Iconos PNG de las 5 novedades
 │   └── [otros fondos y fotos]
-│
-├── css/
-│   ├── styles.css               # Estilos globales
-│   └── ryc.css                  # Estilos específicos RYC
-│
-├── js/
-│   ├── main.js                  # Interactividad
-│   └── datos-ryc.json           # Datos del dashboard
 │
 ├── scripts/
 │   └── gen_ryc3.py              # Script Python: genera dist/esp/ y dist/ing/
@@ -77,6 +58,8 @@ ryc-web/
 ├── CLAUDE.md                    # Contexto para Claude Code
 └── .gitignore
 ```
+
+> **Nota:** CSS, JS e imágenes de contenido están **embebidos** dentro de cada fichero `dist/`. La carpeta `assets/` contiene únicamente los fondos de banners que se cargan vía URL absoluta desde el CSS embebido (`https://ramirez-santigosa.github.io/ryc-web/assets/...`).
 
 **Fuera del repositorio (carpeta local, en `docs/` y `datos/`):**
 ```
