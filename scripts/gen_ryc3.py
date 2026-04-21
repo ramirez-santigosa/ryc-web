@@ -595,16 +595,34 @@ for fname, content in pages_en:
 
 print('\nGeneracion completada.')
 
-# ---- SINCRONIZAR !SALIDA/ a raiz del repo (git / GitHub Pages) ----
-print('\nSincronizando a raiz del repo...')
-for f in ['index.html','novedades-2026.html','programa-ryc.html','convocatorias.html']:
-    shutil.copy(OUT_ESP + '/' + f, BASE + '/' + f)
-    print(f'  ok: {f}')
+# ---- SINCRONIZAR !SALIDA/ -> raiz del repo (git / GitHub Pages) ----
+# Copia todo el contenido de !SALIDA/ a la raiz para que git lo rastree.
+# !SALIDA/ esta en .gitignore; la raiz contiene las copias que van a git.
+SYNC = [
+    ('index.html',          BASE + '/index.html'),
+    ('novedades-2026.html', BASE + '/novedades-2026.html'),
+    ('programa-ryc.html',   BASE + '/programa-ryc.html'),
+    ('convocatorias.html',  BASE + '/convocatorias.html'),
+    ('CLAUDE.md',           BASE + '/CLAUDE.md'),
+]
+SYNC_DIRS = [
+    ('ing',     BASE + '/ing'),
+    ('assets',  BASE + '/assets'),
+    ('scripts', BASE + '/scripts'),
+    ('~DOCS',   BASE + '/~DOCS'),
+]
 
-ing_dst = BASE + '/ing'
-if os.path.exists(ing_dst):
-    shutil.rmtree(ing_dst)
-shutil.copytree(OUT_ING, ing_dst)
-print('  ok: ing/')
+print('\nSincronizando !SALIDA/ a raiz...')
+for src_rel, dst in SYNC:
+    shutil.copy(OUT_ESP + '/' + src_rel, dst)
+    print(f'  ok: {src_rel}')
 
-print('\nListo. Raiz y ing/ actualizados para git y Drupal.')
+for src_rel, dst in SYNC_DIRS:
+    src = OUT_ESP + '/' + src_rel
+    if os.path.exists(src):
+        if os.path.exists(dst):
+            shutil.rmtree(dst)
+        shutil.copytree(src, dst)
+        print(f'  ok: {src_rel}/')
+
+print('\nListo. Raiz actualizada para git y Drupal.')
