@@ -545,9 +545,10 @@ EN_TRANS = [
     ("c.estado === 'Próxima' || c.estado === 'Abierta'",
      "c.estado === 'Upcoming' || c.estado === 'Open'"),
     ("c.estado === 'Abierta'", "c.estado === 'Open'"),
-    ('`Ver ficha &#8599;`', '`View details &#8599;`'),
+    ('>Ver ficha &#8599;<', '>View details &#8599;<'),
+    ('>Ver ficha ↗<', '>View details ↗<'),
     ("'Ver novedades'", "'View updates'"),
-    ("'Ficha no disponible'", "'Details not available'"),
+    ('>Ficha no disponible<', '>Details not available<'),
     # Common
     ("'Mujeres'", "'Women'"),
     ("'Hombres'", "'Men'"),
@@ -592,5 +593,45 @@ for fname, content in pages_en:
     with open(OUT_ING + '/' + fname, 'w', encoding='utf-8') as f:
         f.write(content)
     print(f'  ing/{fname}  {len(content)//1024}KB')
+
+# ---- VERIFICACIÓN: comprobar que no quedan cadenas en español en los ficheros ingleses ----
+# Frases que NUNCA deben aparecer en la versión inglesa
+SPANISH_PHRASES = [
+    'Ver ficha',
+    'Ver novedades',
+    'Ver histórico',
+    'Ficha no disponible',
+    'Ver convocatorias',
+    'Conocer el programa',
+    'Ir a la AEI',
+    'Ver vídeo',
+    'Más información',
+    'Ver todas las novedades',
+    'Ver novedades 2026',
+    'Web 25 Años RYC',
+    'Próxima publicación',
+    'En tramitación',
+    'Abrir menú',
+    'Ruta de navegación',
+    'Novedades 2026<',       # como título/nav
+    'Inicio RYC<',
+    'Programa RYC<',
+    'Convocatorias<',
+]
+
+print('\nVerificando traducción inglesa...')
+warnings = []
+for fname, content in pages_en:
+    for phrase in SPANISH_PHRASES:
+        if phrase in content:
+            warnings.append(f'  AVISO ing/{fname}: falta traducir "{phrase}"')
+
+if warnings:
+    print('  *** CADENAS SIN TRADUCIR ***')
+    for w in warnings:
+        print(w)
+    print(f'  Total: {len(warnings)} aviso(s)')
+else:
+    print('  OK — todo traducido')
 
 print('\nListo. Ficheros generados en !SALIDA/ — listos para git y Drupal.')
