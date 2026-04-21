@@ -230,10 +230,12 @@ El repositorio se publica en GitHub Pages directamente desde `!SALIDA/` (raíz d
 ```
 1. Colocar fuentes en !ENTRADA/ (imágenes, fragmentos .txt, notas)
 2. Claude Code aplica los cambios y regenera los HTML en !SALIDA/
-3. Claude Code hace commit y push a main
-4. GitHub Pages publica automáticamente en 1-2 minutos
-5. Revisión desde la URL de GitHub Pages
-6. Si hay cambios: nueva instrucción a Claude Code → repetir
+3. El script imprime "OK — todo traducido" o avisos de cadenas sin traducir
+4. Si hay avisos: corregir EN_TRANS en gen_ryc3.py y regenerar hasta que pase limpio
+5. Claude Code hace commit y push a main
+6. GitHub Pages publica automáticamente en 1-2 minutos
+7. Revisión desde la URL de GitHub Pages
+8. Si hay cambios: nueva instrucción a Claude Code → repetir
 ```
 
 ### Commits
@@ -299,5 +301,9 @@ Actualizar `CLAUDE.md` al inicio de cada fase nueva o cuando cambie algo signifi
 - Carpetas `dist/` o `pages/` como intermedias — los ficheros definitivos van directamente a `!SALIDA/`
 
 ### Traducción automática
-- La tabla `EN_TRANS` cubre texto estático bien, pero **no alcanza el texto dentro de templates JavaScript**
-- Revisar manualmente: botones generados por JS, textos de estados, `aria-label`
+- La tabla `EN_TRANS` cubre texto estático bien, pero puede no alcanzar texto dentro de templates JavaScript
+- Al terminar la generación, el script imprime automáticamente el resultado de la verificación:
+  - `OK — todo traducido` → sin problemas
+  - `AVISO ing/fichero.html: falta traducir "..."` → hay cadenas sin traducir
+- Si aparece un aviso: añadir la cadena exacta (tal como aparece en el HTML, con `>` y `<`) a `EN_TRANS` en `scripts/gen_ryc3.py` y regenerar
+- Revisar también manualmente tras cambios grandes: `aria-label`, textos de estado y botones generados por JS

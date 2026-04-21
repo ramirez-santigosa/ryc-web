@@ -155,7 +155,7 @@ Inicio RYC | Novedades 2026 | Programa RYC | Convocatorias | 25 Años RYC ↗
 
 ## 8. Script de generación — `scripts/gen_ryc3.py`
 
-Genera los fragmentos Drupal en `dist/esp/` y `dist/ing/` a partir de las páginas adaptadas por el equipo dev (`docs/04-tercera-revision/pagina*.txt`).
+Genera los HTML a partir de las páginas adaptadas por el equipo dev (`!ENTRADA/04-tercera-revision/pagina*.txt`) y los escribe directamente en `!SALIDA/`.
 
 **Qué hace:**
 1. Lee `pagina 1-4.txt` (fragmentos Drupal del equipo dev)
@@ -163,8 +163,11 @@ Genera los fragmentos Drupal en `dist/esp/` y `dist/ing/` a partir de las págin
 3. Inyecta CSS extra en el último `</style>` del fragmento: footer oculto, banner UE, fix tarjetas convocatorias
 4. Añade el banner de cofinanciación UE antes del comentario `<!-- FOOTER -->`
 5. Envuelve en HTML mínimo (`<head>` solo con charset+viewport+title; CSS queda en el body)
-6. Genera versión inglés aplicando tabla de traducciones `EN_TRANS`
-7. Escribe `dist/esp/*.html` y `dist/ing/*.html`
+6. Genera versión inglés aplicando la tabla de traducciones `EN_TRANS`
+7. Escribe `!SALIDA/*.html` (español) y `!SALIDA/ing/*.html` (inglés)
+8. Verifica que no queden cadenas en español en los ficheros ingleses e imprime el resultado:
+   - `OK — todo traducido` → sin problemas, listo para commit
+   - `AVISO ing/fichero.html: falta traducir "..."` → añadir el patrón a `EN_TRANS` y regenerar
 
 **Para regenerar** (desde `!SALIDA/` o con ruta completa):
 ```bash
@@ -236,7 +239,7 @@ pip install Pillow
 | `banner-cofinanciacion.png` no existía | Archivo nunca creado en assets/ | Generado desde `MICIU+Cofinanciado+AEI.jpg` → `banner-cofinanciacion.jpg` |
 | CSS en `<head>` descartado por Drupal | Drupal elimina el `<head>` al pegar | CSS movido al body en el script de generación |
 | `dist/` + carpetas `pages/` + `en/` redundantes | Tres ubicaciones para el mismo contenido | Unificado en `!SALIDA/` (español) y `!SALIDA/ing/` (inglés) — un solo juego de ficheros |
-| Traducción automática incompleta en JS | `EN_TRANS` hace replace de texto estático, no toca templates JS | Corrección manual en los ficheros generados |
+| Traducción automática incompleta | Patrones en `EN_TRANS` no coincidían con el HTML real (backticks vs `><`) | Verificación automática al generar + corrección de patrones |
 | `wrap_fragment()` movía `<style>` al `<head>` | Diseño inicial del script | Eliminado; los `<style>` permanecen en el body |
 | Regex greedy en imagen novedad 5 | `[^>]*` eliminó atributos `alt` y `loading` | Reemplazado por `str.replace()` sobre el src |
 | `inject_css()` con ancla de texto frágil | El patrón `DRUPAL_HIDE` no existía en pagina3.txt | Reemplazado por `rfind('</style>')` — más robusto |
