@@ -1,5 +1,5 @@
-# Documentación de trabajo local (no forma parte del repo público)
-docs/
+# Carpetas de trabajo local (no forman parte del repo público)
+entrada/
 datos/
 
 # Configuración local de herramientas

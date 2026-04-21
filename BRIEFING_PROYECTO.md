@@ -28,7 +28,7 @@ ryc-web/
 │
 │  ── ENTRADA (local, no en git) ────────────────────────────────────
 │
-├── docs/                        # Archivos de trabajo: fuentes, imágenes, fragmentos dev
+├── entrada/                     # Archivos de trabajo: fuentes, imágenes, fragmentos dev
 │   ├── 01-inicial/              # Brief inicial, indicaciones, imágenes de referencia
 │   ├── 02-primera-revision/     # Documentos de la 1ª revisión
 │   ├── 03-segunda-revision/     # Documentos de la 2ª revisión
@@ -86,7 +86,7 @@ ryc-web/
 | **Live site** | `index.html` + `pages/` + `en/` | GitHub Pages: previsualización, referencias externas CSS/assets |
 | **Drupal fragments** | `dist/esp/` + `dist/ing/` | Pegar en Drupal: CSS en el body, imágenes embebidas en base64, head mínimo |
 
-Los fragmentos Drupal se generan con `scripts/gen_ryc3.py` a partir de los ficheros fuente en `docs/04-tercera-revision/pagina*.txt` (versiones adaptadas por el equipo de desarrollo).
+Los fragmentos Drupal se generan con `scripts/gen_ryc3.py` a partir de los ficheros fuente en `entrada/04-tercera-revision/pagina*.txt` (versiones adaptadas por el equipo de desarrollo).
 
 ---
 
@@ -181,7 +181,7 @@ python scripts/gen_ryc3.py
 pip install Pillow
 ```
 
-**Imágenes fuente** (en `docs/04-tercera-revision/`):
+**Imágenes fuente** (en `entrada/04-tercera-revision/`):
 - `Novedades - 2 Entrevista.png`
 - `Novedades - 4 Estabilización.png`
 - `Novedades - 5 Integración convocatorias.png`

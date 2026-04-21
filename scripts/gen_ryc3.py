@@ -8,7 +8,7 @@ import base64, os, re, io
 from PIL import Image
 
 BASE = "C:/Users/lourdes.ramirez/OneDrive - MINISTERIO DE CIENCIA E INNOVACIÓN/General - Unidad de Apoyo/08-PROYECTOS/09-WEB NUEVO RYC 2026"
-SRC  = BASE + "/03-Tercera revisión"
+SRC  = BASE + "/entrada/04-tercera-revision"
 DIST_ESP = BASE + "/dist/esp"
 DIST_ING = BASE + "/dist/ing"
 
