@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 Call Updates — Ramón y Cajal Programme — AEI</title>
+  <meta name="description" content="Substantial changes to the 2026 Ramón y Cajal call: own project funding, interview, ERC incentives and mandatory stabilisation.">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/ryc.css">
+  <style>
+    /* Estilos específicos novedades 2026 */
+    .novedades-2026 .novedad-detalle {
+      border-left-color: var(--aei-azul);
+    }
+    .novedades-2026 .novedad-detalle h3 {
+      color: var(--aei-azul);
+      text-transform: uppercase;
+    }
+    .novedades-2026 .seccion-titulo {
+      color: var(--aei-azul);
+      border-bottom-color: var(--aei-azul);
+    }
+    .novedades-2026 .novedad-numero {
+      background: var(--aei-azul);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      line-height: 44px;
+      font-size: 1.3rem;
+    }
+    .novedades-2026 .reto-card h4 {
+      font-size: 1.2rem;
+    }
+    .novedades-2026 .reto-card p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    /* Banda azul sobre imagen en cada novedad */
+    .novedad-banda {
+      position: relative;
+      margin-bottom: 1rem;
+      border-radius: var(--radio-borde);
+      overflow: hidden;
+    }
+    .novedad-banda img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .novedad-banda .banda-titulo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(27, 76, 150, 0.92);
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .novedad-banda .banda-titulo .novedad-numero {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      line-height: 44px;
+      font-size: 1.3rem;
+    }
+    .novedad-banda .banda-titulo h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    /* Criterios de evaluación tabulados (mismo estilo aplicado a las viñetas de todas las novedades) */
+    .criterios-evaluacion,
+    .novedades-2026 .novedad-detalle > ul {
+      list-style: none;
+      padding-left: 1.5rem;
+      border-left: 3px solid var(--ryc-dorado);
+      margin: 0.75rem 0 0.5rem 1rem;
+    }
+    .criterios-evaluacion li,
+    .novedades-2026 .novedad-detalle > ul > li {
+      padding: 0.25rem 0;
+      position: relative;
+      padding-left: 1rem;
+    }
+    .criterios-evaluacion li::before,
+    .novedades-2026 .novedad-detalle > ul > li::before {
+      content: "—";
+      position: absolute;
+      left: -0.25rem;
+      color: var(--aei-azul);
+      font-weight: 700;
+    }
+    /* Tarjetas del carrusel "Para qué cambia" con borde dorado */
+    .carrusel-para-que .tarjeta {
+      border-left-color: var(--ryc-dorado);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER INSTITUCIONAL ===== -->
+  <header class="header-institucional">
+    <div class="container">
+      <div class="logos-institucionales">
+        <a href="https://www.ciencia.gob.es/" target="_blank" title="Ministerio de Ciencia, Innovación y Universidades">
+          <img src="https://www.aei.gob.es/themes/custom/vartheme_aei/images/logo_ministerio_ciencia.svg" alt="Ministerio de Ciencia, Innovación y Universidades" onerror="this.alt='MICINN'; this.style.height='auto'">
+        </a>
+        <a href="https://www.aei.gob.es/" target="_blank" title="Agencia Estatal de Investigación">
+          <img src="https://www.aei.gob.es/themes/custom/vartheme_aei/logo_aei.svg" alt="Agencia Estatal de Investigación" onerror="this.alt='AEI'; this.style.height='auto'">
+        </a>
+      </div>
+      <div class="site-name">
+        <span class="first-letter">Agencia</span>
+        <span class="first-letter">Estatal</span>
+        de
+        <span class="first-letter">Investigación</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== NAVEGACIÓN ===== -->
+  <nav class="nav-principal" aria-label="Main navigation">
+    <div class="container">
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+      <ul id="nav-menu">
+        <li><a href="../index.html">RYC Home</a></li>
+        <li><a href="novedades-2026.html" class="active">2026 Updates</a></li>
+        <li><a href="programa.html">RYC Programme</a></li>
+        <li><a href="convocatorias.html">Calls</a></li>
+        <li><a href="https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal" target="_blank" class="nav-destacado">25 Años RYC</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="breadcrumb" aria-label="Breadcrumb">
+    <a href="https://www.aei.gob.es/">Home</a>
+    <span>&rsaquo;</span>
+    <a href="https://www.aei.gob.es/convocatorias">Calls</a>
+    <span>&rsaquo;</span>
+    <a href="../index.html">Ramón y Cajal</a>
+    <span>&rsaquo;</span>
+    <strong>2026 Updates</strong>
+  </div>
+
+  <!-- ===== HERO NOVEDADES ===== -->
+  <section class="hero-novedades">
+    <h1>The <span>Ramón y Cajal</span> call transforms in 2026</h1>
+    <p>Substantial changes to strengthen research careers and boost excellence in universities and research centres.</p>
+  </section>
+
+  <main class="novedades-2026">
+
+    <!-- ===== CONTEXTO ===== -->
+    <section class="seccion">
+      <h2 class="seccion-titulo">Why is the call changing?</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="tarjeta" style="border-left-color: var(--ryc-dorado);">
+          <h3>Strengthening the postdoctoral research career</h3>
+          <p>Ramón y Cajal fellows will have the necessary resources to lead their own research project, consolidating a career path towards stabilisation in the Spanish science system, positioning them on a high-potential track and promoting their projection as scientific leadership benchmarks.</p>
+        </div>
+        <div class="tarjeta" style="border-left-color: var(--ryc-dorado);">
+          <h3>Improving the international standing of Spanish universities and research centres</h3>
+          <p>Host institutions will receive support linked to the stabilisation of fellows, reinforcing their strategic standing in the areas where they offer positions and consolidating pathways towards scientific excellence.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NOVEDADES EN DETALLE ===== -->
+    <section class="seccion">
+      <h2 class="seccion-titulo">The 5 major updates</h2>
+
+      <!-- Novedad 1: Galaxia -->
+      <div class="novedad-detalle">
+        <div class="novedad-banda">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/NGC_4414_%28NASA-med%29.jpg/1280px-NGC_4414_%28NASA-med%29.jpg" alt="Spiral galaxy NGC 4414 — NASA/Hubble" loading="lazy">
+          <div class="banda-titulo">
+            <span class="novedad-numero">1</span>
+            <h3>Funding for an own R&amp;D&amp;I project</h3>
+          </div>
+        </div>
+        <p>Each Ramón y Cajal fellowship will include, in addition to salary co-funding, funding for a 5-year research project, which will be subject to evaluation.</p>
+        <ul>
+          <li><strong>Sufficient allocation</strong> to hire at least one predoctoral researcher for 4 years</li>
+          <li><strong>Not compatible</strong> with the PID call until the fourth year of execution, since the Ramón y Cajal fellowship includes project funding</li>
+          <li>Eligible costs similar to PID: personnel, mobility, equipment, consumables, publications, conferences and indirect costs (25%)</li>
+          <li>Allows starting a research line and creating an own group from day one</li>
+        </ul>
+      </div>
+
+      <!-- Novedad 2: Entrevista -->
+      <div class="novedad-detalle">
+        <div class="novedad-banda">
+          <img src="../../assets/novedades-entrevista.jpg" alt="Professional interview with several people" loading="lazy" style="object-position: center 55%;">
+          <div class="banda-titulo">
+            <span class="novedad-numero">2</span>
+            <h3>Interview in the evaluation process</h3>
+          </div>
+        </div>
+        <p>An interview with the evaluation panels is incorporated as an essential part of the assessment, aligning the process with best European practices (such as the ERC).</p>
+        <p><strong>Evaluation criteria:</strong></p>
+        <ul class="criterios-evaluacion">
+          <li>Scientific and technical contributions of the candidate</li>
+          <li>Quality and novelty of the research project proposal</li>
+          <li>Expected scientific, economic and social impact of the results</li>
+          <li>Degree of independence and leadership</li>
+          <li>Feasibility of the research project proposal</li>
+        </ul>
+      </div>
+
+      <!-- Novedad 3: ERC / Europa -->
+      <div class="novedad-detalle">
+        <div class="novedad-banda">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1280px-Flag_of_Europe.svg.png" alt="Flag of the European Union" loading="lazy">
+          <div class="banda-titulo">
+            <span class="novedad-numero">3</span>
+            <h3>Incentivos para participar en convocatorias del ERC</h3>
+          </div>
+        </div>
+        <p>For researchers who during the first three years of the RYC fellowship submit an application to ERC calls (Starting, Consolidator or Advanced Grants):</p>
+        <ul>
+          <li><strong>ERC funded:</strong> 30% increase in salary co-funding</li>
+          <li><strong>ERC with top rating without funding:</strong> eligibility for Europa Excelencia mode A + 10% salary increase</li>
+          <li><strong>ERC second phase without top rating:</strong> eligibility for Europa Excelencia mode B + 10% salary increase</li>
+          <li>In successive applications, increases can reach 20% and 30%</li>
+        </ul>
+        <p>Provided the mid-term report evaluation is favourable:</p>
+        <ul>
+          <li>The incentive support is maintained</li>
+          <li>Project funding is maintained up to a maximum of five years from the start of the RYC fellowship</li>
+          <li>The amount within the PI's employment concept not executed due to the creation of the permanent post may be transferred to the project execution funding</li>
+        </ul>
+      </div>
+
+      <!-- Novedad 4: Puesto de trabajo -->
+      <div class="novedad-detalle">
+        <div class="novedad-banda">
+          <img src="../../assets/novedades-estabilizacion.jpg" alt="Mandatory stabilisation — Ramón y Cajal Programme" loading="lazy">
+          <div class="banda-titulo">
+            <span class="novedad-numero">4</span>
+            <h3>Mandatory stabilisation with financial incentive</h3>
+          </div>
+        </div>
+        <p>The creation of a permanent post in the fellow's area will be a mandatory requirement for the execution of the fellowship.</p>
+        <ul>
+          <li><strong>Support for the host institution</strong> for the creation of a permanent post</li>
+          <li>If the post is created before the fellowship ends, salary co-funding amounts may be transferred to the project</li>
+          <li>Support for post creation is maintained until the post is effectively created</li>
+        </ul>
+      </div>
+
+      <!-- Novedad 5: Integración -->
+      <div class="novedad-detalle">
+        <div class="novedad-banda">
+          <img src="../../assets/novedades-integracion.jpg" alt="Integration with Research Consolidation — Ramón y Cajal" loading="lazy">
+          <div class="banda-titulo">
+            <span class="novedad-numero">5</span>
+            <h3>Integración y simplificación de convocatorias</h3>
+          </div>
+        </div>
+        <p>The modifications enable a simplification of the AEI fellowship landscape:</p>
+        <ul>
+          <li><strong>The Research Consolidation call is abolished</strong>, its objectives being covered by the new RYC</li>
+          <li><strong>The specific talent attraction grant disappears</strong> (already included in project funding)</li>
+          <li>The funding of Europa Excelencia grants is increased</li>
+          <li>The R3 Researcher Certificate as an established researcher will be awarded to those who obtain the fellowship</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== VÍDEO ===== -->
+    <section class="seccion">
+      <h2 class="seccion-titulo">Video presentation</h2>
+      <p>Official presentation of the Ramón y Cajal Programme updates for the 2026 call:</p>
+      <div class="video-container">
+        <iframe
+          src="https://www.youtube.com/embed/Jsm3iyT10r0"
+          title="Presentación novedades programa Ramón y Cajal 2026"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- ===== QUÉ IMPLICA PARA LAS PERSONAS CANDIDATAS ===== -->
+    <section class="seccion">
+      <h2 class="seccion-titulo">What does it mean for applicants?</h2>
+      <div class="retos-grid">
+        <div class="reto-card">
+          <h4>Sound scientific proposal</h4>
+          <p>The evaluation criteria incorporate the assessment of the scientific proposal, requiring a novel, ambitious, feasible and impactful research project.</p>
+        </div>
+        <div class="reto-card">
+          <h4>Leadership and independence</h4>
+          <p>The RYC fellow becomes PI from the outset.</p>
+        </div>
+        <div class="reto-card">
+          <h4>European vision</h4>
+          <p>ERC incentives reward international ambition. Preparing an ERC application during the first three years is a strategic opportunity.</p>
+        </div>
+        <div class="reto-card">
+          <h4>Guaranteed stability</h4>
+          <p>The mandatory creation of a permanent post reinforces the institutional commitment to the researcher's career.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== BANNER COFINANCIACIÓN ===== -->
+  <div class="banner-cofinanciacion">
+    <div class="container">
+      <img src="../../assets/banner-cofinanciacion.jpg" alt="Ministry of Science and Innovation — Co-funded by the European Union — AEI" class="cofinanciacion-logos">
+      <p class="cofinanciacion-texto">The Ramón y Cajal Programme is co-funded by the European Union</p>
+    </div>
+  </div>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

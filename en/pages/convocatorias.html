@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Histórico de Convocatorias — Programa Ramón y Cajal — AEI</title>
   <meta name="description" content="Listado histórico de las convocatorias del programa Ramón y Cajal de la Agencia Estatal de Investigación.">
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/ryc.css">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/ryc.css">
 </head>
 <body>
 
@@ -31,24 +31,24 @@
   </header>
 
   <!-- ===== NAVEGACIÓN ===== -->
-  <nav class="nav-principal" aria-label="Navegación principal">
+  <nav class="nav-principal" aria-label="Main navigation">
     <div class="container">
-      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
       <ul id="nav-menu">
-        <li><a href="../index.html">Inicio RYC</a></li>
-        <li><a href="novedades-2026.html">Novedades 2026</a></li>
-        <li><a href="programa.html">Programa RYC</a></li>
-        <li><a href="convocatorias.html" class="active">Convocatorias</a></li>
+        <li><a href="../index.html">RYC Home</a></li>
+        <li><a href="novedades-2026.html">2026 Updates</a></li>
+        <li><a href="programa.html">RYC Programme</a></li>
+        <li><a href="convocatorias.html" class="active">Calls</a></li>
         <li><a href="https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal" target="_blank" class="nav-destacado">25 Años RYC</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- ===== BREADCRUMB ===== -->
-  <div class="breadcrumb" aria-label="Ruta de navegación">
-    <a href="https://www.aei.gob.es/">Inicio</a>
+  <div class="breadcrumb" aria-label="Breadcrumb">
+    <a href="https://www.aei.gob.es/">Home</a>
     <span>&rsaquo;</span>
-    <a href="https://www.aei.gob.es/convocatorias">Convocatorias</a>
+    <a href="https://www.aei.gob.es/convocatorias">Calls</a>
     <span>&rsaquo;</span>
     <a href="../index.html">Ramón y Cajal</a>
     <span>&rsaquo;</span>
@@ -58,8 +58,8 @@
   <main>
 
     <section class="seccion">
-      <h1 class="seccion-titulo">Histórico de Convocatorias Ramón y Cajal</h1>
-      <p>Listado de convocatorias del programa Ramón y Cajal publicadas por la Agencia Estatal de Investigación, ordenadas de la más reciente a la más antigua.</p>
+      <h1 class="seccion-titulo">Ramón y Cajal Calls History</h1>
+      <p>List of Ramón y Cajal Programme calls published by the State Research Agency, ordered from most recent to oldest.</p>
 
       <!-- ===== CONVOCATORIAS — Generadas desde JS para facilitar el mantenimiento ===== -->
       <div id="lista-convocatorias"></div>
@@ -70,8 +70,8 @@
   <!-- ===== BANNER COFINANCIACIÓN ===== -->
   <div class="banner-cofinanciacion">
     <div class="container">
-      <img src="../assets/banner-cofinanciacion.jpg" alt="Ministerio de Ciencia e Innovación — Cofinanciado por la Unión Europea — AEI" class="cofinanciacion-logos">
-      <p class="cofinanciacion-texto">El Programa Ramón y Cajal está cofinanciado por la Unión Europea</p>
+      <img src="../../assets/banner-cofinanciacion.jpg" alt="Ministry of Science and Innovation — Co-funded by the European Union — AEI" class="cofinanciacion-logos">
+      <p class="cofinanciacion-texto">The Ramón y Cajal Programme is co-funded by the European Union</p>
     </div>
   </div>
 
@@ -83,7 +83,7 @@
      del array 'convocatorias' con los siguientes campos:
        - anio:    Año de la convocatoria (número)
        - titulo:  Título oficial
-       - estado:  "Próxima" | "Abierta" | "En evaluación" | "Resuelta"
+       - estado:  "Upcoming" | "Abierta" | "En evaluación" | "Resolved"
        - enlace:  URL de la ficha en la web de la AEI (o null si no existe aún)
        - notas:   Texto breve opcional con información adicional
      ========================================================================= */
@@ -91,64 +91,64 @@
   const convocatorias = [
     {
       anio: 2026,
-      titulo: "Ayudas para contratos Ramón y Cajal (RYC-2026)",
-      estado: "Próxima",
+      titulo: "Ramón y Cajal fellowship grants (RYC-2026)",
+      estado: "Upcoming",
       enlace: null,
-      notas: "Nuevas condiciones: proyecto propio, entrevista, incentivos ERC"
+      notas: "New conditions: own project, interview, ERC incentives"
     },
     {
       anio: 2025,
-      titulo: "Ayudas para contratos Ramón y Cajal (RYC-2025)",
-      estado: "En tramitación",
+      titulo: "Ramón y Cajal fellowship grants (RYC-2025)",
+      estado: "In progress",
       enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2025",
       notas: null
     },
     {
       anio: 2024,
-      titulo: "Ayudas para contratos Ramón y Cajal (RYC-2024)",
-      estado: "Resuelta",
+      titulo: "Ramón y Cajal fellowship grants (RYC-2024)",
+      estado: "Resolved",
       enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2024",
       notas: null
     },
     {
       anio: 2023,
-      titulo: "Ayudas para contratos Ramón y Cajal (RYC-2023)",
-      estado: "Resuelta",
+      titulo: "Ramón y Cajal fellowship grants (RYC-2023)",
+      estado: "Resolved",
       enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2023",
-      notas: "Incorpora la obligatoriedad de estabilización"
+      notas: "Incorporates mandatory stabilisation"
     },
     {
       anio: 2022,
-      titulo: "Ayudas para contratos Ramón y Cajal (RYC-2022)",
-      estado: "Resuelta",
+      titulo: "Ramón y Cajal fellowship grants (RYC-2022)",
+      estado: "Resolved",
       enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2022",
-      notas: "Se introduce la ayuda para la atracción de talento y la división en dos fases"
+      notas: "Talent attraction grant and two-phase structure introduced"
     },
     {
       anio: 2021,
-      titulo: "Ayudas para contratos Ramón y Cajal (RYC-2021)",
-      estado: "Resuelta",
+      titulo: "Ramón y Cajal fellowship grants (RYC-2021)",
+      estado: "Resolved",
       enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2021",
-      notas: "Turno para jóvenes personas investigadoras (desaparece en 2022)"
+      notas: "Early-career researcher track (discontinued in 2022)"
     },
     {
       anio: 2020,
-      titulo: "Ayudas para contratos Ramón y Cajal (RYC-2020)",
-      estado: "Resuelta",
+      titulo: "Ramón y Cajal fellowship grants (RYC-2020)",
+      estado: "Resolved",
       enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2020",
       notas: null
     },
     {
       anio: 2019,
-      titulo: "Ayudas para contratos Ramón y Cajal (RYC-2019)",
-      estado: "Resuelta",
+      titulo: "Ramón y Cajal fellowship grants (RYC-2019)",
+      estado: "Resolved",
       enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2019",
       notas: null
     },
     {
       anio: 2018,
-      titulo: "Ayudas para contratos Ramón y Cajal (RYC-2018)",
-      estado: "Resuelta",
+      titulo: "Ramón y Cajal fellowship grants (RYC-2018)",
+      estado: "Resolved",
       enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2018",
       notas: null
     }
@@ -157,8 +157,8 @@
   // Renderizar convocatorias
   const contenedor = document.getElementById('lista-convocatorias');
   convocatorias.forEach(c => {
-    const esVigente = c.estado === 'Próxima' || c.estado === 'Abierta';
-    const esAbierta = c.estado === 'Abierta';
+    const esVigente = c.estado === 'Upcoming' || c.estado === 'Open';
+    const esAbierta = c.estado === 'Open';
     const card = document.createElement('div');
     card.className = 'convocatoria-card' + (esVigente ? ' vigente' : '');
     card.innerHTML = `
@@ -168,13 +168,13 @@
       </div>
       ${c.enlace
         ? `<a href="${c.enlace}" target="_blank" class="btn-aei">Ver ficha &#8599;</a>`
-        : (esVigente ? '<a href="novedades-2026.html" class="btn-ryc">Ver novedades</a>' : '<span style="color: var(--texto-secundario); font-size: 0.85rem;">Ficha no disponible</span>')
+        : (esVigente ? '<a href="novedades-2026.html" class="btn-ryc">View updates</a>' : '<span style="color: var(--texto-secundario); font-size: 0.85rem;">Ficha no disponible</span>')
       }
     `;
     contenedor.appendChild(card);
   });
   </script>
 
-  <script src="../js/main.js"></script>
+  <script src="../../js/main.js"></script>
 </body>
 </html>
