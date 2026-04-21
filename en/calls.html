@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home — Ramón y Cajal Programme</title>
+<title>Calls — Ramón y Cajal Programme</title>
 </head>
 <body>
-<meta name="description" content="Convocatoria de ayudas del Programa Ramón y Cajal (RYC) de la Agencia Estatal de Investigación. Incorporación de personal investigador posdoctoral destacado al sistema español de I+D+i.">
 <style type="text/css">/* ==========================================================================
    ESTILOS GLOBALES — Web Convocatoria Ramón y Cajal (AEI)
    Basado en el diseño de https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal
@@ -995,11 +994,6 @@ main {
     max-height: 160px;
   }
 }
-
-.path-node-5908 h1 {
-  display: none;
-}
-
 div#block-vartheme-aei-page-title {
     display: none;
 }
@@ -1029,15 +1023,35 @@ footer, .footer, #footer, [id*="footer"], [class*="footer"] {
   .banner-cofinanciacion .container { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 
+/* === FIX Drupal: tarjetas convocatorias === */
+.convocatoria-card {
+  background-color: #ffffff !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+}
+.convocatoria-card.vigente {
+  background: linear-gradient(90deg, rgba(27,76,150,0.03), #ffffff) !important;
+}
+.convocatoria-info { flex: 1 1 auto !important; min-width: 0 !important; }
+.convocatoria-card .btn-aei,
+.convocatoria-card .btn-ryc,
+.convocatoria-card a[class^="btn"] {
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+
 </style>
 <!-- ===== HEADER INSTITUCIONAL ===== --><!-- ===== NAVEGACIÓN ===== -->
 <nav aria-label="Main navigation" class="nav-principal">
 <div class="container"><button aria-expanded="false" aria-label="Open menu" class="nav-toggle">☰</button>
 <ul id="nav-menu">
-	<li><a class="active" href="ryc-home.html">RYC Home</a></li>
+	<li><a href="index.html">RYC Home</a></li>
 	<li><a href="updates-2026.html">2026 Updates</a></li>
 	<li><a href="programme.html">RYC Programme</a></li>
-	<li><a href="calls.html">Calls</a></li>
+	<li><a class="active" href="calls.html">Calls</a></li>
 	<li><a class="nav-destacado" href="https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal" rel=" noopener" target="_blank">25 Years RYC</a></li>
 </ul>
 </div>
@@ -1045,187 +1059,15 @@ footer, .footer, #footer, [id*="footer"], [class*="footer"] {
 <!-- ===== BREADCRUMB ===== -->
 
 <div aria-label="Breadcrumb" class="breadcrumb">&nbsp;</div>
-<!-- ===== HERO / BANNER ===== -->
 
-<section class="hero">
-<div class="container">
-<div class="hero-texto">
-<h1><span>Ramón y Cajal</span> Programme</h1>
-
-<p>We incorporate the best postdoctoral researchers into the Spanish science, technology and innovation system. Since 2001, driving scientific excellence.</p>
-
-<div class="hero-botones"><a class="btn-ryc" href="updates-2026.html" rel=" noopener" target="_blank">2026 Updates</a> <a class="btn-ryc-outline" href="calls.html" rel=" noopener" target="_blank">View calls</a></div>
-</div>
-</div>
-</section>
-
-<main><!-- ===== DESCRIPCIÓN DEL PROGRAMA (ahora en primera posición) ===== -->
+<main>
 <section class="seccion">&nbsp;
-<h2 class="seccion-titulo">What is the Ramón y Cajal Programme?</h2>
+<h1 class="seccion-titulo">Ramón y Cajal Calls History</h1>
 
-<div class="seccion-con-imagen">
-<div>
-<p>The Ramón y Cajal Programme promotes the incorporation of postdoctoral researchers of all nationalities and knowledge areas, with outstanding careers, into research organisations of the Spanish Science, Technology and Innovation System.</p>
+<p>List of Ramón y Cajal Programme calls published by the State Research Agency, ordered from most recent to oldest.</p>
+<!-- ===== CONVOCATORIAS — Generadas desde JS para facilitar el mantenimiento ===== -->
 
-<p>Since its first call in 2001, the programme has been the main instrument to attract and retain research talent in Spain, with the aim that fellows acquire the skills and capabilities to obtain a permanent position.</p>
-
-<p>The programme has been strengthened since 2018 by increasing the number of contracts and the minimum salary of fellows.</p>
-
-<div class="datos-clave" style="grid-template-columns: repeat(2, 1fr);">
-<div class="dato-item">
-<div class="dato-numero">25</div>
-
-<div class="dato-label">Years of calls</div>
-</div>
-
-<div class="dato-item">
-<div class="dato-numero">5</div>
-
-<div class="dato-label">Years of fellowship duration</div>
-</div>
-</div>
-<a class="btn-aei" href="programme.html" rel=" noopener" target="_blank">Learn about the programme</a></div>
-<img alt="Headquarters of the State Research Agency" class="seccion-imagen" src="https://ramirez-santigosa.github.io/ryc-web/assets/edificio-aei-bandera.jpg" /></div>
-</section>
-<!-- ===== NOVEDADES DESTACADAS 2026 ===== -->
-
-<section class="seccion">
-<h2 class="seccion-titulo">2026 Call Updates</h2>
-
-<div class="novedades-destacadas">
-<div class="novedad-item">
-<div class="novedad-icono">1</div>
-
-<div class="novedad-texto">
-<h3>Funding for an own R&amp;D&amp;I project</h3>
-
-<p>Each fellowship will include funding for a 5-year research project, with sufficient allocation to hire at least one predoctoral researcher for 4 years.</p>
-</div>
-<img alt="" aria-hidden="true" class="novedad-icono-svg" height="72" src="https://ramirez-santigosa.github.io/ryc-web/assets/icons/novedad-1.png" width="72" /></div>
-
-<div class="novedad-item">
-<div class="novedad-icono">2</div>
-
-<div class="novedad-texto">
-<h3>Interview in the evaluation process</h3>
-
-<p>An interview is incorporated into the evaluation process, focusing on the degree of independence, leadership capacity and project viability.</p>
-</div>
-<img alt="" aria-hidden="true" class="novedad-icono-svg" height="72" src="https://ramirez-santigosa.github.io/ryc-web/assets/icons/novedad-2.png" width="72" /></div>
-
-<div class="novedad-item">
-<div class="novedad-icono">3</div>
-
-<div class="novedad-texto">
-<h3>Incentives to participate in ERC calls</h3>
-
-<p>Up to a 30% increase in salary co-funding and access to Europa Excelencia for those applying to European Research Council calls.</p>
-</div>
-<img alt="" aria-hidden="true" class="novedad-icono-svg" height="72" src="https://ramirez-santigosa.github.io/ryc-web/assets/icons/novedad-3.png" width="72" /></div>
-
-<div class="novedad-item">
-<div class="novedad-icono">4</div>
-
-<div class="novedad-texto">
-<h3>Mandatory stabilisation with incentive</h3>
-
-<p>The creation of a permanent position in the fellow's area will be mandatory, supported by an incentive for the host institution.</p>
-</div>
-<img alt="" aria-hidden="true" class="novedad-icono-svg" height="72" src="https://ramirez-santigosa.github.io/ryc-web/assets/icons/novedad-4.png" width="72" /></div>
-
-<div class="novedad-item">
-<div class="novedad-icono">5</div>
-
-<div class="novedad-texto">
-<h3>Integration with Research Consolidation</h3>
-
-<p>The Research Consolidation call is abolished: its objectives are covered by the new structure of RYC fellowships.</p>
-</div>
-<img alt="" aria-hidden="true" class="novedad-icono-svg" height="72" src="https://ramirez-santigosa.github.io/ryc-web/assets/icons/novedad-5.png" width="72" /></div>
-</div>
-
-<div class="mt-3 text-center"><a class="btn-aei" href="updates-2026.html" rel=" noopener" target="_blank">See all updates in detail</a></div>
-</section>
-<!-- ===== CONVOCATORIAS RECIENTES ===== -->
-
-<section class="seccion">
-<h2 class="seccion-titulo">Recent calls</h2>
-
-<div class="convocatoria-card vigente">
-<div class="convocatoria-info">
-<h3><span class="anio">2026</span> Ramón y Cajal 2026 Call</h3>
-
-<div class="estado abierta">Upcoming publication — New conditions</div>
-</div>
-<a class="btn-ryc" href="updates-2026.html" rel=" noopener" target="_blank">View updates</a></div>
-
-<div class="convocatoria-card">
-<div class="convocatoria-info">
-<h3><span class="anio">2025</span> Ramón y Cajal 2025 Call</h3>
-
-<div class="estado">In progress</div>
-</div>
-<a class="btn-aei" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2025" target="_blank">See details ↗</a></div>
-
-<div class="convocatoria-card">
-<div class="convocatoria-info">
-<h3><span class="anio">2024</span> Ramón y Cajal 2024 Call</h3>
-
-<div class="estado">Resolved</div>
-</div>
-<a class="btn-aei" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2024" target="_blank">See details ↗</a></div>
-
-<div class="convocatoria-card">
-<div class="convocatoria-info">
-<h3><span class="anio">2023</span> Ramón y Cajal 2023 Call</h3>
-
-<div class="estado">Resolved</div>
-</div>
-<a class="btn-aei" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2023" target="_blank">See details ↗</a></div>
-
-<div class="mt-2 text-center"><a class="btn-ryc-outline" href="calls.html" rel=" noopener" target="_blank">View full history</a></div>
-</section>
-<!-- ===== ENLACES DE INTERÉS (CARRUSEL) ===== -->
-
-<section class="seccion">
-<h2 class="seccion-titulo">Useful links</h2>
-
-<div class="carrusel-wrapper" id="carrusel-enlaces"><button aria-label="Anterior" class="carrusel-btn carrusel-btn-prev" disabled="disabled">❮</button>
-
-<div style="overflow: hidden; padding: 0 2rem;">
-<div class="carrusel-track" id="carrusel-enlaces-track">
-<div class="tarjeta">
-<h3>25 Years of Ramón y Cajal</h3>
-
-<p>Commemorative website with the history, testimonials and milestones of the programme over a quarter century of scientific excellence.</p>
-<a class="btn-ryc-outline mt-2" href="https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal" target="_blank">Visit</a></div>
-
-<div class="tarjeta">
-<h3>Video: RYC 2026 Updates</h3>
-
-<p>Video presentation of the substantial changes in the 2026 Ramón y Cajal Programme call.</p>
-<a class="btn-ryc-outline mt-2" href="https://www.youtube.com/watch?v=Jsm3iyT10r0" target="_blank">Watch video</a></div>
-
-<div class="tarjeta">
-<h3>AEI Website</h3>
-
-<p>Main portal of the State Research Agency with all information on calls, grants and programmes.</p>
-<a class="btn-ryc-outline mt-2" href="https://www.aei.gob.es/" target="_blank">Go to the AEI</a></div>
-
-<div class="tarjeta">
-<h3>AEI Calls</h3>
-
-<p>Search engine for all State Research Agency calls, including Ramón y Cajal.</p>
-<a class="btn-ryc-outline mt-2" href="https://www.aei.gob.es/convocatorias" target="_blank">View calls</a></div>
-
-<div class="tarjeta">
-<h3>Europa Excelencia</h3>
-
-<p>Fellowship programme for researchers who have participated in ERC calls without obtaining funding.</p>
-<a class="btn-ryc-outline mt-2" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias" target="_blank">More information</a></div>
-</div>
-</div>
-<button aria-label="Siguiente" class="carrusel-btn carrusel-btn-next">❯</button></div>
+<div id="lista-convocatorias">&nbsp;</div>
 </section>
 </main>
 <!-- ===== BANNER COFINANCIACIÓN ===== -->
@@ -1236,6 +1078,104 @@ footer, .footer, #footer, [id*="footer"], [class*="footer"] {
   </div>
 </div>
 <!-- ===== FOOTER ===== --><script>
+  /* =========================================================================
+     DATOS DE CONVOCATORIAS — MANTENIMIENTO ANUAL
+     =========================================================================
+     Para añadir una nueva convocatoria, basta con añadir un objeto al inicio
+     del array 'convocatorias' con los siguientes campos:
+       - anio:    Año de la convocatoria (número)
+       - titulo:  Título oficial
+       - estado:  "Próxima" | "Abierta" | "En evaluación" | "Resolved"
+       - enlace:  URL de la ficha en la web de la AEI (o null si no existe aún)
+       - notas:   Texto breve opcional con información adicional
+     ========================================================================= */
+
+  const convocatorias = [
+    {
+      anio: 2026,
+      titulo: "Ramón y Cajal fellowship grants (RYC-2026)",
+      estado: "Upcoming",
+      enlace: null,
+      notas: "New conditions: own project, interview, ERC incentives"
+    },
+    {
+      anio: 2025,
+      titulo: "Ramón y Cajal fellowship grants (RYC-2025)",
+      estado: "In progress",
+      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2025",
+      notas: null
+    },
+    {
+      anio: 2024,
+      titulo: "Ramón y Cajal fellowship grants (RYC-2024)",
+      estado: "Resolved",
+      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2024",
+      notas: null
+    },
+    {
+      anio: 2023,
+      titulo: "Ramón y Cajal fellowship grants (RYC-2023)",
+      estado: "Resolved",
+      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2023",
+      notas: "Incorporates mandatory stabilisation"
+    },
+    {
+      anio: 2022,
+      titulo: "Ramón y Cajal fellowship grants (RYC-2022)",
+      estado: "Resolved",
+      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2022",
+      notas: "Talent attraction grant and two-phase structure introduced"
+    },
+    {
+      anio: 2021,
+      titulo: "Ramón y Cajal fellowship grants (RYC-2021)",
+      estado: "Resolved",
+      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2021",
+      notas: "Early-career researcher track (discontinued in 2022)"
+    },
+    {
+      anio: 2020,
+      titulo: "Ramón y Cajal fellowship grants (RYC-2020)",
+      estado: "Resolved",
+      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2020",
+      notas: null
+    },
+    {
+      anio: 2019,
+      titulo: "Ramón y Cajal fellowship grants (RYC-2019)",
+      estado: "Resolved",
+      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2019",
+      notas: null
+    },
+    {
+      anio: 2018,
+      titulo: "Ramón y Cajal fellowship grants (RYC-2018)",
+      estado: "Resolved",
+      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2018",
+      notas: null
+    }
+  ];
+
+  // Renderizar convocatorias
+  const contenedor = document.getElementById('lista-convocatorias');
+  convocatorias.forEach(c => {
+    const esVigente = c.estado === 'Upcoming' || c.estado === 'Open';
+    const esAbierta = c.estado === 'Open';
+    const card = document.createElement('div');
+    card.className = 'convocatoria-card' + (esVigente ? ' vigente' : '');
+    card.innerHTML = `
+      <div class="convocatoria-info">
+        <h3><span class="anio">${c.anio}</span> ${c.titulo}</h3>
+        <div class="estado ${esAbierta ? 'abierta' : ''}">${c.estado}${c.notas ? ' — ' + c.notas : ''}</div>
+      </div>
+      ${c.enlace
+        ? `<a href="${c.enlace}" target="_blank" class="btn-aei">Ver ficha &#8599;</a>`
+        : (esVigente ? '<a href="updates-2026.html" class="btn-ryc">View updates</a>' : '<span style="color: var(--texto-secundario); font-size: 0.85rem;">Ficha no disponible</span>')
+      }
+    `;
+    contenedor.appendChild(card);
+  });
+  </script><script>
 /* ==========================================================================
    INTERACTIVIDAD — Web Convocatoria Ramón y Cajal
    ========================================================================== */
@@ -1296,40 +1236,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-</script><script>
-  /* Carrusel de enlaces de interés */
-  (function() {
-    var track = document.getElementById('carrusel-enlaces-track');
-    var wrapper = document.getElementById('carrusel-enlaces');
-    if (!track || !wrapper) return;
-    var items = track.children;
-    var prevBtn = wrapper.querySelector('.carrusel-btn-prev');
-    var nextBtn = wrapper.querySelector('.carrusel-btn-next');
-    var current = 0;
-    var visible = 3;
-
-    function updateCarrusel() {
-      var w = wrapper.offsetWidth;
-      if (w < 600) visible = 1;
-      else if (w < 900) visible = 2;
-      else visible = 3;
-      var maxIndex = Math.max(0, items.length - visible);
-      if (current > maxIndex) current = maxIndex;
-      var itemWidth = (track.parentElement.offsetWidth - (visible - 1) * 24) / visible;
-      for (var i = 0; i < items.length; i++) {
-        items[i].style.minWidth = itemWidth + 'px';
-        items[i].style.maxWidth = itemWidth + 'px';
-      }
-      track.style.transform = 'translateX(-' + current * (itemWidth + 24) + 'px)';
-      prevBtn.disabled = current === 0;
-      nextBtn.disabled = current >= maxIndex;
-    }
-
-    prevBtn.addEventListener('click', function() { if (current > 0) { current--; updateCarrusel(); } });
-    nextBtn.addEventListener('click', function() { var maxIndex = Math.max(0, items.length - visible); if (current < maxIndex) { current++; updateCarrusel(); } });
-    window.addEventListener('resize', updateCarrusel);
-    updateCarrusel();
-  })();
-  </script>
+</script>
 </body>
 </html>

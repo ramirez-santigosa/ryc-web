@@ -2,18 +2,19 @@
 # -*- coding: utf-8 -*-
 """
 Generación páginas RYC 2026 — Tercera revisión
-Genera dist/esp/ y dist/ing/
+Español → raíz del repo (index.html, novedades-2026.html, programa-ryc.html, convocatorias.html)
+Inglés  → en/ (index.html, updates-2026.html, programme.html, calls.html)
+Mismos ficheros para GitHub Pages y para entregar a Drupal.
 """
 import base64, os, re, io
 from PIL import Image
 
-BASE = "C:/Users/lourdes.ramirez/OneDrive - MINISTERIO DE CIENCIA E INNOVACIÓN/General - Unidad de Apoyo/08-PROYECTOS/09-WEB NUEVO RYC 2026"
-SRC  = BASE + "/!ENTRADA/04-tercera-revision"
-DIST_ESP = BASE + "/dist/esp"
-DIST_ING = BASE + "/dist/ing"
+BASE     = "C:/Users/lourdes.ramirez/OneDrive - MINISTERIO DE CIENCIA E INNOVACIÓN/General - Unidad de Apoyo/08-PROYECTOS/09-WEB NUEVO RYC 2026"
+SRC      = BASE + "/!ENTRADA/04-tercera-revision"
+OUT_ESP  = BASE
+OUT_ING  = BASE + "/en"
 
-os.makedirs(DIST_ESP, exist_ok=True)
-os.makedirs(DIST_ING, exist_ok=True)
+os.makedirs(OUT_ING, exist_ok=True)
 
 # ---- IMÁGENES ----
 def resize64(fname, max_w, max_h, quality=85, fmt='JPEG'):
@@ -180,7 +181,7 @@ p4 = add_banner(p4)
 
 # ---- ACTUALIZAR ENLACES NAV (español) ----
 NAV_ES = {
-    'href="https://www.aei.gob.es/inicio-ryc"':         'href="inicio-ryc.html"',
+    'href="https://www.aei.gob.es/inicio-ryc"':         'href="index.html"',
     'href="https://www.aei.gob.es/novedades-ryc-2026"': 'href="novedades-2026.html"',
     'href="https://www.aei.gob.es/programa-ryc-2026"':  'href="programa-ryc.html"',
     'href="https://www.aei.gob.es/convocatorias-ryc"':  'href="convocatorias.html"',
@@ -223,18 +224,18 @@ html_p2 = wrap_fragment(p2, 'Novedades 2026 — Programa Ramón y Cajal')
 html_p3 = wrap_fragment(p3, 'Programa RYC — Agencia Estatal de Investigación')
 html_p4 = wrap_fragment(p4, 'Convocatorias — Programa Ramón y Cajal')
 
-# ---- ESCRIBIR ESPAÑOL ----
+# ---- ESCRIBIR ESPAÑOL (raíz) ----
 print('Generando español...')
 pages_es = [
-    ('inicio-ryc.html',     html_p1),
+    ('index.html',          html_p1),
     ('novedades-2026.html', html_p2),
     ('programa-ryc.html',   html_p3),
     ('convocatorias.html',  html_p4),
 ]
 for fname, content in pages_es:
-    with open(DIST_ESP + '/' + fname, 'w', encoding='utf-8') as f:
+    with open(OUT_ESP + '/' + fname, 'w', encoding='utf-8') as f:
         f.write(content)
-    print(f'  esp/{fname}  {len(content)//1024}KB')
+    print(f'  {fname}  {len(content)//1024}KB')
 
 # ==============================================================
 # TRADUCCIÓN AL INGLÉS
@@ -559,7 +560,7 @@ EN_TRANS = [
 ]
 
 NAV_EN = {
-    'href="inicio-ryc.html"':     'href="ryc-home.html"',
+    'href="index.html"':          'href="index.html"',
     'href="novedades-2026.html"': 'href="updates-2026.html"',
     'href="programa-ryc.html"':   'href="programme.html"',
     'href="convocatorias.html"':  'href="calls.html"',
@@ -580,14 +581,14 @@ html_p4_en = translate_en(html_p4)
 
 print('\nGenerando inglés...')
 pages_en = [
-    ('ryc-home.html',     html_p1_en),
+    ('index.html',        html_p1_en),
     ('updates-2026.html', html_p2_en),
     ('programme.html',    html_p3_en),
     ('calls.html',        html_p4_en),
 ]
 for fname, content in pages_en:
-    with open(DIST_ING + '/' + fname, 'w', encoding='utf-8') as f:
+    with open(OUT_ING + '/' + fname, 'w', encoding='utf-8') as f:
         f.write(content)
-    print(f'  ing/{fname}  {len(content)//1024}KB')
+    print(f'  en/{fname}  {len(content)//1024}KB')
 
-print('\nGeneración completada.')
+print('\nGeneración completada. Ficheros listos para GitHub Pages y Drupal.')

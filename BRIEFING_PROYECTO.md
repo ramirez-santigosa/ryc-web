@@ -53,13 +53,24 @@ ryc-web/
 │
 │  ── SALIDA (en git, generado por script — no editar a mano) ───────
 │
-└── dist/
-    ├── esp/                     # Español (Drupal + navegador)
+├── index.html                   # Previsualización GitHub Pages — español
+├── novedades-2026.html
+├── programa-ryc.html
+├── convocatorias.html
+│
+├── en/                          # Previsualización GitHub Pages — inglés
+│   ├── index.html
+│   ├── updates-2026.html
+│   ├── programme.html
+│   └── calls.html
+│
+└── dist/                        # Fragmentos para Drupal (sin botón de idioma)
+    ├── esp/
     │   ├── inicio-ryc.html      (~73 KB)
     │   ├── novedades-2026.html  (~269 KB — imágenes embebidas en base64)
     │   ├── programa-ryc.html    (~248 KB)
     │   └── convocatorias.html   (~68 KB)
-    └── ing/                     # Inglés
+    └── ing/
         ├── ryc-home.html
         ├── updates-2026.html
         ├── programme.html
