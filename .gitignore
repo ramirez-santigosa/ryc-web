@@ -1,10 +1,6 @@
-# Carpetas locales de documentación y logs (no forman parte del repo)
-00-Documentación inicial/
-00-Logs iniciales/
-01-Documentación revisión/
-01-Logs revisión/
-02-Segunda revisión/
-01-datos/
+# Documentación de trabajo local (no forma parte del repo público)
+docs/
+datos/
 
 # Versión alternativa FECYT (no usada en versión principal)
 version-fecyt/
