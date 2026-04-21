@@ -236,6 +236,7 @@ Estos textos fueron revisados y aprobados por la dirección. Cambios futuros deb
 | v2 | `main` (actual) | Rediseño completo: paleta azul AEI, banners con siluetas, textos actualizados, sin medalla |
 | v2.1 | `main` | 2ª revisión editorial (16-04-2026): nuevo texto Novedad 1 (PID), reorden criterios, nuevo texto Europa Excelencia + viñeta R3, retirada CTA "¿Todo listo?", uniformidad de viñetas y empaquetado en `dist/` para Drupal |
 | v2.1-dist-b | `main` | Empaquetado ligero "opción B" para Drupal (16-04-2026): `dist/` pasa de 1-27 MB a 24-41 KB por página. Imágenes como URL remota a GitHub Pages (para sustituir manualmente en Drupal). SVG inline → PNG (`assets/icons/`). Sin header con logos, breadcrumb vacío, sin footer |
+| v2.2 | `main` | Tercera revisión (21-04-2026): nuevas imágenes (novedades 2, 4, 5 + impacto programa) embebidas como base64. Banner EU actualizado con imagen `MICIU+Cofinanciado+AEI.jpg`. Fix CSS tarjetas convocatorias (fondo blanco y botones alineados). Versiones español e inglés en `dist/esp/` y `dist/ing/`. Generado por `03-Tercera revisión/` → `gen_ryc3.py` |
 
 ### Cambios clave de v1 a v2
 - Paleta: granate (#8B1A1A) → azul oscuro (#1b4c96)
@@ -283,6 +284,16 @@ La carpeta `dist/` contiene **5 HTML listos para pegar en "Página básica" de D
 | `pagina3.html` | `pages/programa.html` | ~41 KB | Programa RYC + dashboard interactivo (Chart.js vía CDN) |
 | `pagina4.html` | `pages/convocatorias.html` | ~27 KB | Histórico de convocatorias |
 | `pagina5.html` | (generada) | ~24 KB | Landing "25 Años RYC" con CTA hacia el sitio externo de la AEI |
+| `esp/inicio-ryc.html` | `pagina1.txt` (dev team) | ~73 KB | Inicio RYC — versión español, full HTML, base64 |
+| `esp/novedades-2026.html` | `pagina2.txt` | ~269 KB | Novedades 2026 — nuevas imágenes novedades 2/4/5 embebidas |
+| `esp/programa-ryc.html` | `pagina3.txt` | ~247 KB | Programa RYC — imagen impacto embebida |
+| `esp/convocatorias.html` | `pagina4.txt` | ~68 KB | Convocatorias — fix CSS fondo blanco + botones |
+| `esp/25-anos-ryc.html` | `dist/pagina5.html` | ~65 KB | 25 Años RYC |
+| `ing/ryc-home.html` | traducción automática | ~73 KB | RYC Home — versión inglés |
+| `ing/updates-2026.html` | traducción automática | ~268 KB | 2026 Updates |
+| `ing/programme.html` | traducción automática | ~246 KB | RYC Programme |
+| `ing/calls.html` | traducción automática | ~68 KB | Calls |
+| `ing/25-years-ryc.html` | traducción automática | ~65 KB | 25 Years RYC |
 
 **Qué lleva cada fichero:**
 - Todo el CSS dentro de `<style>` en `<head>` (styles.css + ryc.css concatenados)
@@ -328,6 +339,6 @@ Si una "Página básica" con este HTML no se guarda o no previsualiza:
 Añadir un nuevo `<div class="tarjeta">` dentro de `#carrusel-enlaces-track`. El carrusel acepta hasta 7 items. El JS se adapta automáticamente.
 
 ### Precauciones
-- Las imágenes de Unsplash y Wikimedia se cargan desde URLs externas. Si se caen, las fotos de las novedades desaparecen. Considerar descargarlas a `/assets/` antes de producción.
+- Las imágenes de Unsplash y Wikimedia se cargan desde URLs externas. Si se caen, las fotos de las novedades desaparecen. **En las versiones `dist/esp/` y `dist/ing/` esto ya está resuelto: las imágenes de novedades 2, 4, 5 y el impacto del programa están embebidas como base64 (redimensionadas a 1200×400 px, JPEG 85%).**
 - La variable `--ryc-granate` contiene un azul (#1b4c96), no un granate. Si se necesita volver al granate, cambiar ambas variables y revisar los SVG inline de index.html que tienen colores hardcodeados.
 - Los datos del dashboard (2001-2024) están embebidos en el HTML de programa.html, no en un fichero externo. Para actualizarlos, editar los arrays `datosAnio`, `datosArea` y `datosCCAA` en el `<script>`.
