@@ -1,6 +1,5 @@
-# Carpetas de trabajo local (no forman parte del repo público)
-entrada/
-datos/
+# Carpeta de trabajo local (no forma parte del repo público)
+\!ENTRADA/
 
 # Configuración local de herramientas
 .claude/

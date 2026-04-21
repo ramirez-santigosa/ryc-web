@@ -14,15 +14,14 @@ nombre-proyecto/
 ├── CLAUDE.md                  # Contexto persistente para Claude Code
 ├── .gitignore
 │
-│  ── ENTRADA (carpetas de trabajo, no van al repositorio) ──────────
+│  ── ENTRADA (carpeta de trabajo, no va al repositorio) ────────────
 │
-├── entrada/                   # Archivos fuente que tú pones aquí
+├── !ENTRADA/                   # Todo lo que tú pones: fuentes, imágenes, datos
 │   ├── 01-inicial/            # Brief inicial, imágenes de referencia, indicaciones
 │   ├── 02-revision-1/         # Documentos y notas de la 1ª ronda de revisión
 │   ├── 03-revision-2/         # Documentos de la 2ª ronda
-│   └── 04-revision-N/         # Fragmentos .txt del equipo dev + imágenes definitivas
-│
-├── datos/                     # Datos originales y procesados (xlsx, csv...)
+│   ├── 04-revision-N/         # Fragmentos .txt del equipo dev + imágenes definitivas
+│   └── datos/                 # Datos originales y procesados (xlsx, csv...)
 │
 │  ── SOPORTE (imágenes del live site, van al repositorio) ──────────
 │
@@ -32,7 +31,7 @@ nombre-proyecto/
 │  ── SCRIPTS (van al repositorio) ─────────────────────────────────
 │
 ├── scripts/
-│   └── gen_dist.py            # Script Python: genera dist/ a partir de entrada/
+│   └── gen_dist.py            # Script Python: genera dist/ a partir de !ENTRADA/
 │
 │  ── SALIDA (generado automáticamente, va al repositorio) ──────────
 │
@@ -43,12 +42,11 @@ nombre-proyecto/
 
 ### .gitignore mínimo
 ```
-entrada/
-datos/
+\!ENTRADA/
 .claude/
 ```
 
-> **Regla de oro:** Todo lo que esté en `entrada/` y `datos/` es tuyo y no va al repositorio.
+> **Regla de oro:** Todo lo que esté en `!ENTRADA/` y `datos/` es tuyo y no va al repositorio.
 > Todo lo que esté en `dist/` lo genera el script — nunca edites esos ficheros a mano.
 
 ---
@@ -57,7 +55,7 @@ datos/
 
 ### Cómo dar las directrices
 
-Crear un fichero `entrada/01-inicial/BRIEF_INICIAL.md` con:
+Crear un fichero `!ENTRADA/01-inicial/BRIEF_INICIAL.md` con:
 
 ```markdown
 ## Proyecto
@@ -74,7 +72,7 @@ Crear un fichero `entrada/01-inicial/BRIEF_INICIAL.md` con:
 [Textos, secciones, datos a mostrar]
 
 ## Imágenes disponibles
-[Lista de ficheros en entrada/01-inicial/ con descripción de cada uno]
+[Lista de ficheros en !ENTRADA/01-inicial/ con descripción de cada uno]
 
 ## Referencias de diseño
 - Web AEI de referencia: [URL]
@@ -96,7 +94,7 @@ Crear un fichero `entrada/01-inicial/BRIEF_INICIAL.md` con:
 ### Instrucción de arranque a Claude Code
 
 ```
-Lee el fichero entrada/01-inicial/BRIEF_INICIAL.md y crea la maqueta completa.
+Lee el fichero !ENTRADA/01-inicial/BRIEF_INICIAL.md y crea la maqueta completa.
 Genera directamente los fragmentos en dist/esp/ (y dist/ing/ si hay inglés).
 Cada fichero debe ser autocontenido: CSS en el body, imágenes embebidas en base64.
 Sigue el estilo visual de la AEI (azul #1b4c96, variables CSS, sin frameworks externos).
@@ -110,7 +108,7 @@ Claude Code generará directamente los fragmentos en `dist/esp/`. No hace falta 
 
 ### Cómo dar indicaciones de revisión
 
-Cada ronda de revisión va en un fichero en `entrada/0N-revision-N/`:
+Cada ronda de revisión va en un fichero en `!ENTRADA/0N-revision-N/`:
 
 ```markdown
 ## Revisión N — [fecha]
@@ -132,7 +130,7 @@ Cada ronda de revisión va en un fichero en `entrada/0N-revision-N/`:
 
 **Instrucción a Claude Code:**
 ```
-Lee entrada/0N-revision-N/REVISION_N.md y aplica todos los cambios indicados.
+Lee !ENTRADA/0N-revision-N/REVISION_N.md y aplica todos los cambios indicados.
 Regenera dist/ al terminar.
 ```
 
@@ -147,13 +145,13 @@ Regenera dist/ al terminar.
 
 ## 4. Fase 3 — Integración Drupal (fragmentos del equipo dev)
 
-Cuando la maqueta esté aprobada, el equipo de desarrollo adapta el HTML a Drupal y devuelve ficheros `pagina N.txt` (fragmentos sin DOCTYPE/html/head/body, con CSS y JS embebidos). Dejar esos ficheros en `entrada/04-revision-N/`.
+Cuando la maqueta esté aprobada, el equipo de desarrollo adapta el HTML a Drupal y devuelve ficheros `pagina N.txt` (fragmentos sin DOCTYPE/html/head/body, con CSS y JS embebidos). Dejar esos ficheros en `!ENTRADA/04-revision-N/`.
 
 ### Estructura del script `scripts/gen_dist.py`
 
 ```python
-# 1. Cargar imágenes nuevas de entrada/0N-revision-N/ y redimensionarlas (PIL)
-# 2. Leer pagina*.txt del equipo dev (entrada/0N-revision-N/)
+# 1. Cargar imágenes nuevas de !ENTRADA/0N-revision-N/ y redimensionarlas (PIL)
+# 2. Leer pagina*.txt del equipo dev (!ENTRADA/0N-revision-N/)
 # 3. Sustituir imágenes antiguas por base64 de las nuevas
 # 4. Inyectar CSS extra antes del último </style>:
 #    - footer { display: none !important }   ← oculta footer Drupal
@@ -228,7 +226,7 @@ Si el repositorio está publicado en GitHub Pages, los ficheros `dist/` funciona
 
 ### Flujo de trabajo
 ```
-1. Colocar fuentes en entrada/ (imágenes, fragmentos .txt, notas)
+1. Colocar fuentes en !ENTRADA/ (imágenes, fragmentos .txt, notas)
 2. Claude Code aplica los cambios y regenera dist/
 3. Claude Code hace commit y push a main
 4. GitHub Pages publica automáticamente en 1-2 minutos
@@ -265,7 +263,7 @@ El fichero `CLAUDE.md` en la raíz del proyecto se carga automáticamente en cad
 - Imágenes embebidas en base64 en dist/
 
 ## Carpetas clave
-- Fuentes: entrada/0N-revision-N/ (fragmentos .txt + imágenes nuevas)
+- Fuentes: !ENTRADA/0N-revision-N/ (fragmentos .txt + imágenes nuevas)
 - Assets live site: assets/
 - Script de generación: scripts/gen_dist.py
 - Salida: dist/esp/ y dist/ing/
@@ -287,7 +285,7 @@ Actualizar `CLAUDE.md` al inicio de cada fase nueva o cuando cambie algo signifi
 ## 8. Lecciones aprendidas (proyecto RYC 2026)
 
 ### Hacer siempre desde el principio
-- Separar claramente **entrada/** (tuyo) de **dist/** (generado) — nunca editar dist/ a mano
+- Separar claramente **!ENTRADA/** (tuyo) de **dist/** (generado) — nunca editar dist/ a mano
 - Poner el **CSS en el body** en los fragmentos Drupal, no en `<head>` (Drupal lo descarta)
 - **Redimensionar** las imágenes antes de codificarlas en base64 (máx. 1200×400 px)
 - Comprobar que todos los assets referenciados en CSS existen en `assets/` antes de publicar
