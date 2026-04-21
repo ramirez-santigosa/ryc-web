@@ -26,19 +26,20 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
 ```
 ryc-web/
 │
-├── dist/                        # Único destino: fragmentos para pegar en Drupal
-│   ├── esp/                     # Español (también válidos como páginas standalone)
-│   │   ├── inicio-ryc.html      (~73 KB)
-│   │   ├── novedades-2026.html  (~269 KB — imágenes embebidas en base64)
-│   │   ├── programa-ryc.html    (~248 KB)
-│   │   └── convocatorias.html   (~68 KB)
-│   └── ing/                     # Inglés
-│       ├── ryc-home.html
-│       ├── updates-2026.html
-│       ├── programme.html
-│       └── calls.html
+│  ── ENTRADA (local, no en git) ────────────────────────────────────
 │
-├── assets/                      # Imágenes referenciadas por URL absoluta en el CSS de dist/
+├── docs/                        # Archivos de trabajo: fuentes, imágenes, fragmentos dev
+│   ├── 01-inicial/              # Brief inicial, indicaciones, imágenes de referencia
+│   ├── 02-primera-revision/     # Documentos de la 1ª revisión
+│   ├── 03-segunda-revision/     # Documentos de la 2ª revisión
+│   └── 04-tercera-revision/     # pagina*.txt (fragmentos dev) + imágenes definitivas
+│
+├── datos/                       # Datos originales y procesados (xlsx...)
+│   └── brutos/                  # Datos originales de convocatorias
+│
+│  ── SOPORTE (en git) ──────────────────────────────────────────────
+│
+├── assets/                      # Imágenes del live site, referenciadas por URL absoluta
 │   ├── fondo-banner-azul-aei.png        # Fondo hero (inicio)
 │   ├── fondo-banner-azul-degradado.png  # Fondo hero (novedades)
 │   ├── novedades-entrevista.jpg         # Novedad 2
@@ -47,31 +48,27 @@ ryc-web/
 │   ├── programa-excavacion.jpg          # Impacto programa
 │   ├── banner-cofinanciacion.jpg        # Banner EU/MICIU
 │   ├── edificio-aei-bandera.jpg         # Foto sede AEI
-│   ├── icons/                           # Iconos PNG de las 5 novedades
-│   └── [otros fondos y fotos]
+│   └── icons/                           # Iconos PNG de las 5 novedades
 │
 ├── scripts/
 │   └── gen_ryc3.py              # Script Python: genera dist/esp/ y dist/ing/
 │
-├── BRIEFING_PROYECTO.md         # Este fichero
-├── PROCEDIMIENTO.md             # Guía para repetir la experiencia
-├── CLAUDE.md                    # Contexto para Claude Code
-└── .gitignore
+│  ── SALIDA (en git, generado por script — no editar a mano) ───────
+│
+└── dist/
+    ├── esp/                     # Español (Drupal + navegador)
+    │   ├── inicio-ryc.html      (~73 KB)
+    │   ├── novedades-2026.html  (~269 KB — imágenes embebidas en base64)
+    │   ├── programa-ryc.html    (~248 KB)
+    │   └── convocatorias.html   (~68 KB)
+    └── ing/                     # Inglés
+        ├── ryc-home.html
+        ├── updates-2026.html
+        ├── programme.html
+        └── calls.html
 ```
 
 > **Nota:** CSS, JS e imágenes de contenido están **embebidos** dentro de cada fichero `dist/`. La carpeta `assets/` contiene únicamente los fondos de banners que se cargan vía URL absoluta desde el CSS embebido (`https://ramirez-santigosa.github.io/ryc-web/assets/...`).
-
-**Fuera del repositorio (carpeta local, en `docs/` y `datos/`):**
-```
-docs/
-├── 01-inicial/       # Brief inicial, indicaciones, imágenes de referencia
-├── 02-primera-revision/  # Documentos y logs de la 1ª revisión
-├── 03-segunda-revision/  # Documentos de la 2ª revisión
-└── 04-tercera-revision/  # Imágenes fuente + pagina*.txt (fragmentos del equipo dev)
-datos/
-├── brutos/           # Datos originales de convocatorias (xlsx)
-└── RYC*.xlsx         # Datos procesados para el dashboard
-```
 
 ---
 
