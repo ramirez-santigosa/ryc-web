@@ -6,19 +6,18 @@ Destino final: portal AEI en Drupal 9.5. GitHub Pages como previsualización.
 
 ## Estructura de carpetas
 ```
-!ENTRADA/                  ← tus fuentes (local, no en git)
-  04-tercera-revision/     ← pagina*.txt del equipo dev + imágenes fuente
-  datos/
-!SALIDA/                   ← salida local (no en git); el script genera aquí
-  index.html / novedades-2026.html / programa-ryc.html / convocatorias.html
-  ing/                     ← inglés
-  assets/
-  scripts/gen_ryc3.py
-  ~DOCS/
-
-Lo que git rastrea (copiado desde !SALIDA/ por el script):
-  index.html · novedades-2026.html · programa-ryc.html · convocatorias.html
-  ing/ · assets/ · scripts/ · ~DOCS/ · CLAUDE.md
+09-WEB NUEVO RYC 2026/   (carpeta del proyecto)
+├── .claude/             ← datos Claude Code
+├── !ENTRADA/            ← tus fuentes (local, no en git)
+│   ├── 04-tercera-revision/   pagina*.txt + imágenes fuente
+│   └── datos/
+└── !SALIDA/             ← ES el repositorio git (aquí vive .git/)
+    ├── .git/  ·  .gitignore  ·  CLAUDE.md
+    ├── index.html  ·  novedades-2026.html  ·  programa-ryc.html  ·  convocatorias.html
+    ├── ing/         ← inglés
+    ├── assets/      ← fondos de banner (URL absoluta)
+    ├── scripts/gen_ryc3.py
+    └── ~DOCS/       ← briefing y procedimiento
 ```
 
 ## Stack técnico

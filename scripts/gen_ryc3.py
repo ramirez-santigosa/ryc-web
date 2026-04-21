@@ -2,20 +2,20 @@
 # -*- coding: utf-8 -*-
 """
 Generación páginas RYC 2026 — Tercera revisión
-Genera en !SALIDA/ (local) y sincroniza a la raíz del repo para git/GitHub Pages.
-  Español -> !SALIDA/  y raiz del repo
-  Ingles  -> !SALIDA/ing/  y raiz/ing/
+!SALIDA/ ES el repositorio git — el script genera directamente aquí.
+  Español -> !SALIDA/  (index.html, novedades-2026.html, programa-ryc.html, convocatorias.html)
+  Inglés  -> !SALIDA/ing/
 Mismos ficheros para GitHub Pages y para entregar a Drupal.
 """
-import base64, os, re, io, shutil
+import base64, os, re, io
 from PIL import Image
 
-BASE     = "C:/Users/lourdes.ramirez/OneDrive - MINISTERIO DE CIENCIA E INNOVACIÓN/General - Unidad de Apoyo/08-PROYECTOS/09-WEB NUEVO RYC 2026"
-SRC      = BASE + "/!ENTRADA/04-tercera-revision"
-OUT_ESP  = BASE + "/!SALIDA"
-OUT_ING  = BASE + "/!SALIDA/ing"
+PROYECTO = "C:/Users/lourdes.ramirez/OneDrive - MINISTERIO DE CIENCIA E INNOVACIÓN/General - Unidad de Apoyo/08-PROYECTOS/09-WEB NUEVO RYC 2026"
+SRC      = PROYECTO + "/!ENTRADA/04-tercera-revision"
+BASE     = PROYECTO + "/!SALIDA"   # raíz del repo git
+OUT_ESP  = BASE
+OUT_ING  = BASE + "/ing"
 
-os.makedirs(OUT_ESP, exist_ok=True)
 os.makedirs(OUT_ING, exist_ok=True)
 
 # ---- IMÁGENES ----
@@ -593,36 +593,4 @@ for fname, content in pages_en:
         f.write(content)
     print(f'  ing/{fname}  {len(content)//1024}KB')
 
-print('\nGeneracion completada.')
-
-# ---- SINCRONIZAR !SALIDA/ -> raiz del repo (git / GitHub Pages) ----
-# Copia todo el contenido de !SALIDA/ a la raiz para que git lo rastree.
-# !SALIDA/ esta en .gitignore; la raiz contiene las copias que van a git.
-SYNC = [
-    ('index.html',          BASE + '/index.html'),
-    ('novedades-2026.html', BASE + '/novedades-2026.html'),
-    ('programa-ryc.html',   BASE + '/programa-ryc.html'),
-    ('convocatorias.html',  BASE + '/convocatorias.html'),
-    ('CLAUDE.md',           BASE + '/CLAUDE.md'),
-]
-SYNC_DIRS = [
-    ('ing',     BASE + '/ing'),
-    ('assets',  BASE + '/assets'),
-    ('scripts', BASE + '/scripts'),
-    ('~DOCS',   BASE + '/~DOCS'),
-]
-
-print('\nSincronizando !SALIDA/ a raiz...')
-for src_rel, dst in SYNC:
-    shutil.copy(OUT_ESP + '/' + src_rel, dst)
-    print(f'  ok: {src_rel}')
-
-for src_rel, dst in SYNC_DIRS:
-    src = OUT_ESP + '/' + src_rel
-    if os.path.exists(src):
-        if os.path.exists(dst):
-            shutil.rmtree(dst)
-        shutil.copytree(src, dst)
-        print(f'  ok: {src_rel}/')
-
-print('\nListo. Raiz actualizada para git y Drupal.')
+print('\nListo. Ficheros generados en !SALIDA/ — listos para git y Drupal.')
