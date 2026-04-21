@@ -1017,6 +1017,32 @@ div#block-vartheme-aei-page-title {
   max-width: 100%; /* clave */
   border-radius: 20px;
 }
+
+/* --- Ocultar footer Drupal --- */
+footer, .footer, #footer, [id*="footer"], [class*="footer"] {
+  display: none !important;
+}
+
+/* --- Banner cofinanciación EU --- */
+.banner-cofinanciacion {
+  background: var(--fondo-blanco);
+  border-top: 1px solid var(--borde-suave);
+  margin-top: 2rem;
+  padding: 1.25rem 1rem;
+}
+.banner-cofinanciacion .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.cofinanciacion-logos { height: 72px; width: auto; flex-shrink: 0; }
+.cofinanciacion-texto { margin: 0; font-size: 0.95rem; color: var(--texto-secundario); line-height: 1.5; }
+@media (max-width: 600px) {
+  .banner-cofinanciacion .container { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+}
+
 </style>
 </head>
 <body>
