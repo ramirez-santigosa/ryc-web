@@ -9,45 +9,47 @@ Guía para crear una maqueta web para el portal de la AEI, revisarla iterativame
 ```
 nombre-proyecto/
 │
-├── BRIEFING_PROYECTO.md       # Documentación completa del proyecto
-├── PROCEDIMIENTO.md           # Esta guía
-├── CLAUDE.md                  # Contexto persistente para Claude Code
-├── .gitignore
+├── .claude/                       # Datos Claude Code (no tocar)
 │
-│  ── ENTRADA (carpeta de trabajo, no va al repositorio) ────────────
+│  ── ENTRADA (local, no va a git) ─────────────────────────────────
 │
-├── !ENTRADA/                   # Todo lo que tú pones: fuentes, imágenes, datos
-│   ├── 01-inicial/            # Brief inicial, imágenes de referencia, indicaciones
-│   ├── 02-revision-1/         # Documentos y notas de la 1ª ronda de revisión
-│   ├── 03-revision-2/         # Documentos de la 2ª ronda
-│   ├── 04-revision-N/         # Fragmentos .txt del equipo dev + imágenes definitivas
-│   └── datos/                 # Datos originales y procesados (xlsx, csv...)
+├── !ENTRADA/                      # Todo lo que tú pones: fuentes, imágenes, datos
+│   ├── 01-inicial/               # Brief inicial, imágenes de referencia, indicaciones
+│   ├── 02-revision-1/            # Documentos y notas de la 1ª ronda de revisión
+│   ├── 03-revision-2/            # Documentos de la 2ª ronda
+│   ├── 04-revision-N/            # Fragmentos .txt del equipo dev + imágenes definitivas
+│   └── datos/                    # Datos originales y procesados (xlsx, csv...)
 │
-│  ── SOPORTE (imágenes del live site, van al repositorio) ──────────
+│  ── SALIDA (ES el repositorio git) ────────────────────────────────
 │
-├── assets/                    # Imágenes referenciadas por URL absoluta desde dist/
-│   └── icons/                 # Iconos PNG
-│
-│  ── SCRIPTS (van al repositorio) ─────────────────────────────────
-│
-├── scripts/
-│   └── gen_dist.py            # Script Python: genera dist/ a partir de !ENTRADA/
-│
-│  ── SALIDA (generado automáticamente, va al repositorio) ──────────
-│
-└── dist/                      # Fragmentos para pegar en Drupal — NO editar a mano
-    ├── esp/                   # Español: inicio.html, novedades.html, programa.html, convocatorias.html
-    └── ing/                   # Inglés: home.html, updates.html, programme.html, calls.html
+└── !SALIDA/                       # Repositorio git — .git/ vive aquí dentro
+    ├── .git/                      # Repositorio git (no tocar)
+    ├── .gitignore
+    ├── CLAUDE.md                  # Cargado automáticamente por Claude Code
+    ├── index.html                 # Español
+    ├── novedades.html
+    ├── programa.html
+    ├── convocatorias.html
+    ├── ing/                       # Inglés
+    │   ├── index.html
+    │   ├── updates.html
+    │   ├── programme.html
+    │   └── calls.html
+    ├── assets/                    # Fondos de banner (referenciados por URL absoluta)
+    ├── scripts/
+    │   └── gen_dist.py            # Script Python: genera HTML a partir de !ENTRADA/
+    └── ~DOCS/                     # Documentación del proyecto (sorts last)
+        ├── BRIEFING_PROYECTO.md
+        └── PROCEDIMIENTO.md
 ```
 
 ### .gitignore mínimo
 ```
-\!ENTRADA/
 .claude/
 ```
 
-> **Regla de oro:** Todo lo que esté en `!ENTRADA/` y `datos/` es tuyo y no va al repositorio.
-> Todo lo que esté en `dist/` lo genera el script — nunca edites esos ficheros a mano.
+> **Regla de oro:** Todo lo que esté en `!ENTRADA/` es tuyo y no va al repositorio.
+> Todo lo que esté en `!SALIDA/` (excepto `.claude/`) se rastrea en git — los HTML los genera el script, nunca edites a mano.
 
 ---
 
@@ -95,12 +97,12 @@ Crear un fichero `!ENTRADA/01-inicial/BRIEF_INICIAL.md` con:
 
 ```
 Lee el fichero !ENTRADA/01-inicial/BRIEF_INICIAL.md y crea la maqueta completa.
-Genera directamente los fragmentos en dist/esp/ (y dist/ing/ si hay inglés).
+Genera directamente los ficheros en !SALIDA/ (español) y !SALIDA/ing/ (inglés).
 Cada fichero debe ser autocontenido: CSS en el body, imágenes embebidas en base64.
 Sigue el estilo visual de la AEI (azul #1b4c96, variables CSS, sin frameworks externos).
 ```
 
-Claude Code generará directamente los fragmentos en `dist/esp/`. No hace falta estructura intermedia de `pages/` ni carpetas de CSS/JS separadas — todo va embebido en los HTML de salida.
+Claude Code generará directamente los HTML en `!SALIDA/`. No hace falta estructura intermedia de `pages/`, `dist/` ni carpetas de CSS/JS separadas — todo va embebido.
 
 ---
 
@@ -131,7 +133,7 @@ Cada ronda de revisión va en un fichero en `!ENTRADA/0N-revision-N/`:
 **Instrucción a Claude Code:**
 ```
 Lee !ENTRADA/0N-revision-N/REVISION_N.md y aplica todos los cambios indicados.
-Regenera dist/ al terminar.
+Regenera los HTML al terminar.
 ```
 
 ### Buenas prácticas para revisiones
@@ -160,7 +162,7 @@ Cuando la maqueta esté aprobada, el equipo de desarrollo adapta el HTML a Drupa
 # 5. Añadir banner cofinanciación UE antes de <!-- FOOTER -->
 # 6. Envolver en HTML mínimo (head solo con meta+title; CSS queda en body)
 # 7. Aplicar tabla de traducciones EN_TRANS para versión inglés
-# 8. Escribir dist/esp/*.html y dist/ing/*.html
+# 8. Escribir !SALIDA/*.html (español) y !SALIDA/ing/*.html (inglés)
 ```
 
 Ver `scripts/gen_ryc3.py` de este proyecto como referencia completa.
@@ -189,17 +191,17 @@ Redimensionar siempre antes de codificar en base64. Una imagen de 5 MB sin redim
 
 | Fichero | Para qué |
 |---------|---------|
-| `dist/esp/*.html` | Pegar en Drupal (español) |
-| `dist/ing/*.html` | Pegar en Drupal (inglés) |
-| `assets/` | Imágenes del live site (referencia, fondos de banners) |
+| `!SALIDA/*.html` | Pegar en Drupal (español) |
+| `!SALIDA/ing/*.html` | Pegar en Drupal (inglés) |
+| `assets/` | Imágenes del live site (fondos de banners) |
 | `BRIEFING_PROYECTO.md` | Documentación del proyecto |
 
-**Los ficheros `dist/esp/` y `dist/ing/` son autocontenidos**: llevan CSS, JS e imágenes embebidas. El equipo solo necesita pegarlos en una "Página básica" de Drupal en formato Full HTML.
+**Los ficheros HTML son autocontenidos**: llevan CSS, JS e imágenes embebidas. El equipo solo necesita pegarlos en una "Página básica" de Drupal en formato Full HTML.
 
 ### Instrucciones para el equipo de desarrollo
 
 ```
-Cada fichero en dist/esp/ y dist/ing/ corresponde a una Página básica de Drupal.
+Cada fichero en !SALIDA/ y !SALIDA/ing/ corresponde a una Página básica de Drupal.
 Procedimiento:
 1. Crear/editar la Página básica correspondiente
 2. Formato de texto: Full HTML (sin filtros de etiquetas)
@@ -218,7 +220,7 @@ Si hay error al guardar (fichero muy grande):
 
 ### GitHub Pages como previsualización
 
-Si el repositorio está publicado en GitHub Pages, los ficheros `dist/` funcionan directamente en el navegador (son HTML completos). Compartir las URLs con el equipo de desarrollo y con dirección para validación antes de ir a Drupal.
+El repositorio se publica en GitHub Pages directamente desde `!SALIDA/` (raíz de `main`). Los mismos ficheros sirven tanto para previsualización como para entregar a Drupal — no hay carpeta `dist/` separada.
 
 ---
 
@@ -227,7 +229,7 @@ Si el repositorio está publicado en GitHub Pages, los ficheros `dist/` funciona
 ### Flujo de trabajo
 ```
 1. Colocar fuentes en !ENTRADA/ (imágenes, fragmentos .txt, notas)
-2. Claude Code aplica los cambios y regenera dist/
+2. Claude Code aplica los cambios y regenera los HTML en !SALIDA/
 3. Claude Code hace commit y push a main
 4. GitHub Pages publica automáticamente en 1-2 minutos
 5. Revisión desde la URL de GitHub Pages
@@ -237,7 +239,6 @@ Si el repositorio está publicado en GitHub Pages, los ficheros `dist/` funciona
 ### Commits
 - Usar mensajes descriptivos: `feat:`, `fix:`, `refactor:`, `docs:`
 - Un commit por ronda de cambios significativa
-- Incluir siempre los ficheros `dist/` en el commit
 
 ### Ramas
 - `main` — siempre la versión más reciente aprobada
@@ -247,7 +248,7 @@ Si el repositorio está publicado en GitHub Pages, los ficheros `dist/` funciona
 
 ## 7. CLAUDE.md — Contexto persistente
 
-El fichero `CLAUDE.md` en la raíz del proyecto se carga automáticamente en cada sesión de Claude Code. Debe contener:
+El fichero `CLAUDE.md` en la raíz de `!SALIDA/` se carga automáticamente en cada sesión de Claude Code. Debe contener:
 
 ```markdown
 # [Nombre del proyecto] — Contexto para Claude Code
@@ -260,19 +261,19 @@ El fichero `CLAUDE.md` en la raíz del proyecto se carga automáticamente en cad
 - Chart.js CDN si hay dashboard
 - Sin frameworks externos
 - CSS embebido en el body (no en head) para compatibilidad Drupal
-- Imágenes embebidas en base64 en dist/
+- Imágenes embebidas en base64
 
 ## Carpetas clave
 - Fuentes: !ENTRADA/0N-revision-N/ (fragmentos .txt + imágenes nuevas)
 - Assets live site: assets/
 - Script de generación: scripts/gen_dist.py
-- Salida: dist/esp/ y dist/ing/
+- Salida español: !SALIDA/ (raíz del repo)
+- Salida inglés: !SALIDA/ing/
 
 ## Paleta de colores
 - --aei-azul: #1b4c96
 - --aei-azul-oscuro: #143a73
 - --ryc-dorado: #c8a951
-- [etc.]
 
 ## Estado actual
 [Versión actual, qué está aprobado, qué está pendiente]
@@ -285,19 +286,18 @@ Actualizar `CLAUDE.md` al inicio de cada fase nueva o cuando cambie algo signifi
 ## 8. Lecciones aprendidas (proyecto RYC 2026)
 
 ### Hacer siempre desde el principio
-- Separar claramente **!ENTRADA/** (tuyo) de **dist/** (generado) — nunca editar dist/ a mano
+- Separar claramente **!ENTRADA/** (tuyo, no va a git) de **!SALIDA/** (el repo) — nunca editar los HTML a mano
 - Poner el **CSS en el body** en los fragmentos Drupal, no en `<head>` (Drupal lo descarta)
 - **Redimensionar** las imágenes antes de codificarlas en base64 (máx. 1200×400 px)
 - Comprobar que todos los assets referenciados en CSS existen en `assets/` antes de publicar
 
 ### Evitar
 - Imágenes base64 sin redimensionar previo (ficheros de decenas de MB)
-- Editar los ficheros `dist/` manualmente (se sobreescriben al regenerar)
+- Editar los ficheros HTML manualmente (se sobreescriben al regenerar)
 - Usar Node.js/sharp si Python+PIL es suficiente (más sencillo, sin dependencias de npm)
 - Regex con `[^>]*` para reemplazar atributos de `<img>` (elimina `alt` y `loading`)
-- Estructuras paralelas redundantes (p.ej. `pages/` + `dist/esp/` para lo mismo)
+- Carpetas `dist/` o `pages/` como intermedias — los ficheros definitivos van directamente a `!SALIDA/`
 
 ### Traducción automática
 - La tabla `EN_TRANS` cubre texto estático bien, pero **no alcanza el texto dentro de templates JavaScript**
 - Revisar manualmente: botones generados por JS, textos de estados, `aria-label`
-- Verificar siempre: `grep -n "Ver \|Más \|Histórico" dist/ing/*.html`

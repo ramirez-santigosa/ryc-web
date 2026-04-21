@@ -16,8 +16,8 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
 |---------|-----|
 | Repositorio GitHub | https://github.com/ramirez-santigosa/ryc-web |
 | Previsualización (GitHub Pages) — español | https://ramirez-santigosa.github.io/ryc-web/ |
-| Previsualización (GitHub Pages) — inglés | https://ramirez-santigosa.github.io/ryc-web/en/ |
-| Drupal — fragmentos para pegar | `dist/esp/` y `dist/ing/` |
+| Previsualización (GitHub Pages) — inglés | https://ramirez-santigosa.github.io/ryc-web/ing/ |
+| Drupal — ficheros para pegar | `!SALIDA/*.html` (español) y `!SALIDA/ing/*.html` (inglés) |
 
 ---
 
@@ -26,12 +26,7 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
 ```
 09-WEB NUEVO RYC 2026/   (carpeta del proyecto)
 │
-│  ── Infraestructura (oculta o en raíz, no se toca) ───────────────
-│
-├── .git/                        # Repositorio git (no tocar)
-├── .claude/                     # Datos Claude Code (no tocar)
-├── .gitignore
-├── CLAUDE.md                    # Cargado automáticamente por Claude Code
+├── .claude/                     # Datos Claude Code (no tocar, no va a git)
 │
 │  ── ENTRADA (local, no va a git) ─────────────────────────────────
 │
@@ -42,9 +37,12 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
 │   ├── 04-tercera-revision/     # pagina*.txt (dev) + imágenes definitivas
 │   └── datos/                   # Datos originales (xlsx...)
 │
-│  ── SALIDA (local, no va a git — el script genera aquí) ──────────
+│  ── SALIDA — ES el repositorio git (.git/ vive aquí dentro) ───────
 │
-└── !SALIDA/                     # Vista completa de la salida (local)
+└── !SALIDA/
+    ├── .git/                    # Repositorio git (no tocar)
+    ├── .gitignore
+    ├── CLAUDE.md                # Cargado automáticamente por Claude Code
     ├── index.html               # Español
     ├── novedades-2026.html
     ├── programa-ryc.html
@@ -54,7 +52,7 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
     │   ├── updates-2026.html
     │   ├── programme.html
     │   └── calls.html
-    ├── assets/                  # Fondos de banner (referenciados por URL)
+    ├── assets/                  # Fondos de banner (referenciados por URL absoluta)
     ├── scripts/
     │   └── gen_ryc3.py
     └── ~DOCS/                   # Documentación del proyecto
@@ -62,13 +60,8 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
         └── PROCEDIMIENTO.md
 ```
 
-**Lo que git rastrea** (copiado automáticamente desde `!SALIDA/` por el script):
-```
-index.html  ·  novedades-2026.html  ·  programa-ryc.html  ·  convocatorias.html
-ing/  ·  assets/  ·  scripts/  ·  ~DOCS/  ·  CLAUDE.md
-```
-
-> **Nota:** CSS, JS e imágenes de contenido están **embebidos** dentro de cada fichero `dist/`. La carpeta `assets/` contiene únicamente los fondos de banners que se cargan vía URL absoluta desde el CSS embebido (`https://ramirez-santigosa.github.io/ryc-web/assets/...`).
+> **Nota:** CSS, JS e imágenes de contenido están **embebidos** dentro de cada fichero HTML. La carpeta `assets/` contiene únicamente los fondos de banners que se cargan vía URL absoluta desde el CSS embebido (`https://ramirez-santigosa.github.io/ryc-web/assets/...`).
+> Los mismos ficheros sirven tanto para GitHub Pages (previsualización) como para entregar a Drupal.
 
 ---
 
@@ -80,13 +73,15 @@ ing/  ·  assets/  ·  scripts/  ·  ~DOCS/  ·  CLAUDE.md
 - **JavaScript vanilla** — sin dependencias excepto Chart.js para gráficos
 - **Chart.js 4.4.7** (CDN) — solo en `programa.html` para el dashboard interactivo
 
-### Dos formatos de entrega
-| Formato | Dónde | Para qué |
-|---------|-------|---------|
-| **Live site** | `index.html` + `pages/` + `en/` | GitHub Pages: previsualización, referencias externas CSS/assets |
-| **Drupal fragments** | `dist/esp/` + `dist/ing/` | Pegar en Drupal: CSS en el body, imágenes embebidas en base64, head mínimo |
+### Un único formato de entrega
+Los mismos ficheros HTML sirven para GitHub Pages y para Drupal. Se generan con `scripts/gen_ryc3.py` a partir de los ficheros fuente en `!ENTRADA/04-tercera-revision/pagina*.txt` (versiones adaptadas por el equipo de desarrollo) y se escriben directamente en `!SALIDA/` (español) y `!SALIDA/ing/` (inglés).
 
-Los fragmentos Drupal se generan con `scripts/gen_ryc3.py` a partir de los ficheros fuente en `!ENTRADA/04-tercera-revision/pagina*.txt` (versiones adaptadas por el equipo de desarrollo).
+| Destino | Ruta |
+|---------|------|
+| GitHub Pages (español) | `!SALIDA/*.html` (raíz de `main`) |
+| GitHub Pages (inglés) | `!SALIDA/ing/*.html` |
+| Drupal (español) | mismo `!SALIDA/*.html` |
+| Drupal (inglés) | mismo `!SALIDA/ing/*.html` |
 
 ---
 
@@ -171,7 +166,7 @@ Genera los fragmentos Drupal en `dist/esp/` y `dist/ing/` a partir de las págin
 6. Genera versión inglés aplicando tabla de traducciones `EN_TRANS`
 7. Escribe `dist/esp/*.html` y `dist/ing/*.html`
 
-**Para regenerar:**
+**Para regenerar** (desde `!SALIDA/` o con ruta completa):
 ```bash
 python scripts/gen_ryc3.py
 ```
@@ -193,7 +188,7 @@ pip install Pillow
 ## 9. Integración en Drupal
 
 ### Procedimiento recomendado
-1. Abrir `dist/esp/[pagina].html` en un editor de texto
+1. Abrir `!SALIDA/[pagina].html` (o `!SALIDA/ing/[pagina].html`) en un editor de texto
 2. En Drupal: crear/editar "Página básica" → formato "Full HTML"
 3. Pegar el contenido del fichero (incluido el `<!DOCTYPE html>` inicial — Drupal lo ignora)
 4. Guardar y previsualizar
@@ -224,9 +219,9 @@ pip install Pillow
 
 - **Python + PIL** para redimensionar y embeber imágenes en base64: sencillo, sin dependencias pesadas
 - **CSS en el body**: los fragmentos funcionan tanto en navegador como en Drupal (no se pierde el CSS al pegar)
-- **Una sola carpeta de salida por idioma** (`dist/esp/` y `dist/ing/`): elimina confusión entre formatos
+- **Un único juego de ficheros** para GitHub Pages y Drupal: sin carpeta `dist/` separada, sin paso de sincronización
+- **`!SALIDA/` ES el repositorio git**: `.git/` vive dentro — la raíz del proyecto queda limpia
 - **GitHub Pages** para previsualización: permite compartir URLs antes de ir a producción
-- **Doble estructura**: live site (`pages/`) para GitHub Pages + fragmentos (`dist/`) para Drupal
 - **Traducción automática** con tabla `EN_TRANS`: cubre ~95% del contenido; requiere revisión manual de JS y textos dinámicos
 - **Footer suprimido** con `display: none !important`: solución limpia sin modificar el HTML del fragmento
 
@@ -240,7 +235,7 @@ pip install Pillow
 | Imágenes base64 sin redimensionar | Tamaños de 18–80 MB, inmanejable | Redimensionado a 1200×400 px antes de codificar |
 | `banner-cofinanciacion.png` no existía | Archivo nunca creado en assets/ | Generado desde `MICIU+Cofinanciado+AEI.jpg` → `banner-cofinanciacion.jpg` |
 | CSS en `<head>` descartado por Drupal | Drupal elimina el `<head>` al pegar | CSS movido al body en el script de generación |
-| `dist/pagina*.html` + `dist/esp/*.html` redundantes | Dos formatos para el mismo propósito | Unificados en `dist/esp/` y `dist/ing/` únicamente |
+| `dist/` + carpetas `pages/` + `en/` redundantes | Tres ubicaciones para el mismo contenido | Unificado en `!SALIDA/` (español) y `!SALIDA/ing/` (inglés) — un solo juego de ficheros |
 | Traducción automática incompleta en JS | `EN_TRANS` hace replace de texto estático, no toca templates JS | Corrección manual en los ficheros generados |
 | `wrap_fragment()` movía `<style>` al `<head>` | Diseño inicial del script | Eliminado; los `<style>` permanecen en el body |
 | Regex greedy en imagen novedad 5 | `[^>]*` eliminó atributos `alt` y `loading` | Reemplazado por `str.replace()` sobre el src |
@@ -255,5 +250,6 @@ pip install Pillow
 | v1 | mar 2026 | Versión original: paleta granate/dorado, medalla en banner |
 | v2 | abr 2026 | Rediseño completo: paleta azul AEI, banners con siluetas, sin medalla |
 | v2.1 | 16-04-2026 | 2ª revisión editorial: texto Novedad 1 (PID), reorden criterios, viñeta R3 |
-| v2.2 | 21-04-2026 | 3ª revisión: nuevas imágenes base64, banner EU, fix convocatorias CSS, `dist/esp/` + `dist/ing/` |
-| v2.3 | 21-04-2026 | Live site corregido (`pages/`, `en/`), "See details" traducido, unificación dist/, limpieza repo |
+| v2.2 | 21-04-2026 | 3ª revisión: nuevas imágenes base64, banner EU, fix convocatorias CSS |
+| v2.3 | 21-04-2026 | Unificación: un solo juego de ficheros para GitHub Pages y Drupal, `ing/` para inglés, limpieza repo |
+| v2.4 | 21-04-2026 | Reorganización: `!SALIDA/` ES el repo (`.git/` dentro), raíz del proyecto limpia, gen_ryc3.py sin paso sync |
