@@ -33,17 +33,13 @@
 }
 
 /* --- Reset y base --- */
-*,
-*::before,
-*::after {
+:where(.ryc-page, .ryc-page *, .ryc-page *::before, .ryc-page *::after) {
   box-sizing: border-box;
 }
-
-html {
+.ryc-page {
   scroll-behavior: smooth;
 }
-
-body {
+.ryc-page {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--texto-principal);
   background-color: var(--fondo-claro);
@@ -51,19 +47,16 @@ body {
   margin: 0;
   padding: 0;
 }
-
-img {
+:where(.ryc-page) img {
   max-width: 100%;
   height: auto;
 }
-
-a {
+:where(.ryc-page) a {
   color: var(--aei-azul);
   text-decoration: none;
   transition: color var(--transicion);
 }
-
-a:hover {
+:where(.ryc-page) a:hover {
   color: var(--aei-azul-oscuro);
   text-decoration: underline;
 }
@@ -193,7 +186,7 @@ a:hover {
 }
 
 /* --- Contenido principal --- */
-main {
+.ryc-page main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem 2rem;
@@ -655,12 +648,12 @@ main {
 .convocatoria-card {
   background: var(--fondo-blanco);
   border-radius: var(--radio-borde);
-  padding: 1rem 1.25rem;
+  padding: 1.5rem;
   box-shadow: var(--sombra-suave);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   transition: box-shadow var(--transicion);
   border-left: 4px solid var(--aei-azul);
 }
@@ -674,28 +667,21 @@ main {
   background: linear-gradient(90deg, rgba(139, 26, 26, 0.03), var(--fondo-blanco));
 }
 
-.convocatoria-anio {
-  flex: 0 0 auto;
-  background: var(--aei-azul);
-  color: var(--texto-claro);
-  padding: 0.45rem 0.7rem;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  min-width: 3.5rem;
-  text-align: center;
-  line-height: 1;
-}
-
-.convocatoria-info {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
 .convocatoria-info h3 {
   font-size: 1.05rem;
   color: var(--texto-principal);
   margin: 0 0 0.25rem;
+}
+
+.convocatoria-info .anio {
+  display: inline-block;
+  background: var(--aei-azul);
+  color: var(--texto-claro);
+  padding: 0.15rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-right: 0.5rem;
 }
 
 .convocatoria-info .estado {
@@ -706,12 +692,6 @@ main {
 .convocatoria-info .estado.abierta {
   color: #2e7d32;
   font-weight: 600;
-}
-
-.convocatoria-card > a,
-.convocatoria-card > span {
-  flex: 0 0 auto;
-  white-space: nowrap;
 }
 
 /* --- Programa RYC — datos clave --- */
@@ -958,6 +938,342 @@ main {
 div#block-vartheme-aei-page-title {
     display: none;
 }
+</style>
+<!-- ===== HEADER INSTITUCIONAL ===== --><!-- ===== NAVEGACIÓN ===== -->
+<nav aria-label="Main navigation" class="nav-principal">
+<div class="container"><button aria-expanded="false" aria-label="Open menu" class="nav-toggle">☰</button>
+<ul id="nav-menu">
+	<li><a href="index.html">RYC Home</a></li>
+	<li><a href="updates-2026.html">2026 Updates</a></li>
+	<li><a href="programme.html">RYC Programme</a></li>
+	<li><a class="active" href="calls.html">Calls</a></li>
+	<li><a class="nav-destacado" href="https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal" rel=" noopener" target="_blank">25 Years RYC</a></li>
+</ul>
+</div>
+</nav>
+<!-- ===== BREADCRUMB ===== -->
+<style type="text/css">/* === ESTILOS CONVOCATORIAS — compatibles Drupal 9 === */
+.ryc-lista-convocatorias {
+  margin: 0;
+  padding: 0;
+}
+
+.ryc-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 1rem;
+  border-left: 4px solid #1b4c96;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ryc-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.ryc-card--vigente {
+  border-left-color: #c8a951;
+  background: linear-gradient(90deg, rgba(200,169,81,0.05), #ffffff);
+}
+
+.ryc-card__info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ryc-card__titulo {
+  font-size: 1.05rem;
+  color: #333333;
+  margin: 0 0 0.35rem 0;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ryc-card__anio {
+  display: inline-block;
+  background: #1b4c96;
+  color: #ffffff;
+  padding: 0.15rem 0.65rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  line-height: 1.6;
+}
+
+.ryc-card__anio--dorado {
+  background: #c8a951;
+  color: #143a73;
+}
+
+.ryc-card__estado {
+  font-size: 0.85rem;
+  color: #666666;
+  margin: 0;
+}
+
+.ryc-card__estado--proxima {
+  color: #c8a951;
+  font-weight: 600;
+}
+
+.ryc-card__estado--tramitacion {
+  color: #1b4c96;
+  font-weight: 600;
+}
+
+.ryc-card__estado--resuelta {
+  color: #666666;
+}
+
+.ryc-card__accion {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.ryc-btn {
+  display: inline-block;
+  background: #1b4c96;
+  color: #ffffff !important;
+  padding: 0.65rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none !important;
+  transition: background 0.3s ease;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ryc-btn:hover {
+  background: #143a73;
+  text-decoration: none !important;
+}
+
+.ryc-btn--dorado {
+  background: #c8a951;
+  color: #143a73 !important;
+}
+
+.ryc-btn--dorado:hover {
+  background: #d4bd7a;
+  color: #143a73 !important;
+}
+
+.ryc-btn--outline {
+  background: transparent;
+  color: #1b4c96 !important;
+  border: 2px solid #1b4c96;
+}
+
+.ryc-btn--outline:hover {
+  background: #1b4c96;
+  color: #ffffff !important;
+}
+
+.ryc-sin-enlace {
+  font-size: 0.85rem;
+  color: #999999;
+}
+
+.ryc-centrado {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+/* Título de sección */
+.ryc-titulo-seccion {
+  font-size: 1.75rem;
+  color: #1b4c96;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #c8a951;
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .ryc-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ryc-card__accion {
+    width: 100%;
+  }
+  .ryc-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+}
+.ryc-contenedor {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+}
+</style>
+<!-- ===== HISTÓRICO DE CONVOCATORIAS ===== -->
+<style type="text/css">/* === ESTILOS CONVOCATORIAS — compatibles Drupal 9 === */
+
+/* Contenedor con márgenes laterales */
+.ryc-contenedor {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+}
+
+.ryc-lista-convocatorias {
+  margin: 0;
+  padding: 0;
+}
+
+.ryc-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 1rem;
+  border-left: 4px solid #1b4c96;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ryc-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.ryc-card--vigente {
+  border-left-color: #c8a951;
+  background: linear-gradient(90deg, rgba(200,169,81,0.05), #ffffff);
+}
+
+.ryc-card__info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ryc-card__titulo {
+  font-size: 1.05rem;
+  color: #333333;
+  margin: 0 0 0.35rem 0;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ryc-card__anio {
+  display: inline-block;
+  background: #1b4c96;
+  color: #ffffff;
+  padding: 0.15rem 0.65rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  line-height: 1.6;
+}
+
+.ryc-card__anio--dorado {
+  background: #c8a951;
+  color: #143a73;
+}
+
+.ryc-card__estado {
+  font-size: 0.85rem;
+  color: #666666;
+  margin: 0;
+}
+
+.ryc-card__estado--proxima {
+  color: #c8a951;
+  font-weight: 600;
+}
+
+.ryc-card__estado--tramitacion {
+  color: #1b4c96;
+  font-weight: 600;
+}
+
+.ryc-card__estado--resuelta {
+  color: #666666;
+}
+
+.ryc-card__accion {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.ryc-btn {
+  display: inline-block;
+  background: #1b4c96;
+  color: #ffffff !important;
+  padding: 0.65rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none !important;
+  transition: background 0.3s ease;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ryc-btn:hover {
+  background: #143a73;
+  text-decoration: none !important;
+}
+
+.ryc-btn--dorado {
+  background: #c8a951;
+  color: #143a73 !important;
+}
+
+.ryc-btn--dorado:hover {
+  background: #d4bd7a;
+  color: #143a73 !important;
+}
+
+.ryc-titulo-seccion {
+  font-size: 1.75rem;
+  color: #1b4c96;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #c8a951;
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ryc-contenedor {
+    padding: 1.5rem 1rem;
+  }
+  .ryc-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ryc-card__accion {
+    width: 100%;
+  }
+  .ryc-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+}
 
 /* --- Banner cofinanciación EU --- */
 .banner-cofinanciacion {
@@ -979,85 +1295,116 @@ div#block-vartheme-aei-page-title {
   .banner-cofinanciacion .container { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 
-/* === FIX Drupal: tarjetas convocatorias (estructura año-bloque) === */
-.convocatoria-card {
-  background-color: #ffffff !important;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
-  gap: 1rem !important;
-}
-.convocatoria-card.vigente {
-  background: linear-gradient(90deg, rgba(27,76,150,0.03), #ffffff) !important;
-}
-.convocatoria-anio {
-  flex: 0 0 auto !important;
-  background: var(--aei-azul) !important;
-  color: var(--texto-claro) !important;
-  padding: 0.45rem 0.7rem !important;
-  border-radius: 4px !important;
-  font-weight: 700 !important;
-  font-size: 0.95rem !important;
-  min-width: 3.5rem !important;
-  text-align: center !important;
-  line-height: 1 !important;
-  white-space: nowrap !important;
-  display: inline-block !important;
-}
-.convocatoria-info {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-}
-.convocatoria-info h3 {
-  display: block !important;
-  margin: 0 0 0.25rem !important;
-}
-.convocatoria-card > a,
-.convocatoria-card > span,
-.convocatoria-card .btn-aei,
-.convocatoria-card .btn-ryc,
-.convocatoria-card a[class^="btn"] {
-  flex: 0 0 auto !important;
-  flex-shrink: 0 !important;
-  white-space: nowrap !important;
-  display: inline-block !important;
-}
-@media (max-width: 600px) {
-  .convocatoria-card {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-  }
-  .convocatoria-card > a,
-  .convocatoria-card > span { align-self: stretch !important; text-align: center !important; }
-}
-
 </style>
-<!-- ===== HEADER INSTITUCIONAL ===== --><!-- ===== NAVEGACIÓN ===== -->
-<nav aria-label="Main navigation" class="nav-principal">
-<div class="container"><button aria-expanded="false" aria-label="Open menu" class="nav-toggle">☰</button>
-<ul id="nav-menu">
-	<li><a href="index.html">RYC Home</a></li>
-	<li><a href="updates-2026.html">2026 Updates</a></li>
-	<li><a href="programme.html">RYC Programme</a></li>
-	<li><a class="active" href="calls.html">Calls</a></li>
-	<li><a class="nav-destacado" href="https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal" rel=" noopener" target="_blank">25 Years RYC</a></li>
-</ul>
-</div>
-</nav>
-<!-- ===== BREADCRUMB ===== -->
+<div class="ryc-page">
 
-<div aria-label="Breadcrumb" class="breadcrumb">&nbsp;</div>
-
-<main>
-<section class="seccion">&nbsp;
-<h1 class="seccion-titulo">Ramón y Cajal Calls History</h1>
+<!-- ===== HISTÓRICO DE CONVOCATORIAS ===== -->
+<div class="ryc-contenedor">
+<h2 class="ryc-titulo-seccion">Ramón y Cajal Calls History</h2>
 
 <p>List of Ramón y Cajal Programme calls published by the State Research Agency, ordered from most recent to oldest.</p>
-<!-- ===== CONVOCATORIAS — Generadas desde JS para facilitar el mantenimiento ===== -->
 
-<div id="lista-convocatorias">&nbsp;</div>
-</section>
+<div class="ryc-lista-convocatorias"><!-- 2026 -->
+<div class="ryc-card ryc-card--vigente">
+<div class="ryc-card__info">
+<div class="ryc-card__titulo"><span class="ryc-card__anio ryc-card__anio--dorado">2026</span> Ramón y Cajal fellowship grants (RYC-2026)</div>
+
+<p class="ryc-card__estado ryc-card__estado--proxima">Upcoming — New conditions: own project, interview, ERC incentives</p>
+</div>
+
+<div class="ryc-card__accion"><a class="ryc-btn ryc-btn--dorado" href="updates-2026.html" rel="noopener" target="_blank">View updates</a></div>
+</div>
+<!-- 2025 -->
+
+<div class="ryc-card">
+<div class="ryc-card__info">
+<div class="ryc-card__titulo"><span class="ryc-card__anio">2025</span> Ramón y Cajal fellowship grants (RYC-2025)</div>
+
+<p class="ryc-card__estado ryc-card__estado--tramitacion">In progress</p>
+</div>
+
+<div class="ryc-card__accion"><a class="ryc-btn" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2025" rel="noopener" target="_blank">View details ↗</a></div>
+</div>
+<!-- 2024 -->
+
+<div class="ryc-card">
+<div class="ryc-card__info">
+<div class="ryc-card__titulo"><span class="ryc-card__anio">2024</span> Ramón y Cajal fellowship grants (RYC-2024)</div>
+
+<p class="ryc-card__estado ryc-card__estado--resuelta">Resolved</p>
+</div>
+
+<div class="ryc-card__accion"><a class="ryc-btn" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2024" rel="noopener" target="_blank">View details ↗</a></div>
+</div>
+<!-- 2023 -->
+
+<div class="ryc-card">
+<div class="ryc-card__info">
+<div class="ryc-card__titulo"><span class="ryc-card__anio">2023</span> Ramón y Cajal fellowship grants (RYC-2023)</div>
+
+<p class="ryc-card__estado ryc-card__estado--resuelta">Resolved — Incorporates mandatory stabilisation</p>
+</div>
+
+<div class="ryc-card__accion"><a class="ryc-btn" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2023" rel="noopener" target="_blank">View details ↗</a></div>
+</div>
+<!-- 2022 -->
+
+<div class="ryc-card">
+<div class="ryc-card__info">
+<div class="ryc-card__titulo"><span class="ryc-card__anio">2022</span> Ramón y Cajal fellowship grants (RYC-2022)</div>
+
+<p class="ryc-card__estado ryc-card__estado--resuelta">Resolved — Talent attraction grant and two-phase structure introduced</p>
+</div>
+
+<div class="ryc-card__accion"><a class="ryc-btn" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2022" rel="noopener" target="_blank">View details ↗</a></div>
+</div>
+<!-- 2021 -->
+
+<div class="ryc-card">
+<div class="ryc-card__info">
+<div class="ryc-card__titulo"><span class="ryc-card__anio">2021</span> Ramón y Cajal fellowship grants (RYC-2021)</div>
+
+<p class="ryc-card__estado ryc-card__estado--resuelta">Resolved — Early-career researcher track (discontinued in 2022)</p>
+</div>
+
+<div class="ryc-card__accion"><a class="ryc-btn" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2021" rel="noopener" target="_blank">View details ↗</a></div>
+</div>
+<!-- 2020 -->
+
+<div class="ryc-card">
+<div class="ryc-card__info">
+<div class="ryc-card__titulo"><span class="ryc-card__anio">2020</span> Ramón y Cajal fellowship grants (RYC-2020)</div>
+
+<p class="ryc-card__estado ryc-card__estado--resuelta">Resolved</p>
+</div>
+
+<div class="ryc-card__accion"><a class="ryc-btn" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2020" rel="noopener" target="_blank">View details ↗</a></div>
+</div>
+<!-- 2019 -->
+
+<div class="ryc-card">
+<div class="ryc-card__info">
+<div class="ryc-card__titulo"><span class="ryc-card__anio">2019</span> Ramón y Cajal fellowship grants (RYC-2019)</div>
+
+<p class="ryc-card__estado ryc-card__estado--resuelta">Resolved</p>
+</div>
+
+<div class="ryc-card__accion"><a class="ryc-btn" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2019" rel="noopener" target="_blank">View details ↗</a></div>
+</div>
+<!-- 2018 -->
+
+<div class="ryc-card">
+<div class="ryc-card__info">
+<div class="ryc-card__titulo"><span class="ryc-card__anio">2018</span> Ramón y Cajal fellowship grants (RYC-2018)</div>
+
+<p class="ryc-card__estado ryc-card__estado--resuelta">Resolved</p>
+</div>
+
+<div class="ryc-card__accion"><a class="ryc-btn" href="https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2018" rel="noopener" target="_blank">View details ↗</a></div>
+</div>
+</div>
+</div>
+<script>
 
 <!-- ===== COFINANCIACIÓN UE (sección del cuerpo, última del main) ===== -->
 <section class="banner-cofinanciacion">
@@ -1066,167 +1413,8 @@ div#block-vartheme-aei-page-title {
     <p class="cofinanciacion-texto">The Ramón y Cajal Programme is co-funded by the European Union</p>
   </div>
 </section>
-</main>
-<script>
-  /* =========================================================================
-     DATOS DE CONVOCATORIAS — MANTENIMIENTO ANUAL
-     =========================================================================
-     Para añadir una nueva convocatoria, basta con añadir un objeto al inicio
-     del array 'convocatorias' con los siguientes campos:
-       - anio:    Año de la convocatoria (número)
-       - titulo:  Título oficial
-       - estado:  "Próxima" | "Abierta" | "En evaluación" | "Resolved"
-       - enlace:  URL de la ficha en la web de la AEI (o null si no existe aún)
-       - notas:   Texto breve opcional con información adicional
-     ========================================================================= */
 
-  const convocatorias = [
-    {
-      anio: 2026,
-      titulo: "Ramón y Cajal fellowship grants (RYC-2026)",
-      estado: "Upcoming",
-      enlace: null,
-      notas: "New conditions: own project, interview, ERC incentives"
-    },
-    {
-      anio: 2025,
-      titulo: "Ramón y Cajal fellowship grants (RYC-2025)",
-      estado: "In progress",
-      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2025",
-      notas: null
-    },
-    {
-      anio: 2024,
-      titulo: "Ramón y Cajal fellowship grants (RYC-2024)",
-      estado: "Resolved",
-      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2024",
-      notas: null
-    },
-    {
-      anio: 2023,
-      titulo: "Ramón y Cajal fellowship grants (RYC-2023)",
-      estado: "Resolved",
-      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2023",
-      notas: "Incorporates mandatory stabilisation"
-    },
-    {
-      anio: 2022,
-      titulo: "Ramón y Cajal fellowship grants (RYC-2022)",
-      estado: "Resolved",
-      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2022",
-      notas: "Talent attraction grant and two-phase structure introduced"
-    },
-    {
-      anio: 2021,
-      titulo: "Ramón y Cajal fellowship grants (RYC-2021)",
-      estado: "Resolved",
-      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2021",
-      notas: "Early-career researcher track (discontinued in 2022)"
-    },
-    {
-      anio: 2020,
-      titulo: "Ramón y Cajal fellowship grants (RYC-2020)",
-      estado: "Resolved",
-      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2020",
-      notas: null
-    },
-    {
-      anio: 2019,
-      titulo: "Ramón y Cajal fellowship grants (RYC-2019)",
-      estado: "Resolved",
-      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2019",
-      notas: null
-    },
-    {
-      anio: 2018,
-      titulo: "Ramón y Cajal fellowship grants (RYC-2018)",
-      estado: "Resolved",
-      enlace: "https://www.aei.gob.es/convocatorias/buscador-convocatorias/ayudas-contratos-ramon-cajal-ryc-2018",
-      notas: null
-    }
-  ];
-
-  // Renderizar convocatorias
-  const contenedor = document.getElementById('lista-convocatorias');
-  convocatorias.forEach(c => {
-    const esVigente = c.estado === 'Upcoming' || c.estado === 'Open';
-    const esAbierta = c.estado === 'Open';
-    const card = document.createElement('div');
-    card.className = 'convocatoria-card' + (esVigente ? ' vigente' : '');
-    card.innerHTML = `
-      <div class="convocatoria-anio">${c.anio}</div>
-      <div class="convocatoria-info">
-        <h3>${c.titulo}</h3>
-        <div class="estado ${esAbierta ? 'abierta' : ''}">${c.estado}${c.notas ? ' — ' + c.notas : ''}</div>
-      </div>
-      ${c.enlace
-        ? `<a href="${c.enlace}" target="_blank" class="btn-aei">View details &#8599;</a>`
-        : (esVigente ? '<a href="updates-2026.html" class="btn-ryc">View updates</a>' : '<span style="color: var(--texto-secundario); font-size: 0.85rem;">Details not available</span>')
-      }
-    `;
-    contenedor.appendChild(card);
-  });
-  </script><script>
-/* ==========================================================================
-   INTERACTIVIDAD — Web Convocatoria Ramón y Cajal
-   ========================================================================== */
-
-document.addEventListener('DOMContentLoaded', function () {
-
-  // --- Menú móvil (hamburguesa) ---
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.getElementById('nav-menu');
-
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', function () {
-      const isOpen = navMenu.classList.toggle('nav-open');
-      navToggle.setAttribute('aria-expanded', isOpen);
-      navToggle.innerHTML = isOpen ? '&#10005;' : '&#9776;';
-    });
-
-    // Cerrar menú al hacer clic en un enlace (móvil)
-    navMenu.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navMenu.classList.remove('nav-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        navToggle.innerHTML = '&#9776;';
-      });
-    });
-  }
-
-  // --- Acordeones ---
-  document.querySelectorAll('.acordeon-header').forEach(function (header) {
-    header.addEventListener('click', function () {
-      const contenido = this.nextElementSibling;
-      const estaActivo = this.classList.contains('activo');
-
-      // Cerrar todos los acordeones del mismo grupo
-      this.closest('.seccion').querySelectorAll('.acordeon-header').forEach(function (h) {
-        h.classList.remove('activo');
-        h.nextElementSibling.classList.remove('activo');
-      });
-
-      // Abrir el seleccionado (si no estaba abierto)
-      if (!estaActivo) {
-        this.classList.add('activo');
-        contenido.classList.add('activo');
-      }
-    });
-  });
-
-  // --- Scroll suave para enlaces internos ---
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
-});
-
-</script>
+<!-- /.ryc-page -->
+</div>
 </body>
 </html>

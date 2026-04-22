@@ -68,6 +68,26 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
 - **Sin SVG** (ni inline ni referenciado): los fragmentos pegados en Drupal pueden perder o reescribir elementos `<svg>` al pasar por los filtros del editor. Logos e iconos vectoriales se rasterizan a **PNG**. Fotos se guardan como **JPEG**. Todas las imágenes van **embebidas en base64** dentro del HTML.
 - **Sin `<footer>` propio**: el HTML generado no contiene ningún elemento `<footer>` ni clase/regla CSS `.footer / .footer-grid / .footer-bottom`. El footer institucional lo pinta Drupal con sus propias clases — cualquier regla nuestra sobre `footer` interferiría (u ocultaría) con el footer de Drupal. El script `scripts/gen_ryc3.py` limpia esas referencias automáticamente con `strip_footer_refs()`.
 
+### Aislamiento CSS — contenedor `.ryc-page`
+Todo el HTML del fragmento se envuelve en `<div class="ryc-page">…</div>` y las reglas CSS globales (selectores sin clase: `body`, `html`, `*`, `img`, `a`, `main`) se reescriben para aplicarse sólo **dentro** de ese contenedor. Así nada del fragmento modifica la estética del resto del portal AEI en Drupal.
+
+Dos estrategias según si queremos "ganar" o no sobre otras reglas:
+
+| Antes | Después | Especificidad | Efecto |
+|-------|---------|---------------|--------|
+| `body { … }`   | `.ryc-page { … }`                 | 0,1,0 | Gana sobre tema Drupal; aplica tipografía/fondo al wrapper |
+| `html { … }`   | `.ryc-page { … }`                 | 0,1,0 | Igual |
+| `main { … }`   | `.ryc-page main { … }`            | 0,1,1 | Gana (solo hay un `<main>` propio) |
+| `*, *::before, *::after { … }` | `:where(.ryc-page, .ryc-page *, …) { … }` | **0,0,0** | Resetea sin aumentar especificidad |
+| `img { … }`    | `:where(.ryc-page) img { … }`     | **0,0,1** | Lo mínimo para reglas globales; no pisa `.cofinanciacion-logos`, `.novedad-banda img`, etc. |
+| `a { … }`      | `:where(.ryc-page) a { … }`       | **0,0,1** | No pisa `.btn-ryc`, `.btn-aei`, `.ryc-btn--dorado` (los botones conservan su color blanco) |
+| `a:hover { … }`| `:where(.ryc-page) a:hover { … }` | **0,0,2** | Idem |
+
+Sin `:where()`, las reglas globales scopadas pasaban de 0,0,1 a 0,1,1 y ganaban sobre reglas con una sola clase: eso hacía que `.cofinanciacion-logos { height: 72px }` perdiera frente a `.ryc-page img { height: auto }` (logo enorme) y que `.btn-ryc { color: #fff }` perdiera frente a `.ryc-page a { color: #1b4c96 }` (botones azul sobre azul, ilegibles).
+
+### Nomenclatura BEM con prefijo `.ryc-*`
+Para **nuevos** componentes (p. ej. la lista de convocatorias), preferir **clases con prefijo `ryc-` en formato BEM** (`ryc-card`, `ryc-card__titulo`, `ryc-card__estado--proxima`, `ryc-btn--dorado`…) en lugar de selectores de elemento (`h3`, `span.anio`) — mucho más robusto frente a los filtros y estilos globales de Drupal. Este patrón ya se usa en `convocatorias.html` / `ing/calls.html`.
+
 ---
 
 ## 3. Arquitectura técnica
@@ -270,3 +290,4 @@ pip install Pillow
 | v2.4 | 21-04-2026 | Reorganización: `!SALIDA/` ES el repo (`.git/` dentro), raíz del proyecto limpia, gen_ryc3.py sin paso sync |
 | v2.5 | 22-04-2026 | 4ª revisión: traducciones faltantes al EN (h3 novedades 3/4/5, alt, title, meta); banner UE retirado de novedades-2026 (ES/EN); rediseño tarjetas convocatorias (año como bloque, no span) para robustez en Drupal; PROYECTO en `gen_ryc3.py` autodetectado desde la ubicación del script |
 | v2.6 | 22-04-2026 | 4ª revisión (continuación): banner cofinanciación UE dentro de `<main>` como `<section>` (no como `<div>` fuera); eliminadas TODAS las referencias a footer (CSS `.footer`, regla `display:none` sobre footer, comentario `<!-- FOOTER -->`) para que Drupal conserve su footer institucional; logo de cofinanciación convertido a PNG; regla "sin SVG, sin `<footer>`" documentada |
+| v2.7 | 22-04-2026 | 4ª revisión (continuación): aislamiento CSS — todo el HTML envuelto en `<div class="ryc-page">` y reglas globales `body`/`html`/`*`/`main` reescritas con prefijo `.ryc-page`, reglas `img`/`a`/`a:hover` reescritas con `:where(.ryc-page)` para **no** añadir especificidad y no pisar `.cofinanciacion-logos`, `.btn-ryc`, `.novedad-banda img`…; adoptado `!ENTRADA/05-cuarta revision/convocatorias.txt` del equipo dev (cards estáticas con BEM `.ryc-card`), retirado `CONV_FIX` y el JS legacy de render dinámico |

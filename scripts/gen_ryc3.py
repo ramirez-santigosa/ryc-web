@@ -12,6 +12,7 @@ from PIL import Image
 
 PROYECTO = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 SRC      = PROYECTO + "/!ENTRADA/04-tercera-revision"
+SRC_R4   = PROYECTO + "/!ENTRADA/05-cuarta revision"   # 4ª revisión (dev team)
 BASE     = PROYECTO + "/!SALIDA"   # raíz del repo git
 OUT_ESP  = BASE
 OUT_ING  = BASE + "/ing"
@@ -76,6 +77,79 @@ def strip_footer_refs(content):
     content = FOOTER_CSS_BLOCK_RE.sub('', content)
     content = FOOTER_BODY_COMMENT_RE.sub('\n', content)
     return content
+
+
+# ---- AISLAMIENTO EN WRAPPER .ryc-page ----
+# El fragmento que se pega en Drupal debe afectar SOLO a su propio contenedor.
+# - Se envuelve todo el HTML del body en <div class="ryc-page">…</div>.
+# - Las reglas CSS globales (body, html, *, img, a, main) se reescriben para
+#   que solo apliquen dentro de .ryc-page; así no cambian la estética del
+#   resto del portal de la AEI.
+# - Las variables de :root se mantienen (solo declaran custom properties;
+#   no estilan nada por sí mismas).
+# - Las reglas con clase propia (.algo, .hero-…) ya están bastante aisladas
+#   por el nombre, y las nuevas se nombran con prefijo .ryc-*.
+WRAPPER_CLASS = 'ryc-page'
+
+GLOBAL_CSS_SCOPE = [
+    # Reset box-sizing: aislamos DENTRO del wrapper pero con :where() para no añadir
+    # especificidad — si no, "* { box-sizing }" con especificidad 0,0,0 pasaría a 0,1,0
+    # y podría pisar reglas más específicas inesperadamente.
+    (re.compile(r'^\s*\*\s*,\s*\n?\s*\*::before\s*,\s*\n?\s*\*::after\s*\{', re.M),
+     f':where(.{WRAPPER_CLASS}, .{WRAPPER_CLASS} *, .{WRAPPER_CLASS} *::before, .{WRAPPER_CLASS} *::after) {{'),
+    # body / html / main: reescribimos a `.ryc-page` (especificidad 0,1,0) porque QUEREMOS
+    # que estas reglas base (tipografía, color de fondo…) ganen sobre el tema de Drupal.
+    (re.compile(r'^\s*html\s*\{',     re.M), f'.{WRAPPER_CLASS} {{'),
+    (re.compile(r'^\s*body\s*\{',     re.M), f'.{WRAPPER_CLASS} {{'),
+    (re.compile(r'^\s*main\s*\{',     re.M), f'.{WRAPPER_CLASS} main {{'),
+    # img / a / a:hover: reescribimos a `:where(.ryc-page) img` para mantener la
+    # especificidad original (0,0,1). Así las reglas con clase (p.ej.
+    # `.cofinanciacion-logos { height: 72px }`, `.btn-ryc { color: #fff }`,
+    # `.novedad-banda img { max-height: 320px }`) siguen ganando como antes,
+    # y la regla global solo aporta lo mínimo imprescindible.
+    (re.compile(r'^\s*img\s*\{',      re.M), f':where(.{WRAPPER_CLASS}) img {{'),
+    (re.compile(r'^\s*a\s*\{',        re.M), f':where(.{WRAPPER_CLASS}) a {{'),
+    (re.compile(r'^\s*a:hover\s*\{',  re.M), f':where(.{WRAPPER_CLASS}) a:hover {{'),
+]
+
+def scope_global_css(content):
+    """Reescribe las reglas CSS globales para que solo afecten dentro de .ryc-page."""
+    for pat, repl in GLOBAL_CSS_SCOPE:
+        content = pat.sub(repl, content)
+    return content
+
+RYC_PAGE_END_MARKER = '<!-- /.ryc-page -->'
+
+def wrap_in_page_container(content):
+    """Envuelve el HTML del fragmento (todo lo que va tras el último </style>) en .ryc-page.
+
+    Añade un marcador `<!-- /.ryc-page -->` justo antes del cierre `</div>` del wrapper
+    para poder insertar la sección de cofinanciación UE como ÚLTIMA sección DENTRO del
+    wrapper (ver `add_banner`)."""
+    idx = content.rfind('</style>')
+    if idx == -1:
+        return f'<div class="{WRAPPER_CLASS}">\n{content}\n{RYC_PAGE_END_MARKER}\n</div>'
+    cut = idx + len('</style>')
+    return (content[:cut]
+            + f'\n<div class="{WRAPPER_CLASS}">\n'
+            + content[cut:]
+            + f'\n{RYC_PAGE_END_MARKER}\n</div>\n')
+
+
+# ---- LIMPIAR JS LEGACY DE RENDER DE CONVOCATORIAS ----
+# El convocatorias.txt de la 4ª revisión incluye, como referencia, un <script>
+# que renderizaba las tarjetas dinámicamente a partir de un array JS. Ya no es
+# necesario: el HTML de las cards viene pre-renderizado con clases .ryc-card.
+# Además, ese JS buscaba un id="lista-convocatorias" que no existe en la nueva
+# estructura, y fallaría con un error al intentar hacer contenedor.appendChild.
+CONV_RENDER_JS_RE = re.compile(
+    r'<script>\s*/\*\s*=+\s*\n*\s*DATOS DE CONVOCATORIAS.*?</script>',
+    re.DOTALL
+)
+
+def strip_convocatorias_render_js(content):
+    """Elimina el primer <script> (datos + render dinámico) del fragmento de convocatorias."""
+    return CONV_RENDER_JS_RE.sub('', content)
 
 # ---- CSS BANNER ----
 BANNER_CSS = """
@@ -180,7 +254,15 @@ def rpage(n):
     with open(SRC + f'/pagina {n}.txt', 'r', encoding='utf-8') as f:
         return f.read()
 
-p1, p2, p3, p4 = rpage(1), rpage(2), rpage(3), rpage(4)
+# p1-p3: páginas 1-3 siguen viniendo de la 3ª revisión.
+# p4 (convocatorias): 4ª revisión — el dev team ha entregado una versión
+# ya validada en Drupal, con cards estáticas y clases BEM prefijadas (.ryc-*).
+def r_convocatorias_4r():
+    with open(SRC_R4 + '/convocatorias.txt', 'r', encoding='utf-8') as f:
+        return f.read()
+
+p1, p2, p3 = rpage(1), rpage(2), rpage(3)
+p4 = r_convocatorias_4r()
 
 # ---- CAMBIOS DE IMÁGENES ----
 # pagina 2: novedad 2 (entrevista unsplash)
@@ -212,24 +294,43 @@ def inject_css(content, extra):
         return content
     return content[:idx] + extra + '\n</style>' + content[idx+8:]
 
+# Limpiar el JS legacy de render dinámico del fragmento de convocatorias (4ª revisión)
+p4 = strip_convocatorias_render_js(p4)
+
 # Primero eliminamos todas las referencias a footer (CSS + comentario HTML)
 p1 = strip_footer_refs(p1)
 p2 = strip_footer_refs(p2)
 p3 = strip_footer_refs(p3)
 p4 = strip_footer_refs(p4)
 
+# La página de convocatorias ya trae sus propias reglas .ryc-card robustas;
+# no necesita CONV_FIX (que era un parche para la estructura antigua).
 EXTRA_CSS_P = BANNER_CSS
 p1 = inject_css(p1, EXTRA_CSS_P)
 p2 = inject_css(p2, EXTRA_CSS_P)
 p3 = inject_css(p3, EXTRA_CSS_P)
-p4 = inject_css(p4, EXTRA_CSS_P + CONV_FIX)
+p4 = inject_css(p4, EXTRA_CSS_P)
 
-# ---- AÑADIR BANNER EU DENTRO DE <main>, COMO ÚLTIMA SECCIÓN DEL CUERPO ----
-# El banner va DENTRO del cuerpo de la página (antes de </main>), nunca fuera.
-# El footer de Drupal es quien renderiza el footer institucional — este banner
-# no forma parte del footer.
+# Aislar estilos: scopar reglas globales + envolver HTML en .ryc-page.
+# IMPORTANTE: esto debe hacerse ANTES de add_banner, para que el banner se
+# inserte DENTRO del wrapper (antes del marcador <!-- /.ryc-page -->).
+p1 = wrap_in_page_container(scope_global_css(p1))
+p2 = wrap_in_page_container(scope_global_css(p2))
+p3 = wrap_in_page_container(scope_global_css(p3))
+p4 = wrap_in_page_container(scope_global_css(p4))
+
+# ---- AÑADIR BANNER EU COMO ÚLTIMA SECCIÓN DENTRO DEL WRAPPER .ryc-page ----
+# El banner va DENTRO del cuerpo de la página, NUNCA en un <footer>: el footer
+# institucional lo pinta Drupal.
+# Se inserta antes del marcador `<!-- /.ryc-page -->` que añade wrap_in_page_container.
+# Como fallback (si no hay wrapper todavía) se usa `</main>`.
 def add_banner(content, lang='es'):
-    return content.replace('</main>', eu_banner_html(lang) + '</main>', 1)
+    if RYC_PAGE_END_MARKER in content:
+        return content.replace(RYC_PAGE_END_MARKER,
+                               eu_banner_html(lang) + '\n' + RYC_PAGE_END_MARKER, 1)
+    if '</main>' in content:
+        return content.replace('</main>', eu_banner_html(lang) + '</main>', 1)
+    return content + eu_banner_html(lang)
 
 p1 = add_banner(p1)
 # p2 (novedades 2026) NO lleva banner de cofinanciación UE — indicación 4ª revisión
@@ -366,6 +467,16 @@ EN_TRANS = [
     ('Próxima publicación — Nuevas condiciones', 'Upcoming publication — New conditions'),
     ('>Ver novedades<', '>View updates<'),
     ('Convocatoria Ramón y Cajal 2025', 'Ramón y Cajal 2025 Call'),
+    # Página 4 (convocatorias.txt 4ª revisión) — estados con coletilla (reglas específicas ANTES
+    # de las genéricas "Resuelta"/"En tramitación" para que no las "corten" por la mitad).
+    ('>Próxima — Nuevas condiciones: proyecto propio, entrevista, incentivos ERC<',
+     '>Upcoming — New conditions: own project, interview, ERC incentives<'),
+    ('>Resuelta — Incorpora la obligatoriedad de estabilización<',
+     '>Resolved — Incorporates mandatory stabilisation<'),
+    ('>Resuelta — Se introduce la ayuda para la atracción de talento y la división en dos fases<',
+     '>Resolved — Talent attraction grant and two-phase structure introduced<'),
+    ('>Resuelta — Modalidad investigador/a novel (suprimida en 2022)<',
+     '>Resolved — Early-career researcher track (discontinued in 2022)<'),
     ('En tramitación', 'In progress'),
     ('Convocatoria Ramón y Cajal 2024', 'Ramón y Cajal 2024 Call'),
     ('Resuelta', 'Resolved'),
@@ -618,7 +729,9 @@ EN_TRANS = [
      'titulo: "Ramón y Cajal fellowship grants (RYC-2019)"'),
     ("titulo: \"Ayudas para contratos Ramón y Cajal (RYC-2018)\"",
      'titulo: "Ramón y Cajal fellowship grants (RYC-2018)"'),
-    # Page 4 HTML
+    # Page 4 HTML (cards estáticas 4ª revisión — texto plano sin comillas)
+    # Prefijo común de los títulos de card. Aplica a los 9 años; el sufijo "YYYY)" queda igual.
+    ('Ayudas para contratos Ramón y Cajal (RYC-', 'Ramón y Cajal fellowship grants (RYC-'),
     ('Histórico de Convocatorias Ramón y Cajal',
      'Ramón y Cajal Calls History'),
     ('Listado de convocatorias del programa Ramón y Cajal publicadas por la Agencia Estatal de Investigación, ordenadas de la más reciente a la más antigua.',

@@ -25,7 +25,9 @@ Se adjuntan 8 ficheros HTML listos para pegar en Drupal (4 en español, 4 en ing
 
 El header y footer institucional de Drupal funcionan con normalidad. **El HTML entregado no contiene ningún `<footer>` ni clase `.footer`**: el footer es el que Drupal pinta por sí mismo.
 
-> **Banner de cofinanciación UE**: aparece embebido como `<section class="banner-cofinanciacion">` **dentro de `<main>`** (última sección del cuerpo), en `index`, `programa-ryc` y `convocatorias` (ES) y sus equivalentes en `ing/`. **No** aparece en `novedades-2026.html` ni `ing/updates-2026.html` — intencional (decisión de la 4ª revisión).
+> **Todo el contenido va envuelto en `<div class="ryc-page">…</div>`**, y las reglas CSS globales (`body`, `html`, `*`, `img`, `a`, `main`) están reescritas para aplicarse solo dentro de ese contenedor. Así la maqueta **no modifica la estética del resto de la página Drupal** (links, imágenes, tipografía, etc. que vivan fuera del wrapper permanecen intactos).
+
+> **Banner de cofinanciación UE**: aparece embebido como `<section class="banner-cofinanciacion">` **dentro del wrapper** `.ryc-page` (última sección del cuerpo), en `index`, `programa-ryc` y `convocatorias` (ES) y sus equivalentes en `ing/`. **No** aparece en `novedades-2026.html` ni `ing/updates-2026.html` — intencional (decisión de la 4ª revisión).
 
 > **Imágenes**: todas PNG (logos) o JPEG (fotografías), embebidas en base64. **No hay SVG** en el HTML — Drupal puede filtrarlos.
 

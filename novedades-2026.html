@@ -125,17 +125,13 @@
 }
 
 /* --- Reset y base --- */
-*,
-*::before,
-*::after {
+:where(.ryc-page, .ryc-page *, .ryc-page *::before, .ryc-page *::after) {
   box-sizing: border-box;
 }
-
-html {
+.ryc-page {
   scroll-behavior: smooth;
 }
-
-body {
+.ryc-page {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--texto-principal);
   background-color: var(--fondo-claro);
@@ -143,19 +139,16 @@ body {
   margin: 0;
   padding: 0;
 }
-
-img {
+:where(.ryc-page) img {
   max-width: 100%;
   height: auto;
 }
-
-a {
+:where(.ryc-page) a {
   color: var(--aei-azul);
   text-decoration: none;
   transition: color var(--transicion);
 }
-
-a:hover {
+:where(.ryc-page) a:hover {
   color: var(--aei-azul-oscuro);
   text-decoration: underline;
 }
@@ -285,7 +278,7 @@ a:hover {
 }
 
 /* --- Contenido principal --- */
-main {
+.ryc-page main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem 2rem;
@@ -1059,6 +1052,8 @@ div#block-vartheme-aei-page-title {
 }
 
 </style>
+<div class="ryc-page">
+
 <!-- ===== HEADER INSTITUCIONAL ===== --><!-- ===== NAVEGACIÓN ===== -->
 <nav aria-label="Navegación principal" class="nav-principal">
 <div class="container"><button aria-expanded="false" aria-label="Abrir menú" class="nav-toggle">☰</button>
@@ -1313,5 +1308,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
+<!-- /.ryc-page -->
+</div>
 </body>
 </html>
