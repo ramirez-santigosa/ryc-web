@@ -23,9 +23,11 @@ Se adjuntan 8 ficheros HTML listos para pegar en Drupal (4 en español, 4 en ing
 4. Pegar el contenido completo del fichero
 5. Guardar
 
-El header y footer institucional de Drupal funcionan con normalidad — el CSS de cada página oculta automáticamente el footer duplicado.
+El header y footer institucional de Drupal funcionan con normalidad. **El HTML entregado no contiene ningún `<footer>` ni clase `.footer`**: el footer es el que Drupal pinta por sí mismo.
 
-> **Banner de cofinanciación UE**: aparece embebido en el cuerpo de `index`, `programa-ryc`, `convocatorias` (ES) y sus equivalentes en `ing/`. **No** aparece en `novedades-2026.html` ni `ing/updates-2026.html` — esto es intencional (decisión de la 4ª revisión).
+> **Banner de cofinanciación UE**: aparece embebido como `<section class="banner-cofinanciacion">` **dentro de `<main>`** (última sección del cuerpo), en `index`, `programa-ryc` y `convocatorias` (ES) y sus equivalentes en `ing/`. **No** aparece en `novedades-2026.html` ni `ing/updates-2026.html` — intencional (decisión de la 4ª revisión).
+
+> **Imágenes**: todas PNG (logos) o JPEG (fotografías), embebidas en base64. **No hay SVG** en el HTML — Drupal puede filtrarlos.
 
 ## Si hay problemas al guardar
 

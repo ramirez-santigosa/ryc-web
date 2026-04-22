@@ -52,16 +52,30 @@ nov2 = resize64('Novedades - 2 Entrevista.png',         1200, 400)
 nov4 = resize64('Novedades - 4 Estabilización.png',     1200, 400)
 nov5 = resize64('Novedades - 5 Integración convocatorias.png', 1200, 400)
 prog = resize64('Programa - Impacto - Excavación.png',  1200, 400)
-eu   = resize64('MICIU+Cofinanciado+AEI.jpg',            800, 200, quality=90)
+eu   = resize64('MICIU+Cofinanciado+AEI.jpg',            800, 200, fmt='PNG')
 print('OK\n')
 
-# ---- CSS SUPRIMIR FOOTER DRUPAL ----
-FOOTER_HIDE_CSS = """
-/* --- Ocultar footer Drupal --- */
-footer, .footer, #footer, [id*="footer"], [class*="footer"] {
-  display: none !important;
-}
-"""
+# ---- LIMPIEZA DE REFERENCIAS A FOOTER ----
+# Los fragmentos pagina*.txt traen un bloque CSS `.footer/.footer-grid/.footer-bottom`
+# y un comentario <!-- ===== FOOTER ===== --> heredado de una maqueta previa.
+# En Drupal no queremos NADA relacionado con footer en el HTML pegado:
+#   - el footer institucional lo pinta Drupal con sus propias clases `.footer` / `<footer>`
+#   - cualquier regla `.footer { ... }` en el CSS embebido estiliza (o rompe) el footer de Drupal
+#   - un `display: none` sobre selectores `footer` se cargaría el footer institucional entero
+# Por eso aquí NO inyectamos ningún `display: none` sobre footer, y además eliminamos
+# las reglas CSS y el comentario HTML con `strip_footer_refs()`.
+
+FOOTER_CSS_BLOCK_RE = re.compile(
+    r'/\*\s*-{2,}\s*Footer\s*-{2,}\s*\*/.*?(?=/\*\s*-{2,}\s*[^-])',
+    re.DOTALL | re.IGNORECASE,
+)
+FOOTER_BODY_COMMENT_RE = re.compile(r'\n?<!--\s*=+\s*FOOTER\s*=+\s*-->\n?')
+
+def strip_footer_refs(content):
+    """Elimina del fragmento todas las referencias a footer para que Drupal conserve el suyo."""
+    content = FOOTER_CSS_BLOCK_RE.sub('', content)
+    content = FOOTER_BODY_COMMENT_RE.sub('\n', content)
+    return content
 
 # ---- CSS BANNER ----
 BANNER_CSS = """
@@ -198,7 +212,13 @@ def inject_css(content, extra):
         return content
     return content[:idx] + extra + '\n</style>' + content[idx+8:]
 
-EXTRA_CSS_P = FOOTER_HIDE_CSS + BANNER_CSS
+# Primero eliminamos todas las referencias a footer (CSS + comentario HTML)
+p1 = strip_footer_refs(p1)
+p2 = strip_footer_refs(p2)
+p3 = strip_footer_refs(p3)
+p4 = strip_footer_refs(p4)
+
+EXTRA_CSS_P = BANNER_CSS
 p1 = inject_css(p1, EXTRA_CSS_P)
 p2 = inject_css(p2, EXTRA_CSS_P)
 p3 = inject_css(p3, EXTRA_CSS_P)

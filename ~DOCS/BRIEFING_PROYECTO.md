@@ -64,6 +64,10 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
 > **Nota:** CSS, JS e imágenes de contenido están **embebidos** dentro de cada fichero HTML. La carpeta `assets/` contiene únicamente los fondos de banners que se cargan vía URL absoluta desde el CSS embebido (`https://ramirez-santigosa.github.io/ryc-web/assets/...`).
 > Los mismos ficheros sirven tanto para GitHub Pages (previsualización) como para entregar a Drupal.
 
+### Reglas de imagen
+- **Sin SVG** (ni inline ni referenciado): los fragmentos pegados en Drupal pueden perder o reescribir elementos `<svg>` al pasar por los filtros del editor. Logos e iconos vectoriales se rasterizan a **PNG**. Fotos se guardan como **JPEG**. Todas las imágenes van **embebidas en base64** dentro del HTML.
+- **Sin `<footer>` propio**: el HTML generado no contiene ningún elemento `<footer>` ni clase/regla CSS `.footer / .footer-grid / .footer-bottom`. El footer institucional lo pinta Drupal con sus propias clases — cualquier regla nuestra sobre `footer` interferiría (u ocultaría) con el footer de Drupal. El script `scripts/gen_ryc3.py` limpia esas referencias automáticamente con `strip_footer_refs()`.
+
 ---
 
 ## 3. Arquitectura técnica
@@ -265,3 +269,4 @@ pip install Pillow
 | v2.3 | 21-04-2026 | Unificación: un solo juego de ficheros para GitHub Pages y Drupal, `ing/` para inglés, limpieza repo |
 | v2.4 | 21-04-2026 | Reorganización: `!SALIDA/` ES el repo (`.git/` dentro), raíz del proyecto limpia, gen_ryc3.py sin paso sync |
 | v2.5 | 22-04-2026 | 4ª revisión: traducciones faltantes al EN (h3 novedades 3/4/5, alt, title, meta); banner UE retirado de novedades-2026 (ES/EN); rediseño tarjetas convocatorias (año como bloque, no span) para robustez en Drupal; PROYECTO en `gen_ryc3.py` autodetectado desde la ubicación del script |
+| v2.6 | 22-04-2026 | 4ª revisión (continuación): banner cofinanciación UE dentro de `<main>` como `<section>` (no como `<div>` fuera); eliminadas TODAS las referencias a footer (CSS `.footer`, regla `display:none` sobre footer, comentario `<!-- FOOTER -->`) para que Drupal conserve su footer institucional; logo de cofinanciación convertido a PNG; regla "sin SVG, sin `<footer>`" documentada |

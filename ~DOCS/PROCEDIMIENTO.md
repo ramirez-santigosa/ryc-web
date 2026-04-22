@@ -175,13 +175,17 @@ python scripts/gen_dist.py
 
 ### Reglas de imagen para base64
 
-| Tipo | Tamaño máximo | Calidad | Resultado aprox. |
-|------|--------------|---------|-----------------|
-| Imagen de sección (banda ancha) | 1200×400 px | JPEG 85% | 30–170 KB |
-| Logo / banner institucional | 900×200 px | JPEG 90% | 35–45 KB |
-| Icono | 200×200 px | PNG | < 10 KB |
+| Tipo | Formato | Tamaño máximo | Calidad | Resultado aprox. |
+|------|---------|--------------|---------|-----------------|
+| Imagen de sección (foto, banda ancha) | **JPEG** | 1200×400 px | 85% | 30–170 KB |
+| Logo institucional / banner con texto | **PNG** | 800×200 px | — | 40–90 KB |
+| Icono | **PNG** | 200×200 px | — | < 10 KB |
 
-Redimensionar siempre antes de codificar en base64. Una imagen de 5 MB sin redimensionar produce un base64 de ~7 MB, haciendo el fichero inmanejable.
+Reglas adicionales:
+
+- **Prohibido SVG** (ni inline `<svg>` ni referenciado `.svg`): los filtros de Drupal suelen reescribir o descartar elementos SVG al pegar. Rasterizar siempre a PNG (vectoriales) o JPEG (fotografías).
+- **Redimensionar antes de codificar**: una imagen de 5 MB sin redimensionar produce un base64 de ~7 MB, haciendo el fichero inmanejable en Drupal.
+- **PNG para texto/logo**, **JPEG para fotografías**: PNG conserva la nitidez en bordes y texto (imprescindible en logos), JPEG comprime mucho mejor fotografías al mismo nivel de calidad percibida.
 
 ---
 
@@ -299,6 +303,8 @@ Actualizar `CLAUDE.md` al inicio de cada fase nueva o cuando cambie algo signifi
 - Usar Node.js/sharp si Python+PIL es suficiente (más sencillo, sin dependencias de npm)
 - Regex con `[^>]*` para reemplazar atributos de `<img>` (elimina `alt` y `loading`)
 - Carpetas `dist/` o `pages/` como intermedias — los ficheros definitivos van directamente a `!SALIDA/`
+- **Elementos `<svg>` o recursos `.svg`**: los filtros de CKEditor/Drupal pueden descartarlos al pegar. Usar siempre PNG o JPEG rasterizado.
+- **Ningún `<footer>` propio ni reglas CSS `footer/.footer`**: el footer institucional lo pinta Drupal con sus propias clases. Una regla `.footer { ... }` en nuestro CSS estilizaría (o rompería) el footer de Drupal; y `display: none` sobre `footer` lo ocultaría por completo. Si los fragmentos del equipo dev traen bloques "Footer", el script los limpia con `strip_footer_refs()`.
 - **`<span>` decorativos dentro de `<h3>`/`<h2>`** para componer "badge + título" en una sola línea: Drupal (CKEditor, filtros) puede reinterpretar ese layout y colapsarlo. Separar siempre en elementos hermanos (`<div class="badge">…</div>` + `<div class="info"><h3>…</h3></div>`) con flex en el contenedor padre.
 - **Hardcodear rutas absolutas** al proyecto: calcular siempre con `os.path.dirname(os.path.abspath(__file__))` por si la carpeta OneDrive cambia de nombre.
 - **Patrones `EN_TRANS` sin delimitador de cierre**: si hay dos textos que comparten prefijo (ej. "Estabilización obligatoria con incentivo" vs "…con incentivo económico"), usar siempre el delimitador completo `<h3>…</h3>` para evitar que la regla corta "se coma" parte de la larga.
