@@ -10,7 +10,7 @@ Mismos ficheros para GitHub Pages y para entregar a Drupal.
 import base64, os, re, io
 from PIL import Image
 
-PROYECTO = "C:/Users/lourdes.ramirez/OneDrive - MINISTERIO DE CIENCIA E INNOVACIÓN/General - Unidad de Apoyo/08-PROYECTOS/09-WEB NUEVO RYC 2026"
+PROYECTO = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 SRC      = PROYECTO + "/!ENTRADA/04-tercera-revision"
 BASE     = PROYECTO + "/!SALIDA"   # raíz del repo git
 OUT_ESP  = BASE
@@ -88,24 +88,57 @@ BANNER_CSS = """
 
 # ---- CSS FIX CONVOCATORIAS ----
 CONV_FIX = """
-/* === FIX Drupal: tarjetas convocatorias === */
+/* === FIX Drupal: tarjetas convocatorias (estructura año-bloque) === */
 .convocatoria-card {
   background-color: #ffffff !important;
   display: flex !important;
-  justify-content: space-between !important;
+  flex-direction: row !important;
   align-items: center !important;
   flex-wrap: nowrap !important;
+  gap: 1rem !important;
 }
 .convocatoria-card.vigente {
   background: linear-gradient(90deg, rgba(27,76,150,0.03), #ffffff) !important;
 }
-.convocatoria-info { flex: 1 1 auto !important; min-width: 0 !important; }
+.convocatoria-anio {
+  flex: 0 0 auto !important;
+  background: var(--aei-azul) !important;
+  color: var(--texto-claro) !important;
+  padding: 0.45rem 0.7rem !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  min-width: 3.5rem !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+.convocatoria-info {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+.convocatoria-info h3 {
+  display: block !important;
+  margin: 0 0 0.25rem !important;
+}
+.convocatoria-card > a,
+.convocatoria-card > span,
 .convocatoria-card .btn-aei,
 .convocatoria-card .btn-ryc,
 .convocatoria-card a[class^="btn"] {
+  flex: 0 0 auto !important;
   flex-shrink: 0 !important;
   white-space: nowrap !important;
   display: inline-block !important;
+}
+@media (max-width: 600px) {
+  .convocatoria-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .convocatoria-card > a,
+  .convocatoria-card > span { align-self: stretch !important; text-align: center !important; }
 }
 """
 
@@ -176,7 +209,7 @@ def add_banner(content, lang='es'):
         eu_banner_html(lang) + FOOTER_COMMENT)
 
 p1 = add_banner(p1)
-p2 = add_banner(p2)
+# p2 (novedades 2026) NO lleva banner de cofinanciación UE — indicación 4ª revisión
 p3 = add_banner(p3)
 p4 = add_banner(p4)
 
@@ -258,6 +291,9 @@ EN_TRANS = [
      'Ministry of Science and Innovation — Co-funded by the European Union — AEI'),
     # Breadcrumb
     ('aria-label="Ruta de navegación"', 'aria-label="Breadcrumb"'),
+    # Meta description (index)
+    ('content="Convocatoria de ayudas del Programa Ramón y Cajal (RYC) de la Agencia Estatal de Investigación. Incorporación de personal investigador posdoctoral destacado al sistema español de I+D+i."',
+     'content="Grant call for the Ramón y Cajal Programme (RYC) of the State Research Agency. Incorporation of outstanding postdoctoral researchers into the Spanish R&amp;D&amp;I system."'),
     # Page 1 - Hero
     ('Programa <span>Ramón y Cajal</span>',
      '<span>Ramón y Cajal</span> Programme'),
@@ -292,8 +328,8 @@ EN_TRANS = [
      'Incentives to participate in ERC calls'),
     ('Hasta un 30% de incremento en la cofinanciación del salario y acceso a Europa Excelencia para quienes concurran a convocatorias del Consejo Europeo de Investigación.',
      'Up to a 30% increase in salary co-funding and access to Europa Excelencia for those applying to European Research Council calls.'),
-    ('Estabilización obligatoria con incentivo',
-     'Mandatory stabilisation with incentive'),
+    ('<h3>Estabilización obligatoria con incentivo</h3>',
+     '<h3>Mandatory stabilisation with incentive</h3>'),
     ('La creación de un puesto permanente en el área de la persona beneficiaria de la ayuda Ramón y Cajal será requisito obligatorio, apoyado con una incentivación para la entidad beneficiaria.',
      "The creation of a permanent position in the fellow's area will be mandatory, supported by an incentive for the host institution."),
     ('Integración con Consolidación Investigadora',
@@ -348,6 +384,24 @@ EN_TRANS = [
     ('Las instituciones a las que se incorporen las personas investigadoras beneficiarias contarán con una ayuda vinculada a su estabilización, reforzando así su proyección estratégica en aquellas áreas donde oferten plazas, y asentando trayectorias hacia la excelencia de su actividad científica.',
      'Host institutions will receive support linked to the stabilisation of fellows, reinforcing their strategic standing in the areas where they offer positions and consolidating pathways towards scientific excellence.'),
     ('Las 5 grandes novedades', 'The 5 major updates'),
+    # Page 2 - H3 de las 5 novedades en detalle (titulares de banda)
+    ('<h3>Financiación de un proyecto propio de I+D+i</h3>',
+     '<h3>Funding for an own R&amp;D&amp;I project</h3>'),
+    ('<h3>Entrevista en el proceso de evaluación</h3>',
+     '<h3>Interview in the evaluation process</h3>'),
+    ('<h3>Incentivos para participar en convocatorias del ERC</h3>',
+     '<h3>Incentives for participating in ERC calls</h3>'),
+    ('<h3>Estabilización obligatoria con incentivo económico</h3>',
+     '<h3>Mandatory stabilisation with financial incentive</h3>'),
+    ('<h3>Integración y simplificación de convocatorias</h3>',
+     '<h3>Integration and simplification of calls</h3>'),
+    # Page 2 - Alt/title de las imágenes de banda
+    ('alt="Sede de la Agencia Estatal de Investigación" loading="lazy"',
+     'alt="Headquarters of the State Research Agency" loading="lazy"'),
+    ('alt="Vista aérea del edificio de la AEI"',
+     'alt="Aerial view of the AEI building"'),
+    ('title="Presentación novedades programa Ramón y Cajal 2026"',
+     'title="Ramón y Cajal Programme 2026 updates presentation"'),
     ('alt="Galaxia espiral NGC 4414 — NASA/Hubble"', 'alt="Spiral galaxy NGC 4414 — NASA/Hubble"'),
     ('Cada ayuda Ramón y Cajal incluirá, además de la cofinanciación del salario, la financiación para la ejecución de un proyecto de investigación de 5 años de duración, que será objeto de la evaluación.',
      'Each Ramón y Cajal fellowship will include, in addition to salary co-funding, funding for a 5-year research project, which will be subject to evaluation.'),
@@ -427,6 +481,13 @@ EN_TRANS = [
     # Page 3 - Hero
     ('25 años incorporando al mejor personal investigador posdoctoral al sistema español de ciencia, tecnología e innovación.',
      '25 years incorporating the best postdoctoral researchers into the Spanish science, technology and innovation system.'),
+    # Page 3 - Retrato Santiago Ramón y Cajal (alt + onerror alt + comentario)
+    ('alt="Santiago Ramón y Cajal (1852–1934). Dominio público, Wikimedia Commons."',
+     'alt="Santiago Ramón y Cajal (1852–1934). Public domain, Wikimedia Commons."'),
+    ("this.alt='Santiago Ramón y Cajal en su microscopio. Wellcome Collection, dominio público.'",
+     "this.alt='Santiago Ramón y Cajal at his microscope. Wellcome Collection, public domain.'"),
+    ('<!-- Retrato de Santiago Ramón y Cajal (Wikimedia Commons, dominio público) -->',
+     '<!-- Portrait of Santiago Ramón y Cajal (Wikimedia Commons, public domain) -->'),
     ('Historia y objetivos', 'History and objectives'),
     ('Origen del programa', 'Origins of the programme'),
     ('La primera convocatoria de ayudas del programa Ramón y Cajal fue publicada en el BOE del 19 de abril de 2001 con una dotación económica de 122,22 millones de euros, con el objetivo de incorporar al sistema español de ciencia, tecnología e innovación a personal investigador posdoctoral con trayectorias brillantes y prometedoras.',
@@ -617,6 +678,20 @@ SPANISH_PHRASES = [
     'Inicio RYC<',
     'Programa RYC<',
     'Convocatorias<',
+    # 4ª revisión — títulos h3 novedades en detalle
+    'Incentivos para participar',
+    'Integración y simplificación',
+    'incentivo económico',
+    'Estabilización obligatoria con incentivo',
+    'Financiación de un proyecto propio',
+    'Entrevista en el proceso',
+    # Alt / title con restos
+    'Sede de la Agencia Estatal de Investigación"',
+    'Vista aérea del edificio',
+    'Presentación novedades programa',
+    'Dominio público',
+    'dominio público',
+    'Convocatoria de ayudas del Programa',
 ]
 
 print('\nVerificando traducción inglesa...')

@@ -707,12 +707,12 @@ main {
 .convocatoria-card {
   background: var(--fondo-blanco);
   border-radius: var(--radio-borde);
-  padding: 1.5rem;
+  padding: 1rem 1.25rem;
   box-shadow: var(--sombra-suave);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
   transition: box-shadow var(--transicion);
   border-left: 4px solid var(--aei-azul);
 }
@@ -726,21 +726,28 @@ main {
   background: linear-gradient(90deg, rgba(139, 26, 26, 0.03), var(--fondo-blanco));
 }
 
+.convocatoria-anio {
+  flex: 0 0 auto;
+  background: var(--aei-azul);
+  color: var(--texto-claro);
+  padding: 0.45rem 0.7rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  min-width: 3.5rem;
+  text-align: center;
+  line-height: 1;
+}
+
+.convocatoria-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .convocatoria-info h3 {
   font-size: 1.05rem;
   color: var(--texto-principal);
   margin: 0 0 0.25rem;
-}
-
-.convocatoria-info .anio {
-  display: inline-block;
-  background: var(--aei-azul);
-  color: var(--texto-claro);
-  padding: 0.15rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin-right: 0.5rem;
 }
 
 .convocatoria-info .estado {
@@ -751,6 +758,12 @@ main {
 .convocatoria-info .estado.abierta {
   color: #2e7d32;
   font-weight: 600;
+}
+
+.convocatoria-card > a,
+.convocatoria-card > span {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 /* --- Programa RYC — datos clave --- */
@@ -1023,24 +1036,57 @@ footer, .footer, #footer, [id*="footer"], [class*="footer"] {
   .banner-cofinanciacion .container { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 
-/* === FIX Drupal: tarjetas convocatorias === */
+/* === FIX Drupal: tarjetas convocatorias (estructura año-bloque) === */
 .convocatoria-card {
   background-color: #ffffff !important;
   display: flex !important;
-  justify-content: space-between !important;
+  flex-direction: row !important;
   align-items: center !important;
   flex-wrap: nowrap !important;
+  gap: 1rem !important;
 }
 .convocatoria-card.vigente {
   background: linear-gradient(90deg, rgba(27,76,150,0.03), #ffffff) !important;
 }
-.convocatoria-info { flex: 1 1 auto !important; min-width: 0 !important; }
+.convocatoria-anio {
+  flex: 0 0 auto !important;
+  background: var(--aei-azul) !important;
+  color: var(--texto-claro) !important;
+  padding: 0.45rem 0.7rem !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  min-width: 3.5rem !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+.convocatoria-info {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+.convocatoria-info h3 {
+  display: block !important;
+  margin: 0 0 0.25rem !important;
+}
+.convocatoria-card > a,
+.convocatoria-card > span,
 .convocatoria-card .btn-aei,
 .convocatoria-card .btn-ryc,
 .convocatoria-card a[class^="btn"] {
+  flex: 0 0 auto !important;
   flex-shrink: 0 !important;
   white-space: nowrap !important;
   display: inline-block !important;
+}
+@media (max-width: 600px) {
+  .convocatoria-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .convocatoria-card > a,
+  .convocatoria-card > span { align-self: stretch !important; text-align: center !important; }
 }
 
 </style>
@@ -1164,8 +1210,9 @@ footer, .footer, #footer, [id*="footer"], [class*="footer"] {
     const card = document.createElement('div');
     card.className = 'convocatoria-card' + (esVigente ? ' vigente' : '');
     card.innerHTML = `
+      <div class="convocatoria-anio">${c.anio}</div>
       <div class="convocatoria-info">
-        <h3><span class="anio">${c.anio}</span> ${c.titulo}</h3>
+        <h3>${c.titulo}</h3>
         <div class="estado ${esAbierta ? 'abierta' : ''}">${c.estado}${c.notas ? ' — ' + c.notas : ''}</div>
       </div>
       ${c.enlace
