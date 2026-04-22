@@ -151,6 +151,22 @@ def strip_convocatorias_render_js(content):
     """Elimina el primer <script> (datos + render dinámico) del fragmento de convocatorias."""
     return CONV_RENDER_JS_RE.sub('', content)
 
+
+def ensure_scripts_closed(content):
+    """Cierra cualquier <script> abierto que no tenga su </script>.
+
+    El `convocatorias.txt` del dev team deja sin cerrar el <script> de
+    interactividad (probablemente porque en Drupal lo cierra el propio CMS).
+    Si no lo cerramos aquí, todo el HTML que venga después (incluido el banner
+    de cofinanciación UE) queda atrapado dentro del <script> y no se renderiza.
+    """
+    open_count = len(re.findall(r'<script\b', content))
+    close_count = content.count('</script>')
+    if open_count > close_count:
+        missing = open_count - close_count
+        content = content.rstrip() + '\n' + '</script>\n' * missing
+    return content
+
 # ---- CSS BANNER ----
 BANNER_CSS = """
 /* --- Banner cofinanciación EU --- */
@@ -296,6 +312,9 @@ def inject_css(content, extra):
 
 # Limpiar el JS legacy de render dinámico del fragmento de convocatorias (4ª revisión)
 p4 = strip_convocatorias_render_js(p4)
+# Asegurar que los <script> del fragmento estén cerrados (el fuente del dev team deja
+# uno abierto y se traga el banner que insertamos después).
+p4 = ensure_scripts_closed(p4)
 
 # Primero eliminamos todas las referencias a footer (CSS + comentario HTML)
 p1 = strip_footer_refs(p1)
