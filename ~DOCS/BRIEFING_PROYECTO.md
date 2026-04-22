@@ -35,6 +35,7 @@ La web se desplegará en el portal de la AEI, que funciona sobre **Drupal 9.5.11
 │   ├── 02-primera-revision/
 │   ├── 03-segunda-revision/
 │   ├── 04-tercera-revision/     # pagina*.txt (dev) + imágenes definitivas
+│   ├── 05-cuarta-revision/      # Documento de la 4ª revisión (traducciones, fix Drupal)
 │   └── datos/                   # Datos originales (xlsx...)
 │
 │  ── SALIDA — ES el repositorio git (.git/ vive aquí dentro) ───────
@@ -116,6 +117,8 @@ Definida en `:root` de `css/styles.css`:
 3. **Presentación en vídeo** — Embed YouTube
 4. **¿Qué implica para las personas candidatas?** — 4 tarjetas
 
+> **Nota (4ª revisión):** esta página **no** lleva el banner de cofinanciación UE — a diferencia de `index`, `programa-ryc` y `convocatorias`. Lo mismo aplica a su versión inglesa (`ing/updates-2026.html`).
+
 ### programa.html
 1. **Historia y objetivos** — Origen 2001, objetivo principal
 2. **El programa en cifras** — 4 datos + Dashboard Chart.js (género/año, área, CCAA)
@@ -161,13 +164,15 @@ Genera los HTML a partir de las páginas adaptadas por el equipo dev (`!ENTRADA/
 1. Lee `pagina 1-4.txt` (fragmentos Drupal del equipo dev)
 2. Redimensiona imágenes nuevas (PIL/Pillow, máx. 1200×400 px, JPEG 85%) y las embebe en base64
 3. Inyecta CSS extra en el último `</style>` del fragmento: footer oculto, banner UE, fix tarjetas convocatorias
-4. Añade el banner de cofinanciación UE antes del comentario `<!-- FOOTER -->`
+4. Añade el banner de cofinanciación UE antes del comentario `<!-- FOOTER -->` (en `index`, `programa-ryc` y `convocatorias` — **no** en `novedades-2026`)
 5. Envuelve en HTML mínimo (`<head>` solo con charset+viewport+title; CSS queda en el body)
 6. Genera versión inglés aplicando la tabla de traducciones `EN_TRANS`
 7. Escribe `!SALIDA/*.html` (español) y `!SALIDA/ing/*.html` (inglés)
 8. Verifica que no queden cadenas en español en los ficheros ingleses e imprime el resultado:
    - `OK — todo traducido` → sin problemas, listo para commit
    - `AVISO ing/fichero.html: falta traducir "..."` → añadir el patrón a `EN_TRANS` y regenerar
+
+**Ruta del proyecto:** la constante `PROYECTO` se calcula automáticamente desde la ubicación del script (`__file__`), por lo que el script funciona independientemente del nombre de la carpeta OneDrive (que cambió de "MCI" a "MICIU" en abril 2026).
 
 **Para regenerar** (desde `!SALIDA/` o con ruta completa):
 ```bash
@@ -243,6 +248,9 @@ pip install Pillow
 | `wrap_fragment()` movía `<style>` al `<head>` | Diseño inicial del script | Eliminado; los `<style>` permanecen en el body |
 | Regex greedy en imagen novedad 5 | `[^>]*` eliminó atributos `alt` y `loading` | Reemplazado por `str.replace()` sobre el src |
 | `inject_css()` con ancla de texto frágil | El patrón `DRUPAL_HIDE` no existía en pagina3.txt | Reemplazado por `rfind('</style>')` — más robusto |
+| Tarjetas convocatorias colapsadas en Drupal | `<span class="anio">` dentro de `<h3>` era reinterpretado por los filtros de Drupal | 4ª revisión: año extraído a `<div class="convocatoria-anio">` hermano del `.convocatoria-info`, CONV_FIX reforzado con `!important` |
+| Patrones `EN_TRANS` con prefijos ambiguos | Regla corta "Estabilización obligatoria con incentivo" se aplicaba antes de la larga con "económico" y dejaba un residuo | Usar siempre el delimitador completo (`<h3>...</h3>`) en los patrones de `EN_TRANS` |
+| `PROYECTO` hardcodeado a una ruta OneDrive concreta | El script fallaba al renombrarse la carpeta OneDrive (MCI→MICIU) | Autodetección vía `__file__` |
 
 ---
 
@@ -256,3 +264,4 @@ pip install Pillow
 | v2.2 | 21-04-2026 | 3ª revisión: nuevas imágenes base64, banner EU, fix convocatorias CSS |
 | v2.3 | 21-04-2026 | Unificación: un solo juego de ficheros para GitHub Pages y Drupal, `ing/` para inglés, limpieza repo |
 | v2.4 | 21-04-2026 | Reorganización: `!SALIDA/` ES el repo (`.git/` dentro), raíz del proyecto limpia, gen_ryc3.py sin paso sync |
+| v2.5 | 22-04-2026 | 4ª revisión: traducciones faltantes al EN (h3 novedades 3/4/5, alt, title, meta); banner UE retirado de novedades-2026 (ES/EN); rediseño tarjetas convocatorias (año como bloque, no span) para robustez en Drupal; PROYECTO en `gen_ryc3.py` autodetectado desde la ubicación del script |

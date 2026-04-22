@@ -299,6 +299,9 @@ Actualizar `CLAUDE.md` al inicio de cada fase nueva o cuando cambie algo signifi
 - Usar Node.js/sharp si Python+PIL es suficiente (más sencillo, sin dependencias de npm)
 - Regex con `[^>]*` para reemplazar atributos de `<img>` (elimina `alt` y `loading`)
 - Carpetas `dist/` o `pages/` como intermedias — los ficheros definitivos van directamente a `!SALIDA/`
+- **`<span>` decorativos dentro de `<h3>`/`<h2>`** para componer "badge + título" en una sola línea: Drupal (CKEditor, filtros) puede reinterpretar ese layout y colapsarlo. Separar siempre en elementos hermanos (`<div class="badge">…</div>` + `<div class="info"><h3>…</h3></div>`) con flex en el contenedor padre.
+- **Hardcodear rutas absolutas** al proyecto: calcular siempre con `os.path.dirname(os.path.abspath(__file__))` por si la carpeta OneDrive cambia de nombre.
+- **Patrones `EN_TRANS` sin delimitador de cierre**: si hay dos textos que comparten prefijo (ej. "Estabilización obligatoria con incentivo" vs "…con incentivo económico"), usar siempre el delimitador completo `<h3>…</h3>` para evitar que la regla corta "se coma" parte de la larga.
 
 ### Traducción automática
 - La tabla `EN_TRANS` cubre texto estático bien, pero puede no alcanzar texto dentro de templates JavaScript

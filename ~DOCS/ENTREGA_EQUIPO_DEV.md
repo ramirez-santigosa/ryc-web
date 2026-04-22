@@ -25,6 +25,8 @@ Se adjuntan 8 ficheros HTML listos para pegar en Drupal (4 en español, 4 en ing
 
 El header y footer institucional de Drupal funcionan con normalidad — el CSS de cada página oculta automáticamente el footer duplicado.
 
+> **Banner de cofinanciación UE**: aparece embebido en el cuerpo de `index`, `programa-ryc`, `convocatorias` (ES) y sus equivalentes en `ing/`. **No** aparece en `novedades-2026.html` ni `ing/updates-2026.html` — esto es intencional (decisión de la 4ª revisión).
+
 ## Si hay problemas al guardar
 
 | Síntoma | Solución |
