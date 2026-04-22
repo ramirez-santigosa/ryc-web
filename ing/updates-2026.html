@@ -98,6 +98,8 @@
       border-left-color: var(--ryc-dorado);
     }
 </style>
+<div class="ryc-page">
+
 <style type="text/css">/* ==========================================================================
    ESTILOS GLOBALES — Web Convocatoria Ramón y Cajal (AEI)
    Basado en el diseño de https://www.aei.gob.es/25-anos-convocatoria-ramon-cajal
@@ -1051,9 +1053,18 @@ div#block-vartheme-aei-page-title {
   .banner-cofinanciacion .container { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 
-</style>
-<div class="ryc-page">
+/* --- 4ª revisión: btn-ryc-outline igual a btn-ryc (relleno azul + texto blanco) --- */
+.btn-ryc-outline {
+  background: var(--aei-azul) !important;
+  color: var(--texto-claro) !important;
+  border: none !important;
+}
+.btn-ryc-outline:hover {
+  background: var(--aei-azul-oscuro) !important;
+  color: var(--texto-claro) !important;
+}
 
+</style>
 <!-- ===== HEADER INSTITUCIONAL ===== --><!-- ===== NAVEGACIÓN ===== -->
 <nav aria-label="Main navigation" class="nav-principal">
 <div class="container"><button aria-expanded="false" aria-label="Open menu" class="nav-toggle">☰</button>

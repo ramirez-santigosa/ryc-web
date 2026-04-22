@@ -121,12 +121,19 @@ def scope_global_css(content):
 RYC_PAGE_END_MARKER = '<!-- /.ryc-page -->'
 
 def wrap_in_page_container(content):
-    """Envuelve el HTML del fragmento (todo lo que va tras el último </style>) en .ryc-page.
+    """Envuelve el HTML del fragmento (todo lo que va tras el PRIMER </style>) en .ryc-page.
+
+    IMPORTANTE: usamos `find('</style>')` (el PRIMER cierre), no `rfind` (el último).
+    Si el fragmento trae varios bloques <style> separados por HTML (como el
+    convocatorias.txt del dev team: style → nav → style → contenido), `rfind` dejaría
+    el <nav> FUERA del wrapper y el nav no heredaría la `font-family` de `.ryc-page`
+    (que es la reescritura de `body`). Resultado: tipografía del sistema en el nav,
+    distinta al resto de la página.
 
     Añade un marcador `<!-- /.ryc-page -->` justo antes del cierre `</div>` del wrapper
     para poder insertar la sección de cofinanciación UE como ÚLTIMA sección DENTRO del
     wrapper (ver `add_banner`)."""
-    idx = content.rfind('</style>')
+    idx = content.find('</style>')
     if idx == -1:
         return f'<div class="{WRAPPER_CLASS}">\n{content}\n{RYC_PAGE_END_MARKER}\n</div>'
     cut = idx + len('</style>')
@@ -166,6 +173,23 @@ def ensure_scripts_closed(content):
         missing = open_count - close_count
         content = content.rstrip() + '\n' + '</script>\n' * missing
     return content
+
+# ---- CSS OVERRIDE DE BOTONES OUTLINE ----
+# 4ª revisión: `.btn-ryc-outline` se igualan a `.btn-ryc` / `.btn-aei`
+# (fondo azul oscuro + texto blanco, no outline transparente) para que sean
+# coherentes visualmente con el resto de botones de la página.
+BUTTON_OVERRIDE_CSS = """
+/* --- 4ª revisión: btn-ryc-outline igual a btn-ryc (relleno azul + texto blanco) --- */
+.btn-ryc-outline {
+  background: var(--aei-azul) !important;
+  color: var(--texto-claro) !important;
+  border: none !important;
+}
+.btn-ryc-outline:hover {
+  background: var(--aei-azul-oscuro) !important;
+  color: var(--texto-claro) !important;
+}
+"""
 
 # ---- CSS BANNER ----
 BANNER_CSS = """
@@ -324,7 +348,7 @@ p4 = strip_footer_refs(p4)
 
 # La página de convocatorias ya trae sus propias reglas .ryc-card robustas;
 # no necesita CONV_FIX (que era un parche para la estructura antigua).
-EXTRA_CSS_P = BANNER_CSS
+EXTRA_CSS_P = BANNER_CSS + BUTTON_OVERRIDE_CSS
 p1 = inject_css(p1, EXTRA_CSS_P)
 p2 = inject_css(p2, EXTRA_CSS_P)
 p3 = inject_css(p3, EXTRA_CSS_P)

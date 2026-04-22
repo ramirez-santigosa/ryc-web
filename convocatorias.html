@@ -939,6 +939,8 @@ div#block-vartheme-aei-page-title {
     display: none;
 }
 </style>
+<div class="ryc-page">
+
 <!-- ===== HEADER INSTITUCIONAL ===== --><!-- ===== NAVEGACIÓN ===== -->
 <nav aria-label="Navegación principal" class="nav-principal">
 <div class="container"><button aria-expanded="false" aria-label="Abrir menú" class="nav-toggle">☰</button>
@@ -1295,9 +1297,18 @@ div#block-vartheme-aei-page-title {
   .banner-cofinanciacion .container { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 
-</style>
-<div class="ryc-page">
+/* --- 4ª revisión: btn-ryc-outline igual a btn-ryc (relleno azul + texto blanco) --- */
+.btn-ryc-outline {
+  background: var(--aei-azul) !important;
+  color: var(--texto-claro) !important;
+  border: none !important;
+}
+.btn-ryc-outline:hover {
+  background: var(--aei-azul-oscuro) !important;
+  color: var(--texto-claro) !important;
+}
 
+</style>
 <!-- ===== HISTÓRICO DE CONVOCATORIAS ===== -->
 <div class="ryc-contenedor">
 <h2 class="ryc-titulo-seccion">Histórico de Convocatorias Ramón y Cajal</h2>
