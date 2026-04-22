@@ -149,14 +149,17 @@ def eu_banner_html(lang='es'):
     alt = ('Ministerio de Ciencia e Innovación — Cofinanciado por la Unión Europea — AEI'
            if lang == 'es' else
            'Ministry of Science and Innovation — Co-funded by the European Union — AEI')
+    # Se inserta como <section> dentro de <main> (última del cuerpo de la página),
+    # NUNCA como <footer>: el footer lo pone Drupal.
     return f'''
-<!-- ===== BANNER COFINANCIACIÓN ===== -->
-<div class="banner-cofinanciacion">
+<!-- ===== COFINANCIACIÓN UE (sección del cuerpo, última del main) ===== -->
+<section class="banner-cofinanciacion">
   <div class="container">
     <img src="{eu}" alt="{alt}" class="cofinanciacion-logos">
     <p class="cofinanciacion-texto">{txt}</p>
   </div>
-</div>'''
+</section>
+'''
 
 # ---- LEER PÁGINAS ----
 def rpage(n):
@@ -201,12 +204,12 @@ p2 = inject_css(p2, EXTRA_CSS_P)
 p3 = inject_css(p3, EXTRA_CSS_P)
 p4 = inject_css(p4, EXTRA_CSS_P + CONV_FIX)
 
-# ---- AÑADIR BANNER EU ANTES DEL COMENTARIO FOOTER ----
-FOOTER_COMMENT = '\n<!-- ===== FOOTER ===== -->'
-
+# ---- AÑADIR BANNER EU DENTRO DE <main>, COMO ÚLTIMA SECCIÓN DEL CUERPO ----
+# El banner va DENTRO del cuerpo de la página (antes de </main>), nunca fuera.
+# El footer de Drupal es quien renderiza el footer institucional — este banner
+# no forma parte del footer.
 def add_banner(content, lang='es'):
-    return content.replace(FOOTER_COMMENT,
-        eu_banner_html(lang) + FOOTER_COMMENT)
+    return content.replace('</main>', eu_banner_html(lang) + '</main>', 1)
 
 p1 = add_banner(p1)
 # p2 (novedades 2026) NO lleva banner de cofinanciación UE — indicación 4ª revisión
