@@ -946,4 +946,3 @@ else:
     print('  OK — todo traducido')
 
 print('\nListo. Ficheros generados en !SALIDA/ — listos para git y Drupal.')
-        
