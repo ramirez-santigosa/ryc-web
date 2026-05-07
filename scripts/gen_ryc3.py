@@ -460,7 +460,7 @@ EN_TRANS = [
     ('aria-label="Ruta de navegación"', 'aria-label="Breadcrumb"'),
     # Meta description (index)
     ('content="Convocatoria de ayudas del Programa Ramón y Cajal (RYC) de la Agencia Estatal de Investigación. Incorporación de personal investigador posdoctoral destacado al sistema español de I+D+i."',
-     'content="Grant call for the Ramón y Cajal Programme (RYC) of the State Research Agency. Incorporation of outstanding postdoctoral researchers into the Spanish R&amp;D&amp;I system."'),
+     'content="Grant call for the Ramón y Cajal Programme (RYC) of the State Research Agency. Recruitment of outstanding postdoctoral researchers into the Spanish R&amp;D&amp;I system."'),
     # Page 1 - Hero
     ('Programa <span>Ramón y Cajal</span>',
      '<span>Ramón y Cajal</span> Programme'),
@@ -471,13 +471,13 @@ EN_TRANS = [
     ('¿Qué es el Programa Ramón y Cajal?',
      'What is the Ramón y Cajal Programme?'),
     ('El Programa Ramón y Cajal promueve la incorporación de personal investigador posdoctoral, de todas las nacionalidades y áreas de conocimiento, con una trayectoria destacada, en organismos de investigación del Sistema Español de Ciencia, Tecnología e Innovación.',
-     'The Ramón y Cajal Programme promotes the incorporation of postdoctoral researchers of all nationalities and knowledge areas, with outstanding careers, into research organisations of the Spanish Science, Technology and Innovation System.'),
+     'The Ramón y Cajal Programme promotes the recruitment of postdoctoral researchers of all nationalities and knowledge areas, with outstanding careers, into research organisations of the Spanish Science, Technology and Innovation System.'),
     ('Desde su primera convocatoria en 2001, el programa ha sido el principal instrumento para atraer y retener talento investigador en España, con el objetivo de que las personas beneficiarias adquieran las competencias y capacidades que les permitan obtener un puesto de carácter estable.',
-     'Since its first call in 2001, the programme has been the main instrument to attract and retain research talent in Spain, with the aim that fellows acquire the skills and capabilities to obtain a permanent position.'),
+     'Since its first call in 2001, the Programme has been the main instrument to attract and retain research talent in Spain, with the aim that grantees acquire the skills and capabilities to obtain a permanent position.'),
     ('El programa se ha reforzado desde 2018 incrementando el número de contratos y el salario mínimo de los beneficiarios.',
-     'The programme has been strengthened since 2018 by increasing the number of contracts and the minimum salary of fellows.'),
-    ('Años de convocatorias',    'Years of calls'),
-    ('Años de duración de la ayuda', 'Years of fellowship duration'),
+     'The Programme has been strengthened since 2018 by increasing the number of contracts and the minimum salary of grantees.'),
+    ('Años de convocatorias',    'yearly calls'),
+    ('Años de duración de la ayuda', 'years duration fellowship'),
     ('>Conocer el programa<',    '>Learn about the programme<'),
     ('alt="Sede de la Agencia Estatal de Investigación" class="seccion-imagen"',
      'alt="Headquarters of the State Research Agency" class="seccion-imagen"'),
@@ -486,11 +486,11 @@ EN_TRANS = [
     ('Financiación de un proyecto propio de I+D+i',
      'Funding for an own R&amp;D&amp;I project'),
     ('Cada ayuda incluirá financiación para un proyecto de investigación de 5 años, con dotación suficiente para contratar al menos una persona investigadora predoctoral durante 4 años.',
-     'Each fellowship will include funding for a 5-year research project, with sufficient allocation to hire at least one predoctoral researcher for 4 years.'),
+     'Each grant will include funding for a 5-year research project, with sufficient allocation to hire at least one predoctoral researcher for 4 years.'),
     ('Entrevista en el proceso de evaluación',
      'Interview in the evaluation process'),
     ('Se incorpora una entrevista en el proceso de evaluación, poniendo el foco en el grado de independencia y la capacidad de liderazgo y la viabilidad del proyecto.',
-     'An interview is incorporated into the evaluation process, focusing on the degree of independence, leadership capacity and project viability.'),
+     'An interview is incorporated into the evaluation process, focusing on the degree of independence, leadership capacity and project feasibility.'),
     ('Incentivos para participar en el ERC',
      'Incentives to participate in ERC calls'),
     ('Hasta un 30% de incremento en la cofinanciación del salario y acceso a Europa Excelencia para quienes concurran a convocatorias del Consejo Europeo de Investigación.',
@@ -498,11 +498,11 @@ EN_TRANS = [
     ('<h3>Estabilización obligatoria con incentivo</h3>',
      '<h3>Mandatory stabilisation with incentive</h3>'),
     ('La creación de un puesto permanente en el área de la persona beneficiaria de la ayuda Ramón y Cajal será requisito obligatorio, apoyado con una incentivación para la entidad beneficiaria.',
-     "The creation of a permanent position in the fellow's area will be mandatory, supported by an incentive for the host institution."),
+     "The creation of a permanent position in the grantee's area will be mandatory, supported by an incentive for the host institution."),
     ('Integración con Consolidación Investigadora',
      'Integration with Research Consolidation'),
     ('La convocatoria de Consolidación Investigadora se suprime: sus objetivos quedan cubiertos por la nueva estructura de las ayudas RYC.',
-     'The Research Consolidation call is abolished: its objectives are covered by the new structure of RYC fellowships.'),
+     'The Research Consolidation call is abolished: its objectives are covered by the new structure of RYC grants.'),
     ('>Ver todas las novedades en detalle<', '>See all updates in detail<'),
     # Page 1 - Convocatorias recientes
     ('Convocatorias recientes', 'Recent calls'),
@@ -548,18 +548,18 @@ EN_TRANS = [
     ('>Más información<', '>More information<'),
     # Page 2 - Hero
     ('La convocatoria <span>Ramón y Cajal</span> se transforma en 2026',
-     'The <span>Ramón y Cajal</span> call transforms in 2026'),
+     'The <span>Ramón y Cajal</span> Programme changes in 2026'),
     ('Cambios sustanciales para fortalecer la carrera investigadora e impulsar la excelencia de las universidades y los centros de investigación.',
      'Substantial changes to strengthen research careers and boost excellence in universities and research centres.'),
     ('¿Para qué cambia la convocatoria?', 'Why is the call changing?'),
     ('Fortalecer la carrera del personal investigador posdoctoral',
      'Strengthening the postdoctoral research career'),
     ('Las personas investigadoras beneficiarias de las ayudas Ramón y Cajal contarán con los recursos necesarios para liderar un proyecto de investigación propio, consolidando así una trayectoria orientada a su estabilización en el sistema español de ciencia, posicionándolas en una senda de alto potencial, y así favoreciendo su proyección como referentes de liderazgo científico.',
-     'Ramón y Cajal fellows will have the necessary resources to lead their own research project, consolidating a career path towards stabilisation in the Spanish science system, positioning them on a high-potential track and promoting their projection as scientific leadership benchmarks.'),
+     'Ramón y Cajal grantees will have the necessary resources to lead their own research project, consolidating a career path towards permanent integration in the Spanish science system, positioning them on a high-potential track and promoting their projection as scientific leadership references.'),
     ('Mejorar el posicionamiento internacional de las universidades y los centros de investigación españoles',
      'Improving the international standing of Spanish universities and research centres'),
     ('Las instituciones a las que se incorporen las personas investigadoras beneficiarias contarán con una ayuda vinculada a su estabilización, reforzando así su proyección estratégica en aquellas áreas donde oferten plazas, y asentando trayectorias hacia la excelencia de su actividad científica.',
-     'Host institutions will receive support linked to the stabilisation of fellows, reinforcing their strategic standing in the areas where they offer positions and consolidating pathways towards scientific excellence.'),
+     'Host institutions will receive support linked to the integration of grantees, reinforcing their strategic standing in the areas where they offer positions and consolidating pathways towards scientific excellence.'),
     ('Las 5 grandes novedades', 'The 5 major updates'),
     # Page 2 - H3 de las 5 novedades en detalle (titulares de banda)
     ('<h3>Financiación de un proyecto propio de I+D+i</h3>',
@@ -581,18 +581,18 @@ EN_TRANS = [
      'title="Ramón y Cajal Programme 2026 updates presentation"'),
     ('alt="Galaxia espiral NGC 4414 — NASA/Hubble"', 'alt="Spiral galaxy NGC 4414 — NASA/Hubble"'),
     ('Cada ayuda Ramón y Cajal incluirá, además de la cofinanciación del salario, la financiación para la ejecución de un proyecto de investigación de 5 años de duración, que será objeto de la evaluación.',
-     'Each Ramón y Cajal fellowship will include, in addition to salary co-funding, funding for a 5-year research project, which will be subject to evaluation.'),
+     'Each Ramón y Cajal grant will include, in addition to salary co-funding, funding for a 5-year research project, which will be subject to evaluation.'),
     ('<strong>Dotación suficiente</strong> para contratar al menos una persona investigadora predoctoral durante 4 años',
      '<strong>Sufficient allocation</strong> to hire at least one predoctoral researcher for 4 years'),
     ('<strong>No será compatible</strong> con la convocatoria PID hasta el cuarto año de ejecución, dado que la ayuda Ramón y Cajal incluye la financiación de un proyecto de investigación',
-     '<strong>Not compatible</strong> with the PID call until the fourth year of execution, since the Ramón y Cajal fellowship includes project funding'),
+     '<strong>Not compatible</strong> with the PID* call until the fourth year of execution, since the Ramón y Cajal fellowship includes project funding'),
     ('Costes elegibles similares a los de PID: personal, movilidad, equipamiento, fungibles, publicaciones, congresos y costes indirectos (25%)',
-     'Eligible costs similar to PID: personnel, mobility, equipment, consumables, publications, conferences and indirect costs (25%)'),
+     'Eligible costs: personnel, mobility, equipment, consumables, publications, conferences and indirect costs (25%)'),
     ('Permite iniciar una línea de investigación y crear un grupo propio desde el primer día',
-     'Allows starting a research line and creating an own group from day one'),
+     'Allows starting a research line and creating your own group from day one'),
     ('alt="Entrevista profesional con varias personas"', 'alt="Professional interview with several people"'),
     ('Se incorpora una entrevista con las comisiones técnicas como parte esencial de la evaluación, alineando el proceso con las mejores prácticas europeas (como el ERC).',
-     'An interview with the evaluation panels is incorporated as an essential part of the assessment, aligning the process with best European practices (such as the ERC).'),
+     'An interview with the evaluation panels is addressed as an essential part of the assessment, aligning the process with best European practices (such as the ERC).'),
     ('<strong>Criterios de evaluación:</strong>', '<strong>Evaluation criteria:</strong>'),
     ('Aportaciones científico-técnicas de la persona candidata',
      'Scientific and technical contributions of the candidate'),
@@ -605,56 +605,56 @@ EN_TRANS = [
      'Feasibility of the research project proposal'),
     ('alt="Bandera de la Unión Europea"', 'alt="Flag of the European Union"'),
     ('Para las personas investigadoras que durante los tres primeros años de la ayuda RYC presenten una solicitud en las convocatorias del ERC (Starting, Consolidator o Advanced Grants):',
-     'For researchers who during the first three years of the RYC fellowship submit an application to ERC calls (Starting, Consolidator or Advanced Grants):'),
+     'For RYC grantees who submit an application to ERC calls (Starting, Consolidator or Advanced Grants) during the first three years:'),
     ('<strong>ERC financiada:</strong> incremento del 30% en la cofinanciación del salario',
      '<strong>ERC funded:</strong> 30% increase in salary co-funding'),
     ('<strong>ERC con máxima calificación sin financiación:</strong> habilitación como elegible en Europa Excelencia modalidad A + incremento del 10% del salario',
-     '<strong>ERC with top rating without funding:</strong> eligibility for Europa Excelencia mode A + 10% salary increase'),
+     '<strong>ERC with top rating without funding:</strong> eligibility for Europa Excelencia mode* A + 10% salary increase'),
     ('<strong>ERC segunda fase sin máxima calificación:</strong> habilitación como elegible en Europa Excelencia modalidad B + incremento del 10% del salario',
      '<strong>ERC second phase without top rating:</strong> eligibility for Europa Excelencia mode B + 10% salary increase'),
     ('En solicitudes sucesivas, los incrementos pueden llegar al 20% y 30%',
-     'In successive applications, increases can reach 20% and 30%'),
+     'If successive applications, increases can reach 20% and 30%'),
     ('Siempre que la evaluación del informe intermedio sea favorable:',
      'Provided the mid-term report evaluation is favourable:'),
-    ('Se mantiene la ayuda de incentivación', 'The incentive support is maintained'),
+    ('Se mantiene la ayuda de incentivación', 'The incentive support for the host institution is maintained'),
     ('Se mantiene la ayuda para la realización del proyecto hasta un límite máximo de cinco años desde el inicio de la ayuda RyC',
-     'Project funding is maintained up to a maximum of five years from the start of the RYC fellowship'),
+     'Project funding is maintained up to a maximum of five years from the start of the RYC grant'),
     ('La cuantía que, dentro del concepto de contratación del/de la IP, no sea ejecutada como consecuencia de la creación del puesto de trabajo de carácter permanente podrá ser trasvasada a la ayuda correspondiente a la ejecución del proyecto',
      "The amount within the PI's employment concept not executed due to the creation of the permanent post may be transferred to the project execution funding"),
     ('La creación de un puesto de trabajo permanente en el área de la persona beneficiaria será un requisito obligatorio para cumplir con la ejecución de la ayuda.',
-     "The creation of a permanent post in the fellow's area will be a mandatory requirement for the execution of the fellowship."),
+     "The creation of a permanent position in the grantee's research area is a mandatory requirement."),
     ('<strong>Ayuda a la entidad beneficiaria</strong> para la creación de una plaza permanente',
-     '<strong>Support for the host institution</strong> for the creation of a permanent post'),
+     '<strong>Support for the host institution</strong> for the creation of a permanent position'),
     ('Si el puesto se crea antes de finalizar la ayuda, las cantidades de cofinanciación del salario pueden trasvasarse al proyecto',
-     'If the post is created before the fellowship ends, salary co-funding amounts may be transferred to the project'),
+     'If the position is created before the grant ends, salary funds may be transferred to the research project'),
     ('La ayuda para la creación del puesto se mantiene hasta su efectiva creación',
-     'Support for post creation is maintained until the post is effectively created'),
+     '__REMOVE_LI__'),
     ('Las modificaciones permiten una simplificación del panorama de ayudas de la AEI:',
-     'The modifications enable a simplification of the AEI fellowship landscape:'),
+     'The modifications enable a simplification of the AEI grant landscape:'),
     ('<strong>Se suprime</strong> la convocatoria de Consolidación Investigadora, cuyos objetivos quedan cubiertos por la nueva RYC',
-     '<strong>The Research Consolidation call is abolished</strong>, its objectives being covered by the new RYC'),
+     '<strong>The Research Consolidation call and the specific talent attraction grant disappear</strong>, integrated in the new RyC Programme'),
     ('<strong>Desaparece</strong> la ayuda específica de atracción de talento (ya incluida en la financiación del proyecto)',
-     '<strong>The specific talent attraction grant disappears</strong> (already included in project funding)'),
+     '__REMOVE_LI__'),
     ('Se incrementa la dotación de las ayudas en la convocatoria de Europa Excelencia',
-     'The funding of Europa Excelencia grants is increased'),
+     'The funds for Europa Excelencia grants are increased'),
     ('Se otorgará el certificado R3 de Investigador como investigador/a establecido/a para aquellas personas que obtengan la ayuda',
-     'The R3 Researcher Certificate as an established researcher will be awarded to those who obtain the fellowship'),
+     'The R3 Researcher Certificate as an established researcher is automatically awarded to RyC grantees'),
     ('Presentación en vídeo', 'Video presentation'),
     ('Presentación oficial de las novedades del programa Ramón y Cajal para la convocatoria 2026:',
-     'Official presentation of the Ramón y Cajal Programme updates for the 2026 call:'),
+     'Official presentation of the Ramón y Cajal Programme updates:'),
     ('¿Qué implica para las personas candidatas?', 'What does it mean for applicants?'),
     ('Propuesta científica sólida', 'Sound scientific proposal'),
     ('Los criterios de evaluación incorporan la valoración de la propuesta científica, esto exige presentar un proyecto de investigación novedoso, ambicioso, viable y con impacto.',
      'The evaluation criteria incorporate the assessment of the scientific proposal, requiring a novel, ambitious, feasible and impactful research project.'),
     ('Liderazgo e independencia', 'Leadership and independence'),
     ('La persona beneficiaria RYC se convierte en IP desde el inicio.',
-     'The RYC fellow becomes PI from the outset.'),
+     'The RYC grantee becomes PI from the outset.'),
     ('Visión europea', 'European vision'),
     ('Los incentivos para el ERC premian la ambición internacional. Preparar una solicitud al ERC durante los tres primeros años es una oportunidad estratégica.',
      'ERC incentives reward international ambition. Preparing an ERC application during the first three years is a strategic opportunity.'),
     ('Estabilidad garantizada', 'Guaranteed stability'),
     ('La obligatoriedad de crear un puesto permanente refuerza el compromiso de las instituciones con la carrera de la persona investigadora.',
-     "The mandatory creation of a permanent post reinforces the institutional commitment to the researcher's career."),
+     "The mandatory creation of a permanent position reinforces the institutional commitment to the researcher's career."),
     # Page 3 - Hero
     ('25 años incorporando al mejor personal investigador posdoctoral al sistema español de ciencia, tecnología e innovación.',
      '25 years incorporating the best postdoctoral researchers into the Spanish science, technology and innovation system.'),
@@ -810,15 +810,75 @@ NAV_EN = {
     "'novedades-2026.html'":      "'updates-2026.html'",
 }
 
-def translate_en(content):
+# ---- PRE-TRANSLATION (page-specific): cuando el MISMO texto en español
+# debe traducirse de forma diferente según la página (5ª revisión)
+PRE_TRANS_P1 = [
+    # Página 1 (index): h3 novedad 1 → "Funding for an own R&I project" (sin D&)
+    ('<h3>Financiación de un proyecto propio de I+D+i</h3>',
+     '<h3>Funding for an own R&amp;I project</h3>'),
+]
+PRE_TRANS_P2 = [
+    # Página 2 (updates): h3 novedad 1 → "Funding for your own R&D&I project"
+    ('<h3>Financiación de un proyecto propio de I+D+i</h3>',
+     '<h3>Funding for your own R&amp;D&amp;I project</h3>'),
+]
+
+# ---- POST-TRANSLATION para updates-2026.html (5ª revisión) ----
+# 1. Eliminar viñetas marcadas con __REMOVE_LI__ (placeholder en EN_TRANS)
+# 2. Insertar nota al pie debajo de la novedad 1 (PID)
+# 3. Insertar nota al pie debajo de la sección 3 (Europa Excelencia mode)
+RYC_FOOTNOTE_CSS = """
+/* --- 5ª revisión: notas al pie en novedades-2026 (footnotes con asterisco) --- */
+.ryc-footnote {
+  font-size: 0.85rem;
+  color: var(--texto-secundario);
+  font-style: italic;
+  margin: 0.4rem 0 0 0;
+  padding-left: 0.25rem;
+}
+"""
+
+def post_translate_en_p2(content):
+    """Post-procesado de updates-2026.html para la 5ª revisión."""
+    # 1. Eliminar viñetas marcadas con __REMOVE_LI__ (líneas <li>__REMOVE_LI__</li>
+    #    o cualquier <li>...__REMOVE_LI__...</li>)
+    content = re.sub(r'\s*<li[^>]*>[^<]*__REMOVE_LI__[^<]*</li>\s*', '\n', content)
+
+    # 2. Inyectar el CSS de la nota al pie en el último </style> de la página
+    idx_style = content.rfind('</style>')
+    if idx_style != -1:
+        content = content[:idx_style] + RYC_FOOTNOTE_CSS + '\n</style>' + content[idx_style+8:]
+
+    # 3. Insertar la nota PID después de la viñeta "your own group from day one</li>\n</ul>"
+    pid_anchor = 'Allows starting a research line and creating your own group from day one</li>\n</ul>'
+    pid_footnote = ('Allows starting a research line and creating your own group from day one</li>\n</ul>'
+                    '\n<p class="ryc-footnote">* PID: Main AEI Programme for R&amp;I Projects.</p>')
+    content = content.replace(pid_anchor, pid_footnote, 1)
+
+    # 4. Insertar la nota sobre el asterisco de "Europa Excelencia mode*"
+    #    Se ancla en la viñeta "In successive applications" (final del bloque de viñetas
+    #    de incentivos ERC, antes de "Provided the mid-term report evaluation...").
+    erc_anchor = "If successive applications, increases can reach 20% and 30%</li>\n</ul>"
+    erc_footnote_html = "\n<p class=\"ryc-footnote\">* Europa Excelencia: AEI Programme to support applications to ERC calls.</p>"
+    if erc_anchor in content:
+        content = content.replace(erc_anchor, erc_anchor + erc_footnote_html, 1)
+    return content
+
+
+def translate_en(content, pre_trans=None, post=None):
+    if pre_trans:
+        for es, en in pre_trans:
+            content = content.replace(es, en)
     for es, en in EN_TRANS:
         content = content.replace(es, en)
     content = apply_nav(content, NAV_EN)
     content = content.replace('lang="es"', 'lang="en"')
+    if post is not None:
+        content = post(content)
     return content
 
-html_p1_en = translate_en(html_p1)
-html_p2_en = translate_en(html_p2)
+html_p1_en = translate_en(html_p1, pre_trans=PRE_TRANS_P1)
+html_p2_en = translate_en(html_p2, pre_trans=PRE_TRANS_P2, post=post_translate_en_p2)
 html_p3_en = translate_en(html_p3)
 html_p4_en = translate_en(html_p4)
 
@@ -835,7 +895,6 @@ for fname, content in pages_en:
     print(f'  ing/{fname}  {len(content)//1024}KB')
 
 # ---- VERIFICACIÓN: comprobar que no quedan cadenas en español en los ficheros ingleses ----
-# Frases que NUNCA deben aparecer en la versión inglesa
 SPANISH_PHRASES = [
     'Ver ficha',
     'Ver novedades',
@@ -853,18 +912,16 @@ SPANISH_PHRASES = [
     'En tramitación',
     'Abrir menú',
     'Ruta de navegación',
-    'Novedades 2026<',       # como título/nav
+    'Novedades 2026<',
     'Inicio RYC<',
     'Programa RYC<',
     'Convocatorias<',
-    # 4ª revisión — títulos h3 novedades en detalle
     'Incentivos para participar',
     'Integración y simplificación',
     'incentivo económico',
     'Estabilización obligatoria con incentivo',
     'Financiación de un proyecto propio',
     'Entrevista en el proceso',
-    # Alt / title con restos
     'Sede de la Agencia Estatal de Investigación"',
     'Vista aérea del edificio',
     'Presentación novedades programa',
@@ -889,3 +946,4 @@ else:
     print('  OK — todo traducido')
 
 print('\nListo. Ficheros generados en !SALIDA/ — listos para git y Drupal.')
+        
