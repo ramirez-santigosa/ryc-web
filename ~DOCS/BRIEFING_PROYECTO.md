@@ -38,7 +38,8 @@ Portal de la AEI sobre **Drupal 9.5.11**. El HTML/CSS/JS se integra como bloque 
 │   ├── 02-primera-revision/
 │   ├── 03-segunda-revision/
 │   ├── 04-tercera-revision/     # pagina*.txt del equipo dev + imágenes
-│   ├── 05-cuarta-revision/      # revisión actual (incluye convocatorias.txt dev)
+│   ├── 05-cuarta-revision/      # 4ª revisión (incluye convocatorias.txt dev)
+│   ├── 06-quinta revisión/      # 5ª revisión — solo cambios EN (docx + pdf escaneo)
 │   └── datos/                   # Datos originales (xlsx…)
 │
 └── !SALIDA/                     # ES el repositorio git — .git/ vive aquí dentro
@@ -148,6 +149,7 @@ Inicio RYC | Novedades 2026 | Programa RYC | Convocatorias | 25 Años RYC ↗
 | v2.6 | 22-04-2026 | 4ª revisión — banner UE dentro de `<main>` como `<section>`; eliminadas TODAS las referencias a footer; logo cofinanciación a PNG; regla "sin SVG, sin `<footer>`" documentada |
 | v2.7 | 22-04-2026 | 4ª revisión — aislamiento CSS en `<div class="ryc-page">`; scoping con `:where()` para no pisar reglas con clase; adoptado `convocatorias.txt` del dev team (cards estáticas BEM `.ryc-card`) |
 | v2.8 | 22-04-2026 | 4ª revisión — fix `<script>` sin cerrar en `convocatorias.txt` (atrapaba el banner UE); wrapper con `find('</style>')` para que el `<nav>` de convocatorias quede dentro y herede la tipografía; `.btn-ryc-outline` igualado a `.btn-ryc` (relleno azul + texto blanco) |
+| v2.9 | 07-05-2026 | 5ª revisión (solo EN) — terminología unificada: `fellow` → `grantee` (excepto convocatorias históricas), `incorporation` → `recruitment`, `viability` → `feasibility`, `call` → `Programme` (cuando es plurianual); novedad 1: `Each grant`, `your own R&D&I project`, `PID*` con nota al pie; novedad 3: ERC reestructurado con `mode*` y nota al pie; novedad 4: `permanent position`, eliminada viñeta «Support for post creation…»; novedad 5: vinetas Consolidación + atracción talento fusionadas; nuevo `PRE_TRANS_P1/P2` para traducir el mismo ES con dos traducciones distintas según la página, y `post_translate_en_p2()` para inyectar notas al pie y procesar `__REMOVE_LI__` |
 
 ---
 
